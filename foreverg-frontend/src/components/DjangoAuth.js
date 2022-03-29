@@ -25,13 +25,23 @@ class DjangoAuth extends React.Component{
           }
     }
 
-
+    parseJwt = (token) => {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    };
+    
     onSignInClick = async () => {
-        const res = await goals.post("/auth/users/", {username: this.state.username, password: this.state.password});
+        const res = await goals.post("/auth/jwt/create/", {username: "bijian", password: "Aa456753"});
         console.log("receveid the log in Successfull with following data");
 
         console.log(res);
-        this.props.signIn(this.res.user.id);
+        const getParsedData = this.parseJwt(res.data.access);
+        this.props.signIn(getParsedData.user_id);
         return res;
     }
 
@@ -42,13 +52,11 @@ class DjangoAuth extends React.Component{
 
         this.props.signOut();
         this.setState({token: "", username: "", password: ""}); 
-        this.auth.signOut();
+        // this.auth.signOut();
     }
 
     renderAuthButton() {
-        if(this.props.isSignedIn === null){
-            return null;
-        } else if(this.props.isSignedIn){
+        if(this.props.isSignedIn){
             return (
                 <button className="ui red google button" onClick={()=>{this.onSignOutClick()}}>
                     <i className="google icon" />

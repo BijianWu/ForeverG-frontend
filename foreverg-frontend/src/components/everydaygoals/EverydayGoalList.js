@@ -6,6 +6,8 @@ import {fetchEverydayGoals} from "../../actions"
 class EverydayGoalList extends React.Component {
     //when this component first rendered, call the fetch goals to the server
     componentDidMount(){
+        if(!this.props.isSignedIn || this.props.isSignedIn === false) return;
+        console.log("is logged in " + this.props.isSignedIn)
         this.props.fetchEverydayGoals()
     }
 
@@ -25,13 +27,18 @@ class EverydayGoalList extends React.Component {
     }
 
     renderList(){
-        return this.props.streams.map(everydayGoal =>{
+        if(this.props.streams.length <= 0){ return <div>No Content</div>}
+
+        if(this.props.streams[0].length <= 0) {return <div>No Content</div>}
+
+        return this.props.streams[0].map(everydayGoal =>{
+            console.log(`everydayGoal.id ${everydayGoal.id}`)
             return (
                 <div className="item" key={everydayGoal.id}>
                     {this.renderAmin(everydayGoal)}
                     <i className="large middle aligned icon camera" />
                     <div className="content">
-                        <Link to={`/streams/${everydayGoal.id}`} className="header">
+                        <Link to={`/goals/everydaygoals/${everydayGoal.id}`} className="header">
                             {everydayGoal.title}
                         </Link>
                         <div className="description">{everydayGoal.description}</div>
@@ -55,6 +62,9 @@ class EverydayGoalList extends React.Component {
     }
 
     render(){
+        if(!this.props.isSignedIn || this.props.isSignedIn === false){
+            return <div>Please log in to view your everyday goals</div>
+        }
         console.log(this.props.streams);
         return (
             <div>
