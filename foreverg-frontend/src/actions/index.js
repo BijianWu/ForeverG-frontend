@@ -2,10 +2,13 @@ import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_S
 import streams from "../apis/goals";
 import history from "../history";
 
-export const signIn = (userId)=> {
+export const signIn = (userId, accessToken)=> {
     return{
         type: SIGN_IN,
-        payload: userId
+        payload: {
+            userId: userId,
+            accessToken:accessToken
+        }
     };
 };
 
@@ -16,8 +19,9 @@ export const signOut = ()=> {
 };
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
-    const { userId } = getState().auth;
-    const res = await streams.post("/goals/everydaygoals/", { ...formValues, userId });
+    const { userId, accessToken } = getState().auth;
+    console.log("send token " + accessToken);
+    const res = await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}});
     console.log(res);
     dispatch({
         type: CREATE_STREAM,
