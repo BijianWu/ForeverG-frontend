@@ -1,4 +1,4 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
 
@@ -17,6 +17,45 @@ export const signOut = ()=> {
         type: SIGN_OUT
     };
 };
+export const fetchEverydayGoals = () => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
+    console.log("fetching everyday goals");
+    console.log(response.data.results);
+    dispatch({type: FETCH_STREAMS, payload: response.data.results});
+}
+
+export const register = (formValues) => async(dispatch, getState) => {
+    const res = await streams.post("/auth/users/", { 
+        username: formValues.username,
+        password: formValues.password,
+        email: formValues.email,
+        first_name: formValues.first_name,
+        last_name: formValues.last_name  
+    });
+    console.log("registering with the below response");
+    console.log(res);
+    // http://127.0.0.1:8000/auth/jwt/create
+    const res2 = await streams.post("/auth/jwt/create/", { 
+        username: formValues.username,
+        password: formValues.password,
+    });
+    console.log("getting the access token");
+    console.log(res2);
+    dispatch({
+        type: SIGN_IN,
+        payload: {
+            userId: res.data.id,
+            accessToken: res2.data.access
+        }
+    })
+
+    if (typeof(Storage) !== "undefined") {
+        localStorage.setItem("FOREVER_G_TOKEN", res2.data.access);   
+    }
+    fetchEverydayGoals();
+    history.push("/goals");
+};
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
@@ -29,13 +68,6 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     history.push("/goals");
 }
 
-export const fetchEverydayGoals = () => async (dispatch, getState) => {
-    const { userId, accessToken } = getState().auth;
-    const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
-    console.log("fetching everyday goals");
-    console.log(response.data.results);
-    dispatch({type: FETCH_STREAMS, payload: response.data.results});
-}
 
 export const fetchEverydayGoal = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;

@@ -8,6 +8,7 @@ import EveryDayGoalList from "./everydaygoals/EverydayGoalList";
 import EveryDayGoalDelete from "./everydaygoals/EverydayGoalDelete";
 import history from "../history";
 import HomePage from "./HomePage";
+import RegisterComponent from "./RegisterComponent";
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                     <Header />
                     <Switch>
                         <Route path="/" exact component={HomePage} />
+                        <Route path="/register" exact component={RegisterComponent} />
                         <Route path="/goals" exact component={EveryDayGoalList} />
                         <Route path="/goals/everydaygoals/new" exact component={EveryDayGoalCreate} />
                         <Route path="/goals/everydaygoals/edit/:id" exact component={EveryDayGoalEdit} />

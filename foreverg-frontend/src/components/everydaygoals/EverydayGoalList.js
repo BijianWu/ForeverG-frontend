@@ -28,6 +28,7 @@ class EverydayGoalList extends React.Component {
     // }
 
     renderAmin(everydayGoal) {
+        //since all goals retrived here will only belong to this current user, we do not need to track who created, because only user who created it can view it
         if(everydayGoal) {
             return (
                 <div className="right floated content">
