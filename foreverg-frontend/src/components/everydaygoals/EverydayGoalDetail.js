@@ -10,13 +10,15 @@ class EverydayGoalDetail extends React.Component {
     }
 
     componentDidMount() {
+        console.log("detail page componentDidMount!!!");
         const { id } = this.props.match.params;
         this.props.fetchEverydayGoal(id);
 
-        this.buildPlayer();
+        // this.buildPlayer();
     }
 
     render() {
+        console.log("detail page rendering!!!");
         if(!this.props.stream){
             return <div>Loading...</div>
         }

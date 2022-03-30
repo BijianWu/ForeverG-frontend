@@ -45,9 +45,9 @@ class EverydayGoalList extends React.Component {
     renderList(){
         if(this.props.streams.length <= 0){ return <div>No Content</div>}
 
-        if(this.props.streams[0].length <= 0) {return <div>No Content</div>}
+        // if(this.props.streams.length <= 0) {return <div>No Content</div>}
         // this.props.fetchEverydayGoals();
-        return this.props.streams[0].map(everydayGoal =>{
+        return this.props.streams.map(everydayGoal =>{
             console.log(`everydayGoal.id ${everydayGoal.id}`)
             return (
                 <div className="item" key={everydayGoal.id}>
@@ -69,7 +69,7 @@ class EverydayGoalList extends React.Component {
         if(this.props.isSignedIn) {
             return (
                 <div style={{ textAlign: "right"}}>
-                    <Link to="/everydaygoals/new" className="ui button primary">
+                    <Link to="/goals/everydaygoals/new" className="ui button primary">
                         Create new everyday goal
                     </Link>
                 </div>

@@ -28,32 +28,36 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
         payload: res.data
     })
 
-    history.push("/");
+    history.push("/goals");
 }
 
 export const fetchEverydayGoals = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
     const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
-
-    dispatch({type: FETCH_STREAMS, payload: response.data});
+    console.log("fetching everyday goals")
+    console.log(response.data.results)
+    dispatch({type: FETCH_STREAMS, payload: response.data.results});
 }
 
-export const fetchEverydayGoal = (id) => async dispatch => {
-    const response = await streams.get(`/goals/everydaygoals/${id}/`);
+export const fetchEverydayGoal = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const response = await streams.get(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}});
 
     dispatch({type: FETCH_STREAM, payload: response.data});
 }
 
-export const editEverydayGoal = (id, formValues) => async dispatch => {
-    const response = await streams.patch(`/goals/everydaygoals/${id}/`, formValues);
+export const editEverydayGoal = (id, formValues) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const response = await streams.patch(`/goals/everydaygoals/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}});
 
     dispatch({type: EDIT_STREAM, payload: response.data});
-    history.push("/");
+    history.push("/goals");
 }
 
-export const deleteEverydayGoal = (id) => async dispatch => {
-    await streams.delete(`/goals/everydaygoals/${id}/`);
+export const deleteEverydayGoal = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    await streams.delete(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}});
 
     dispatch({type: DELETE_STREAM, payload: id});
-    history.push("/");
+    history.push("/goals");
 }
