@@ -10,7 +10,7 @@ class EverydayGoalDelete extends React.Component {
         return (
             <React.Fragment>
                 <button onClick={() => this.props.deleteEverydayGoal(this.props.match.params.id)} className="ui button negative">Delete</button>
-                <Link to="/"  className="ui button">Cancel</Link>
+                <Link to="/goals"  className="ui button">Cancel</Link>
             </React.Fragment>
         );
     }
@@ -28,7 +28,7 @@ class EverydayGoalDelete extends React.Component {
 
     render(){
         return (
-            <Modal title="Delete Everyday" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push("/")}/>
+            <Modal title="Delete Everyday" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push("/goals")}/>
         );
     }
 

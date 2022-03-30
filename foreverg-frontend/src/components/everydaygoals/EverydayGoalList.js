@@ -28,13 +28,13 @@ class EverydayGoalList extends React.Component {
     // }
 
     renderAmin(everydayGoal) {
-        if(everydayGoal && everydayGoal.userId === this.props.currentUserId) {
+        if(everydayGoal) {
             return (
                 <div className="right floated content">
-                    <Link to={`/streams/edit/${everydayGoal.id}`} className="ui button primary">
+                    <Link to={`/goals/everydaygoals/edit/${everydayGoal.id}`} className="ui button primary">
                     Edit</Link>
 
-                    <Link to={`/streams/delete/${everydayGoal.id}`} className="ui button negative">
+                    <Link to={`/goals/everydaygoals/delete/${everydayGoal.id}`} className="ui button negative">
                         Delete
                     </Link>
                 </div>

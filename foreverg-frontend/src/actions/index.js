@@ -20,9 +20,7 @@ export const signOut = ()=> {
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    console.log("send token " + accessToken);
     const res = await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}});
-    console.log(res);
     dispatch({
         type: CREATE_STREAM,
         payload: res.data
@@ -34,8 +32,8 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
 export const fetchEverydayGoals = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
     const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
-    console.log("fetching everyday goals")
-    console.log(response.data.results)
+    console.log("fetching everyday goals");
+    console.log(response.data.results);
     dispatch({type: FETCH_STREAMS, payload: response.data.results});
 }
 
