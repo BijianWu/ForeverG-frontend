@@ -31,8 +31,9 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     history.push("/");
 }
 
-export const fetchEverydayGoals = () => async dispatch => {
-    const response = await streams.get("/goals/everydaygoals/");
+export const fetchEverydayGoals = () => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
 
     dispatch({type: FETCH_STREAMS, payload: response.data});
 }

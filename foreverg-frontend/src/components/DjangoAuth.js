@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { signIn, signOut } from "../actions"
 import goals from "../apis/goals";
+import {fetchEverydayGoals} from "../actions/index"
 
 class DjangoAuth extends React.Component{
     constructor(props) {
@@ -18,7 +19,8 @@ class DjangoAuth extends React.Component{
                 console.log("FOREVER_G_TOKEN been set " + localStorage.getItem("FOREVER_G_TOKEN"));
                 const getParsedData = this.parseJwt(localStorage.getItem("FOREVER_G_TOKEN"));
                 this.props.signIn(getParsedData.user_id, localStorage.getItem("FOREVER_G_TOKEN"));
-                this.setState({token: localStorage.getItem("FOREVER_G_TOKEN")})      
+                this.setState({token: localStorage.getItem("FOREVER_G_TOKEN")})     
+                this.props.fetchEverydayGoals(); 
             } else {
                 //Not logged in
             }
@@ -50,6 +52,8 @@ class DjangoAuth extends React.Component{
         }
 
         this.props.signIn(getParsedData.user_id, res.data.access);
+
+        this.props.fetchEverydayGoals();
         return res;
     }
 
@@ -93,4 +97,4 @@ const mapStateToProps = (state) => {
     return {isSignedIn: state.auth.isSignedIn}
 };
 
-export default connect(mapStateToProps, {signIn, signOut})(DjangoAuth);
+export default connect(mapStateToProps, {signIn, signOut, fetchEverydayGoals})(DjangoAuth);

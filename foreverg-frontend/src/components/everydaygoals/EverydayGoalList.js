@@ -4,12 +4,28 @@ import { Link } from "react-router-dom";
 import {fetchEverydayGoals} from "../../actions"
 
 class EverydayGoalList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state={fetched:false};
+    }
+
     //when this component first rendered, call the fetch goals to the server
     componentDidMount(){
+        console.log("componentDidMount in EverydayGoalListGotcalled")
         if(!this.props.isSignedIn || this.props.isSignedIn === false) return;
         console.log("is logged in " + this.props.isSignedIn)
-        this.props.fetchEverydayGoals()
+        this.props.fetchEverydayGoals();
     }
+
+    // componentDidUpdate() {
+    //     if(this.state.fetched === true || this.props.stream){ return;}
+    //     if(!this.props.isSignedIn || this.props.isSignedIn === false) return;
+    //     this.setState({fetched: true});  
+    //     console.log("reached here");
+    //     // this.streams = true;
+    //     this.props.fetchEverydayGoals();
+    // }
 
     renderAmin(everydayGoal) {
         if(everydayGoal && everydayGoal.userId === this.props.currentUserId) {
@@ -30,7 +46,7 @@ class EverydayGoalList extends React.Component {
         if(this.props.streams.length <= 0){ return <div>No Content</div>}
 
         if(this.props.streams[0].length <= 0) {return <div>No Content</div>}
-
+        // this.props.fetchEverydayGoals();
         return this.props.streams[0].map(everydayGoal =>{
             console.log(`everydayGoal.id ${everydayGoal.id}`)
             return (
@@ -68,7 +84,7 @@ class EverydayGoalList extends React.Component {
         console.log(this.props.streams);
         return (
             <div>
-                <h2>Everyday goals</h2>
+                <h2>Everyday goals for</h2>
                 <div className="ui celled list">
                     {this.renderList()}
                 </div>
