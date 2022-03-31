@@ -1,6 +1,7 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
+import { todayDateCreator } from "../utils/todayDateCreator";
 
 export const signIn = (userId, accessToken)=> {
     return{
@@ -89,5 +90,24 @@ export const deleteEverydayGoal = (id) => async (dispatch, getState) => {
     await streams.delete(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}});
 
     dispatch({type: DELETE_STREAM, payload: id});
+    history.push("/goals");
+}
+
+export const commitEverydayGoal = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const d = new Date();
+    let month = d.getMonth() + 1;
+    let formattedMonth = "";
+    if(month  < 10){
+        formattedMonth = "0"+month;
+    }
+    else {
+        formattedMonth=""+month;
+    }
+    const response =await streams.patch(`/goals/everydaygoals/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}});
+
+    console.log("modified the updated_at with the following data back");
+    console.log(response.data);
+    dispatch({type: COMMIT_STREAM, payload: response.data});
     history.push("/goals");
 }

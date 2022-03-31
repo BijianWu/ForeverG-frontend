@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchEverydayGoals} from "../../actions"
+import { todayDateCreator } from "../../utils/todayDateCreator";
 
 class EverydayGoalList extends React.Component {
     constructor(props) {
@@ -27,11 +28,22 @@ class EverydayGoalList extends React.Component {
     //     this.props.fetchEverydayGoals();
     // }
 
+    //TODO: if the goal is commited, we show commited
     renderAmin(everydayGoal) {
         //since all goals retrived here will only belong to this current user, we do not need to track who created, because only user who created it can view it
         if(everydayGoal) {
+            let commitElement;
+
+            if (everydayGoal.updated_at !== todayDateCreator()) {
+                console.log("full todayt is " + todayDateCreator() + ", " +everydayGoal.updated_at)
+                commitElement = <Link to={`/goals/everydaygoals/commit/${everydayGoal.id}`} className="ui button secondary">Commit</Link>
+            } else {
+                commitElement = <p>Committed</p>;
+            }
             return (
                 <div className="right floated content">
+
+                    {commitElement}
                     <Link to={`/goals/everydaygoals/edit/${everydayGoal.id}`} className="ui button primary">
                     Edit</Link>
 

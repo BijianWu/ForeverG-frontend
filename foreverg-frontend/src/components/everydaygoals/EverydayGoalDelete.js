@@ -23,7 +23,7 @@ class EverydayGoalDelete extends React.Component {
             return "Are you sure you want to delete this everyday goal?";
         }
 
-        return `"Are you sure you want to deletethe everyday goal with title: ${this.props.stream.title}"`;
+        return `Are you sure you want to delete the everyday goal with title: ${this.props.stream.title}`;
     }
 
     render(){

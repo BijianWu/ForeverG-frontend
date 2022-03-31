@@ -11,6 +11,7 @@ import HomePage from "./HomePage";
 import RegisterComponent from "./RegisterComponent";
 import SignInComponent from "./SignInComponent";
 import NotFoundPage from "./NotFoundPage";
+import EverydayGoalCommit from "./everydaygoals/EverydayGoalCommit";
 
 const App = () => {
     return (
@@ -26,6 +27,7 @@ const App = () => {
                         <Route path="/goals/everydaygoals/new" exact component={EveryDayGoalCreate} />
                         <Route path="/goals/everydaygoals/edit/:id" exact component={EveryDayGoalEdit} />
                         <Route path="/goals/everydaygoals/delete/:id" exact component={EveryDayGoalDelete} />
+                        <Route path="/goals/everydaygoals/commit/:id" exact component={EverydayGoalCommit} />
                         <Route path="/goals/everydaygoals/:id" exact component={EveryDayGoalDetail} />
                         <Route path="/goals/everydaygoals/:id" exact component={EveryDayGoalDetail} />
                         <Route component={NotFoundPage} />
