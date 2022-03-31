@@ -10,6 +10,7 @@ import history from "../history";
 import HomePage from "./HomePage";
 import RegisterComponent from "./RegisterComponent";
 import SignInComponent from "./SignInComponent";
+import NotFoundPage from "./NotFoundPage";
 
 const App = () => {
     return (
@@ -26,6 +27,8 @@ const App = () => {
                         <Route path="/goals/everydaygoals/edit/:id" exact component={EveryDayGoalEdit} />
                         <Route path="/goals/everydaygoals/delete/:id" exact component={EveryDayGoalDelete} />
                         <Route path="/goals/everydaygoals/:id" exact component={EveryDayGoalDetail} />
+                        <Route path="/goals/everydaygoals/:id" exact component={EveryDayGoalDetail} />
+                        <Route component={NotFoundPage} />
                     </Switch>
                 </div>
             </Router>
