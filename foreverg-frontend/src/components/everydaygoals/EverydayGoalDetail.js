@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchEverydayGoal } from "../../actions";
 
 class EverydayGoalDetail extends React.Component {
@@ -23,8 +24,12 @@ class EverydayGoalDetail extends React.Component {
         const {title, description} = this.props.stream;
         return (
             <div>
-                <h1>{title}</h1>
-                <h5>{description}</h5>
+                <h1>Title: {title}</h1>
+                <h5>Description: {description}</h5>
+                <br />
+                <Link to="/goals" className="item">
+                    Go Back
+                </Link>
             </div>
         )
     }

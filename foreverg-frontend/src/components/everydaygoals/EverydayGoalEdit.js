@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchEverydayGoal, editEverydayGoal } from "../../actions";
 import EveryDayGoalForm from "./EverydayGoalForm";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 class EverydayGoalEdit extends React.Component {
     componentDidMount() {
@@ -22,6 +23,10 @@ class EverydayGoalEdit extends React.Component {
             <div>
                 <h3>Edit a Everyday goal</h3>
                 <EveryDayGoalForm initialValues={_.pick(this.props.stream, "title", "description")} onSubmit={this.onSubmit}/>
+                <br />
+                <Link to="/goals" className="item">
+                    Go Back
+                </Link>
             </div>
         );
     }
