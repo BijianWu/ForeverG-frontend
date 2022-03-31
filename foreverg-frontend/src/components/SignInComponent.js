@@ -1,5 +1,6 @@
 import React from "react";
 import{ connect} from "react-redux";
+import { Link } from "react-router-dom";
 import {signIn, fetchEverydayGoals} from "../actions"
 import goals from "../apis/goals";
 import history from "../history";
@@ -30,6 +31,9 @@ class RegisterComponent extends React.Component {
             <div>
                 <h3>Registering a new account</h3>
                 <SignInForm onSubmit={this.onSubmit}/>
+                Don't have an account? <Link to="/register" className="item">
+                Register
+            </Link> Now
             </div>
         )
     }

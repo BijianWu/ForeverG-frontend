@@ -42,8 +42,8 @@ class RegisterForm extends React.Component {
                 <Field name="password" component={this.renderInput} label="Enter password"/>
                 <Field name="password_repeat" component={this.renderInput} label="Enter password again"/>
                 <Field name="email" component={this.renderInput} label="Enter email"/>
-                <Field name="first_name" component={this.renderInput} label="Commit it on today?"/>
-                <Field name="last_name" component={this.renderInput} label="Commit it on today?"/>
+                <Field name="first_name" component={this.renderInput} label="Enter you first name"/>
+                <Field name="last_name" component={this.renderInput} label="Enter your last name"/>
                 <button className="ui button primary">Register</button>
             </form>
         )
