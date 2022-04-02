@@ -1,4 +1,4 @@
-import {FETCH_STREAM, FETCH_STREAMS, CREATE_STREAM, EDIT_STREAM, DELETE_STREAM, COMMIT_STREAM} from "../actions/types";
+import {FETCH_STREAM, FETCH_STREAMS, CREATE_STREAM, EDIT_STREAM, DELETE_STREAM, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL} from "../actions/types";
 import _ from "lodash"
 export default(state = {}, action) => {
     switch(action.type) {
@@ -15,6 +15,8 @@ export default(state = {}, action) => {
             return _.omit(state, action.payload);
         case COMMIT_STREAM:
             return {...state, [action.payload.id]: action.payload};
+        case CLEAR_EVERYDAY_GOAL:
+            return {};
         default:
             return state;
     }

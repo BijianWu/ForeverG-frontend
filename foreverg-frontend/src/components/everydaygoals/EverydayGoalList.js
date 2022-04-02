@@ -92,7 +92,9 @@ class EverydayGoalList extends React.Component {
 
     render(){
         if(!this.props.isSignedIn || this.props.isSignedIn === false){
-            return <div>Please log in to view your everyday goals</div>
+            return <div>Please  <Link to="/signin">
+            Log In
+        </Link> to view your everyday goals</div>
         }
         console.log(this.props.streams);
         return (

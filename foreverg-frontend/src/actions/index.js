@@ -1,4 +1,4 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
@@ -12,12 +12,16 @@ export const signIn = (userId, accessToken)=> {
         }
     };
 };
-
+export const clearEverydayGoals = () => async (dispatch, getState) => {
+    dispatch({type: CLEAR_EVERYDAY_GOAL});
+}
 export const signOut = ()=> {
     return{
         type: SIGN_OUT
     };
 };
+
+
 export const fetchEverydayGoals = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
     const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
