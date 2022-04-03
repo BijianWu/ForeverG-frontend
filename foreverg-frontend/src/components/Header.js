@@ -8,7 +8,7 @@ const Header = () => {
                 Forever G
             </Link>
             <div className="right menu">
-                <Link to="/" className="item">
+                <Link to="/goals" className="item">
                     All Eveyday goals
                 </Link>
                 <DjangoAuth />

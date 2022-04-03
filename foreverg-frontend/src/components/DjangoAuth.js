@@ -44,6 +44,7 @@ class DjangoAuth extends React.Component{
         this.props.clearEverydayGoals();
         this.props.signOut();
         this.setState({token: "", username: "", password: ""}); 
+        history.push("/");
         // this.auth.signOut();
     }
 
