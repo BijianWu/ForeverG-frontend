@@ -111,8 +111,7 @@ class EverydayGoalList extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        streams:
-         Object.values(state.streams), 
+        streams: Object.values(state.streams), 
          currentUserId: state.auth.userId,
          isSignedIn: state.auth.isSignedIn
     };
