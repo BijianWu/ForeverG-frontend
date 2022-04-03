@@ -49,7 +49,6 @@ class EverydayGoalForm extends React.Component {
 
                 <Field name="title" component={this.renderInput} label="Enter Title"/>
                 <Field name="description" component={this.renderInput} label="Enter Description"/>
-                <Field name="commitIt" component={this.renderCheckBox} label="Commit it on today?"/>
                 <button className="ui button primary">Submit</button>
             </form>
         )

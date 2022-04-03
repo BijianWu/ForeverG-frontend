@@ -64,13 +64,26 @@ export const register = (formValues) => async(dispatch, getState) => {
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    const res = await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}});
-    dispatch({
-        type: CREATE_STREAM,
-        payload: res.data
-    })
+    // const res = await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}});
+    await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
+        .then(
+            res => {
+                console.log(res);
+                dispatch({
+                    type: CREATE_STREAM,
+                    payload: res.data
+                })
+            
+                history.push("/goals")
+            }
+        )
+        .catch(
+            e => {
+                console.log(e); 
+                console.log("error happened");
+                //TODO: handle the error by push a toast notification
+            })
 
-    history.push("/goals");
 }
 
 
