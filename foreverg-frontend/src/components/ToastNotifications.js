@@ -3,14 +3,10 @@ import { connect } from 'react-redux';
 import { FaCheck, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle, FaRegWindowClose } from 'react-icons/fa';
 import "./ToastNotification.css";
 import { deleteNotification } from "../actions"
+import ToastNotification from './ToastNotification';
 
-class ToastNotification extends React.Component {
-    componentDidMount(){
-        console.log("deleteing self");
-        setTimeout(() => {
-            this.props.deleteNotification(this.props.notification.id);
-        }, this.props.autoDeleteInterval);
-    }
+class ToastNotifications extends React.Component {
+
     generateIcon = (type) =>{
         switch(type){
             case "INFO":
@@ -41,28 +37,24 @@ class ToastNotification extends React.Component {
         }
     }
     render(){
+        console.log("ToastNotifications renders " + this.props.notifications.length)
         return (
-            <React.Fragment>
-                <div className='wbj-notification-image'>
-                    {this.generateIcon(this.props.notification.type)}
-                </div>
-                <div>
-                    <FaRegWindowClose className='wbj-close-button' onClick={() => {this.props.deleteNotification(this.props.notification.id)}}/>
-                    <p className='wbj-notification-title'>
-                        {this.props.notification.title}
-                    </p>
-                    <p className='wbj-notification-message'>
-                        {this.props.notification.message}
-                    </p>
-                </div>
-            </React.Fragment>
+            <div className={`wbj-notification-container wbj-${this.props.position}`}>
+                {this.props.notifications.map((notification, index) => 
 
+                    <div key={notification.id} style={{backgroundColor: this.generateBackgroundColor(notification.type)}} className='wbj-notification wbj-toast'>
+                        <ToastNotification notification={notification} autoDeleteInterval={this.props.autoDeleteInterval} />
+                        <p>good</p>
+                    </div>
+
+                )}
+            </div>
         )
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {notifications: state.notifications.notifications}
-// };
+const mapStateToProps = (state) => {
+    return {notifications: state.notifications.notifications}
+};
 
-export default connect(null, {deleteNotification})(ToastNotification);
+export default connect(mapStateToProps, {deleteNotification})(ToastNotifications);

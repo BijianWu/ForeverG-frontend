@@ -12,7 +12,7 @@ import RegisterComponent from "./RegisterComponent";
 import SignInComponent from "./SignInComponent";
 import NotFoundPage from "./NotFoundPage";
 import EverydayGoalCommit from "./everydaygoals/EverydayGoalCommit";
-import ToastNotification from "./ToastNotification";
+import ToastNotifications from "./ToastNotifications";
 
 const App = () => {
     return (
@@ -20,7 +20,7 @@ const App = () => {
             <Router history={history}>
                 <div>
                     <Header />
-                    <ToastNotification position="bottom-right" autoDeleteInterval={1500}/>
+                    <ToastNotifications position="bottom-right" autoDeleteInterval={1500}/>
                     <Switch>
                         <Route path="/" exact component={HomePage} />
                         <Route path="/signin" exact component={SignInComponent} />
