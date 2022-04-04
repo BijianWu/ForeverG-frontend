@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchEverydayGoals} from "../../actions"
 import { todayDateCreator } from "../../utils/todayDateCreator";
+import "./EverydayGoalList.css";
 
 class EverydayGoalList extends React.Component {
     constructor(props) {
@@ -36,9 +37,10 @@ class EverydayGoalList extends React.Component {
 
             if (everydayGoal.updated_at !== todayDateCreator()) {
                 console.log("full todayt is " + todayDateCreator() + ", " +everydayGoal.updated_at)
-                commitElement = <Link to={`/goals/everydaygoals/commit/${everydayGoal.id}`} className="ui button secondary">Commit</Link>
+                commitElement = <Link to={`/goals/everydaygoals/commit/${everydayGoal.id}`} className="ui button yellow basic">Commit it!!</Link>
             } else {
-                commitElement = <p>Committed</p>;
+                // commitElement = <p>Committed</p>;
+                commitElement = <button className="ui button positive basic wbj-active-button">Committed</button>
             }
             return (
                 <div className="right floated content">
@@ -65,7 +67,7 @@ class EverydayGoalList extends React.Component {
             return (
                 <div className="item" key={everydayGoal.id}>
                     {this.renderAmin(everydayGoal)}
-                    <i className="large middle aligned icon camera" />
+                    <i className="large middle aligned icon bullseye" />
                     <div className="content">
                         <Link to={`/goals/everydaygoals/${everydayGoal.id}`} className="header">
                             {everydayGoal.title}

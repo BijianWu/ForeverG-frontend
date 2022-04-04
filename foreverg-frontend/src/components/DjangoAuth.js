@@ -53,7 +53,7 @@ class DjangoAuth extends React.Component{
         if(this.props.isSignedIn){
             return (
                 <button className="ui red google button" onClick={()=>{this.onSignOutClick()}}>
-                    <i className="google icon" />
+                    <i className="user icon" />
                     Sign Out
                 </button>
             )
@@ -61,7 +61,7 @@ class DjangoAuth extends React.Component{
         else{
             return (
                 <button className="ui red google button" onClick={()=>{this.onSignInClick()}}>
-                    <i className="google icon" />
+                    <i className="user outline icon" />
                     Sign in
                 </button>
             )

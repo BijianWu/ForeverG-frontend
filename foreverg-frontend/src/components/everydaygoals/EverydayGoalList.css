@@ -1,0 +1,7 @@
+.wbj-active-button {
+  pointer-events: none;
+}
+
+.wbj-active-button:hover {
+  cursor: default;
+}

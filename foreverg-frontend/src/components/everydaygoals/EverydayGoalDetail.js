@@ -28,26 +28,70 @@ class EverydayGoalDetail extends React.Component {
 
         if (updated_at !== todayDateCreator()) {
             if(forever_days > 0){
-                commitElement = <div><h5>commit it or you gonna lose it</h5> <Link to={`/goals/everydaygoals/commit/${id}`} className="ui button secondary">Commit</Link></div> 
+                commitElement = <div><h5>You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`/goals/everydaygoals/commit/${id}`} className="ui button secondary">Commit</Link></div> 
             } else {
-                <Link to={`/goals/everydaygoals/commit/${id}`} className="ui button secondary">Commit</Link>
+                commitElement = <div><h5>You have haven't commited today, commit it now</h5><Link to={`/goals/everydaygoals/commit/${id}`} className="ui button secondary">Commit</Link></div>
             }
         } else {
-            commitElement = <p>Committed</p>;
+            commitElement = <h5>You have Committed today, good job</h5>;
         }
         return (
+            <React.Fragment>
             <div>
-                <h1>Title: {title}</h1>
-                <h3>Description: {description}</h3>
-                <h5>Created at: {created_at}</h5>
-                <h5>Updated at: {updated_at}</h5>
-                <h5>Commited days: {forever_days}</h5>
-                {commitElement}
-                <br />
+                <div className="ui vertical segment">
+                    <h1>Title: {title}</h1>
+                </div>
+                
+                <div className="ui vertical padded segment">
+                    <p>Description:</p>
+                    <div className="ui raised segment">
+                        <p>{description}</p>
+                    </div>
+                </div>
+
+                <div className="ui vertical padded segment">
+                    <p>Created at:</p>
+                    <div className="ui raised segment">
+                        <p>{created_at}</p>
+                    </div>
+                </div>
+
+
+                <div className="ui vertical padded segment">
+                    <p>Last updated at:</p>
+                    <div className="ui raised segment">
+                        <p>{updated_at}</p>
+                    </div>
+                </div>
+
+
+                <div className="ui vertical padded segment">
+                    <p>Commited days:</p>
+                    <div className="ui raised segment">
+                        <p>{forever_days}</p>
+                    </div>
+                </div>
+
+
+                <div className="ui vertical padded segment">
+                    <p>Commited today status:</p>
+                    <div className="ui raised segment">
+                        {commitElement}
+                    </div>
+                </div>
+
+            </div>
+            {/* {commitElement} */}
+            <br />
+            <br />
+            <div>
                 <Link to="/goals" className="item">
                     Go Back
                 </Link>
             </div>
+
+            </React.Fragment>
+           
         )
     }
 }
