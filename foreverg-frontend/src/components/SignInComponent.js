@@ -1,7 +1,7 @@
 import React from "react";
 import{ connect} from "react-redux";
 import { Link } from "react-router-dom";
-import {signIn, fetchEverydayGoals} from "../actions"
+import {signIn, fetchEverydayGoals, addNotification} from "../actions"
 import goals from "../apis/goals";
 import history from "../history";
 import { parseJwt } from "../utils/jsonParser";
@@ -11,7 +11,9 @@ class RegisterComponent extends React.Component {
     onSubmit = async (formValues)=> {
         console.log("log in with user name "  + formValues.username + " , and password " + formValues.password);
         const res = await goals.post("/auth/jwt/create/", {username: formValues.username, password: formValues.password});
+
         console.log("receveid the log in Successfull with following data");
+        this.props.addNotification({type: "SUCCESS", title: 'Logged in',message: 'successfully logged in'});
 
         console.log(res);
         const getParsedData = parseJwt(res.data.access);
@@ -41,4 +43,4 @@ class RegisterComponent extends React.Component {
 
 
 
-export default connect(null, {signIn, fetchEverydayGoals})(RegisterComponent);
+export default connect(null, {signIn, fetchEverydayGoals, addNotification})(RegisterComponent);

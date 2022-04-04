@@ -1,4 +1,4 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
@@ -127,4 +127,18 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
     console.log(response.data);
     dispatch({type: COMMIT_STREAM, payload: response.data});
     history.push("/goals");
+}
+
+export const clearAllNotifications = () => async (dispatch, getState) => {
+    dispatch({type: CLEAR_ALL_NOTIFICATIONS});
+}
+
+export const deleteNotification = (id) => async (dispatch, getState) => {
+    dispatch({type: DELETE_NOTIFICATION, payload: id});
+}
+
+//id, type, title, message
+export const addNotification = (notification) => async (dispatch, getState) => {
+    
+    dispatch({type: ADD_NOTIFICATION, payload: notification});
 }
