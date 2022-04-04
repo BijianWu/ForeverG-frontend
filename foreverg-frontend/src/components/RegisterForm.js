@@ -4,14 +4,15 @@ import { Field, reduxForm } from "redux-form";
 class RegisterForm extends React.Component {
     //spread all inputs into input elements
     //we wire up the custom input to be controlled by redux
-    renderInput=({input, label, meta})=>{
+    renderInput=({input, label, type, meta})=>{
         const className=`field ${meta.error && meta.touched ? 'error': ''}`;
         return (<div className={className}>
                     <label>{label}</label>
-                    <input {...input} autoComplete="off"/>
+                    <input {...input} type={type} autoComplete="off"/>
                     {this.renderError(meta)}
                 </div>)
     }
+
 
     //we do not want to show the error when the first time the form's elements got rendered, but only when it is being clicked then clicked away
     renderError({error, touched}){
@@ -37,13 +38,12 @@ class RegisterForm extends React.Component {
     render(){
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
-
-                <Field name="username" component={this.renderInput} label="Enter user name"/>
-                <Field name="password" component={this.renderInput} label="Enter password"/>
-                <Field name="password_repeat" component={this.renderInput} label="Enter password again"/>
-                <Field name="email" component={this.renderInput} label="Enter email"/>
-                <Field name="first_name" component={this.renderInput} label="Enter you first name"/>
-                <Field name="last_name" component={this.renderInput} label="Enter your last name"/>
+                <Field name="username" component={this.renderInput} label="Enter your email" type="email"/>
+                <Field name="password" component={this.renderInput} label="Enter password" type="password"/>
+                <Field name="password_repeat" component={this.renderInput} label="Enter password again" type="password"/>
+  
+                <Field name="first_name" component={this.renderInput} label="Enter you first name" type="text"/>
+                <Field name="last_name" component={this.renderInput} label="Enter your last name" type="text"/>
                 <button className="ui button primary">Register</button>
             </form>
         )
@@ -88,7 +88,7 @@ const validate = (formValues) => {
     //if any of our field been named as the same as errors object keys, then it knows which field has been entered in-correctly
     //it will pass down to that field's component custom render method
     if(!formValues.username) {
-        errors.username="You must enter a user name";
+        errors.username="You must enter a valid email";
     }
 
     if(!formValues.password) {
@@ -109,10 +109,6 @@ const validate = (formValues) => {
 
     if(formValues.password && !passwordCheck(formValues.password)) {
         errors.password="password needs contains at least 1 Capital letter, 1 lower case letter and at least a number";
-    }
-
-    if(!formValues.email) {
-        errors.email="You must enter a email";
     }
 
     if(!formValues.first_name) {

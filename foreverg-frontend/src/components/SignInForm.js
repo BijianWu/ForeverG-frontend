@@ -4,11 +4,11 @@ import { Field, reduxForm } from "redux-form";
 class SignInForm extends React.Component {
     //spread all inputs into input elements
     //we wire up the custom input to be controlled by redux
-    renderInput=({input, label, meta})=>{
+    renderInput=({input, label, type, meta})=>{
         const className=`field ${meta.error && meta.touched ? 'error': ''}`;
         return (<div className={className}>
                     <label>{label}</label>
-                    <input {...input} autoComplete="off"/>
+                    <input {...input} type={type} autoComplete="off"/>
                     {this.renderError(meta)}
                 </div>)
     }
@@ -38,8 +38,8 @@ class SignInForm extends React.Component {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
 
-                <Field name="username" component={this.renderInput} label="Enter user name"/>
-                <Field name="password" component={this.renderInput} label="Enter password"/>
+                <Field name="username" component={this.renderInput} label="Enter your email" type="email"/>
+                <Field name="password" component={this.renderInput} label="Enter password" type="password"/>
                 <button className="ui button primary">Log In</button>
             </form>
         )
@@ -52,7 +52,7 @@ const validate = (formValues) => {
     //if any of our field been named as the same as errors object keys, then it knows which field has been entered in-correctly
     //it will pass down to that field's component custom render method
     if(!formValues.username) {
-        errors.username="You must enter a user name";
+        errors.username="You must enter a correct email";
     }
 
     if(!formValues.password) {
