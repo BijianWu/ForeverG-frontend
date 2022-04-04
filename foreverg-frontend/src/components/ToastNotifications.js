@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FaCheck, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle, FaRegWindowClose } from 'react-icons/fa';
+import { FaCheck, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
 import "./ToastNotification.css";
-import { deleteNotification } from "../actions"
 import ToastNotification from './ToastNotification';
 
 class ToastNotifications extends React.Component {
@@ -44,7 +43,6 @@ class ToastNotifications extends React.Component {
 
                     <div key={notification.id} style={{backgroundColor: this.generateBackgroundColor(notification.type)}} className='wbj-notification wbj-toast'>
                         <ToastNotification notification={notification} autoDeleteInterval={this.props.autoDeleteInterval} />
-                        <p>good</p>
                     </div>
 
                 )}
@@ -57,4 +55,4 @@ const mapStateToProps = (state) => {
     return {notifications: state.notifications.notifications}
 };
 
-export default connect(mapStateToProps, {deleteNotification})(ToastNotifications);
+export default connect(mapStateToProps, {})(ToastNotifications);

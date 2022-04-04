@@ -53,24 +53,24 @@ export const register = (formValues) => async(dispatch, getState) => {
         last_name: formValues.last_name  
     })
     .then(
-        async res1 => {
+        async registerResponse => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Registered successfully',message: 'successfully registed.'}});
             // http://127.0.0.1:8000/auth/jwt/create
             await streams.post("/auth/jwt/create/", { 
                 username: formValues.username,
                 password: formValues.password,
-            }).then(res2 => {
+            }).then(getJWTTokenResponse => {
                 console.log("getting the access token");
                 dispatch({
                     type: SIGN_IN,
                     payload: {
-                        userId: res1.data.id,
-                        accessToken: res2.data.access
+                        userId: registerResponse.data.id,
+                        accessToken: getJWTTokenResponse.data.access
                     }
                 })
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Auto Logged in',message: 'Auto logged in successfully.'}});
                 if (typeof(Storage) !== "undefined") {
-                    localStorage.setItem("FOREVER_G_TOKEN", res2.data.access);   
+                    localStorage.setItem("FOREVER_G_TOKEN", getJWTTokenResponse.data.access);   
                 }
                 fetchEverydayGoals();
                 history.push("/goals");
@@ -104,7 +104,7 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
                     type: CREATE_STREAM,
                     payload: res.data
                 })
-            
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Created a new goal',message: 'Successfully created a new goal'}});
                 history.push("/goals")
             }
         )
@@ -112,33 +112,69 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
             e => {
                 console.log(e); 
                 console.log("error happened");
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the goal',message: 'please try again later'}});
                 //TODO: handle the error by push a toast notification
-            })
-
+            }
+        )
 }
 
 
 export const fetchEverydayGoal = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    const response = await streams.get(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}});
 
-    dispatch({type: FETCH_STREAM, payload: response.data});
+    await streams.get(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: FETCH_STREAM, payload: response.data});
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the goal',message: 'please try again later'}});
+        }
+    )
 }
 
 export const editEverydayGoal = (id, formValues) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    const response = await streams.patch(`/goals/everydaygoals/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}});
 
-    dispatch({type: EDIT_STREAM, payload: response.data});
-    history.push("/goals");
+    await streams.patch(`/goals/everydaygoals/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the goal',message: 'Successfully edited the goal'}});
+            dispatch({type: EDIT_STREAM, payload: response.data});
+            history.push("/goals");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during gettting the goal");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
+        }
+    )
 }
 
 export const deleteEverydayGoal = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    await streams.delete(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}});
 
-    dispatch({type: DELETE_STREAM, payload: id});
-    history.push("/goals");
+    await streams.delete(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the goal',message: 'Successfully deleted the goal'}});
+            dispatch({type: DELETE_STREAM, payload: id});
+            history.push("/goals");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during detting the goal");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the goal',message: 'please try again later'}});
+        }
+    )
 }
 
 export const commitEverydayGoal = (id) => async (dispatch, getState) => {
@@ -148,14 +184,24 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
     let formattedMonth = "";
     if(month  < 10){
         formattedMonth = "0"+month;
-    }
-    else {
+    } else {
         formattedMonth=""+month;
     }
-    const response =await streams.patch(`/goals/everydaygoals/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}});
 
-    console.log("modified the updated_at with the following data back");
-    console.log(response.data);
-    dispatch({type: COMMIT_STREAM, payload: response.data});
-    history.push("/goals");
+    await streams.patch(`/goals/everydaygoals/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Commmited the goal', message: 'Successfully commited the goal'}});
+
+            dispatch({type: COMMIT_STREAM, payload: response.data});
+            history.push("/goals");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during detting the goal");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot commit the goal' ,message: 'please try again later'}});
+        }
+    )
 }

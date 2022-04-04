@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { signIn, signOut, clearEverydayGoals } from "../actions"
+import { signIn, signOut, clearEverydayGoals, addNotification } from "../actions"
 import goals from "../apis/goals";
 import {fetchEverydayGoals} from "../actions/index"
 import history from "../history";
@@ -43,6 +43,7 @@ class DjangoAuth extends React.Component{
         }
         this.props.clearEverydayGoals();
         this.props.signOut();
+        this.props.addNotification({type: "SUCCESS", title: 'Logged out',message: 'You have logged out'})
         this.setState({token: "", username: "", password: ""}); 
         history.push("/");
         // this.auth.signOut();
@@ -78,4 +79,4 @@ const mapStateToProps = (state) => {
     return {isSignedIn: state.auth.isSignedIn}
 };
 
-export default connect(mapStateToProps, {signIn, signOut, fetchEverydayGoals, clearEverydayGoals})(DjangoAuth);
+export default connect(mapStateToProps, {signIn, signOut, fetchEverydayGoals, clearEverydayGoals, addNotification})(DjangoAuth);
