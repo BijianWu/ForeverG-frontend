@@ -3,6 +3,20 @@ import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
 
+export const clearAllNotifications = () => async (dispatch, getState) => {
+    dispatch({type: CLEAR_ALL_NOTIFICATIONS});
+}
+
+export const deleteNotification = (id) => async (dispatch, getState) => {
+    dispatch({type: DELETE_NOTIFICATION, payload: id});
+}
+
+//id, type, title, message
+export const addNotification = (notification) => async (dispatch, getState) => {
+    
+    dispatch({type: ADD_NOTIFICATION, payload: notification});
+}
+
 export const signIn = (userId, accessToken)=> {
     return{
         type: SIGN_IN,
@@ -31,35 +45,52 @@ export const fetchEverydayGoals = () => async (dispatch, getState) => {
 }
 
 export const register = (formValues) => async(dispatch, getState) => {
-    const res = await streams.post("/auth/users/", { 
+    await streams.post("/auth/users/", { 
         username: formValues.username,
         password: formValues.password,
         email: formValues.email,
         first_name: formValues.first_name,
         last_name: formValues.last_name  
-    });
-    console.log("registering with the below response");
-    console.log(res);
-    // http://127.0.0.1:8000/auth/jwt/create
-    const res2 = await streams.post("/auth/jwt/create/", { 
-        username: formValues.username,
-        password: formValues.password,
-    });
-    console.log("getting the access token");
-    console.log(res2);
-    dispatch({
-        type: SIGN_IN,
-        payload: {
-            userId: res.data.id,
-            accessToken: res2.data.access
+    })
+    .then(
+        async res1 => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Registered successfully',message: 'successfully registed.'}});
+            // http://127.0.0.1:8000/auth/jwt/create
+            await streams.post("/auth/jwt/create/", { 
+                username: formValues.username,
+                password: formValues.password,
+            }).then(res2 => {
+                console.log("getting the access token");
+                dispatch({
+                    type: SIGN_IN,
+                    payload: {
+                        userId: res1.data.id,
+                        accessToken: res2.data.access
+                    }
+                })
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Auto Logged in',message: 'Auto logged in successfully.'}});
+                if (typeof(Storage) !== "undefined") {
+                    localStorage.setItem("FOREVER_G_TOKEN", res2.data.access);   
+                }
+                fetchEverydayGoals();
+                history.push("/goals");
+            }).catch(
+                e => {
+                    console.log(e); 
+                    console.log("error happened during registered then log in");
+                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Auto log in failed',message: 'please manually log in'}});
+            })
+
         }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during register");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to Register',message: 'please try again'}});
     })
 
-    if (typeof(Storage) !== "undefined") {
-        localStorage.setItem("FOREVER_G_TOKEN", res2.data.access);   
-    }
-    fetchEverydayGoals();
-    history.push("/goals");
+
 };
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
@@ -127,18 +158,4 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
     console.log(response.data);
     dispatch({type: COMMIT_STREAM, payload: response.data});
     history.push("/goals");
-}
-
-export const clearAllNotifications = () => async (dispatch, getState) => {
-    dispatch({type: CLEAR_ALL_NOTIFICATIONS});
-}
-
-export const deleteNotification = (id) => async (dispatch, getState) => {
-    dispatch({type: DELETE_NOTIFICATION, payload: id});
-}
-
-//id, type, title, message
-export const addNotification = (notification) => async (dispatch, getState) => {
-    
-    dispatch({type: ADD_NOTIFICATION, payload: notification});
 }

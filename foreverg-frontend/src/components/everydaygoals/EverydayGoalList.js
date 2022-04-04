@@ -96,6 +96,7 @@ class EverydayGoalList extends React.Component {
             Log In
         </Link> to view your everyday goals</div>
         }
+        console.log("rending");
         console.log(this.props.streams);
         return (
             <div>

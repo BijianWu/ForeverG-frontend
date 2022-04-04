@@ -9,23 +9,31 @@ import SignInForm from "./SignInForm";
 
 class RegisterComponent extends React.Component {
     onSubmit = async (formValues)=> {
-        console.log("log in with user name "  + formValues.username + " , and password " + formValues.password);
-        const res = await goals.post("/auth/jwt/create/", {username: formValues.username, password: formValues.password});
+        await goals.post("/auth/jwt/create/", {username: formValues.username, password: formValues.password})
+        .then(
+            res => {
+                this.props.addNotification({type: "SUCCESS", title: 'Logged in',message: 'successfully logged in'});
+                const getParsedData = parseJwt(res.data.access);
+                if (typeof(Storage) !== "undefined") {
+                    localStorage.setItem("FOREVER_G_TOKEN", res.data.access);   
+                }
+        
+                this.props.signIn(getParsedData.user_id, res.data.access);
+        
+                this.props.fetchEverydayGoals();
+        
+                history.push("/goals");
+            }
+        )
+        .catch(
+            e => {
+                console.log(e); 
+                console.log("error happened during log in");
+                this.props.addNotification({type: "ERROR", title: 'Failed to log in',message: 'please try again'});
+        })
 
-        console.log("receveid the log in Successfull with following data");
-        this.props.addNotification({type: "SUCCESS", title: 'Logged in',message: 'successfully logged in'});
 
-        console.log(res);
-        const getParsedData = parseJwt(res.data.access);
-        if (typeof(Storage) !== "undefined") {
-            localStorage.setItem("FOREVER_G_TOKEN", res.data.access);   
-        }
 
-        this.props.signIn(getParsedData.user_id, res.data.access);
-
-        this.props.fetchEverydayGoals();
-
-        history.push("/goals")
     }
 
     render(){
