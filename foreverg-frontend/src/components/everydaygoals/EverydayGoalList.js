@@ -67,17 +67,20 @@ class EverydayGoalList extends React.Component {
             return (
                 <div className="item ui clearing segment" key={everydayGoal.id}>
                     <br/>
-                    {this.renderAmin(everydayGoal)}
-
-                    <div className="content">
-                        <div className="ui tiny header">
-                            {index + 1}. <i className="large middle aligned icon bullseye" />
-                        </div>
-                        <Link to={`/goals/everydaygoals/${everydayGoal.id}`} className="header">
-                            {everydayGoal.title}
-                        </Link>
+                    
+                    <div className="ui segment">
+                        <h2 className="ui left floated header">                        
+                            <Link to={`/goals/everydaygoals/${everydayGoal.id}`} className="header">
+                            <i className="large middle aligned icon bullseye" />{everydayGoal.title}
+                            </Link>
+                        </h2>
+                        <div className="ui clearing divider"></div>
+                        <div className="content">
+                        {this.renderAmin(everydayGoal)}
                         {/* <div className="description"><div>{everydayGoal.description}</div></div> */}
+                        </div>
                     </div>
+
                     <br/>
                 </div>
             )
@@ -87,10 +90,12 @@ class EverydayGoalList extends React.Component {
     renderCreate() {
         if(this.props.isSignedIn) {
             return (
-                <div style={{ textAlign: "right"}}>
+                <div style={{ textAlign: "center"}}>
+                    <br />
                     <Link to="/goals/everydaygoals/new" className="ui button primary">
                         Create new everyday goal
                     </Link>
+                    <br /><br />
                 </div>
             )
         }
@@ -113,10 +118,11 @@ class EverydayGoalList extends React.Component {
                     </h2>
                 </div>
                 {/* <h2>Everyday goals for</h2> */}
-                <div className="ui celled list">
+                {this.renderCreate()}
+                <div className="">
                     {this.renderList()}
                 </div>
-                {this.renderCreate()}
+                
             </div>
         )
     }

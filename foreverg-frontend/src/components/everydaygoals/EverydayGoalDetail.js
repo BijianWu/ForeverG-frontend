@@ -86,11 +86,11 @@ class EverydayGoalDetail extends React.Component {
             </div>
             {/* {commitElement} */}
             <br />
-            <br />
             <div>
                 <Link to="/goals" className="item">
                     Go Back
                 </Link>
+                <br/><br/>
             </div>
 
             </React.Fragment>
