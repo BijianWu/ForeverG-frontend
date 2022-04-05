@@ -37,9 +37,12 @@ class EverydayGoalDetail extends React.Component {
         }
         return (
             <React.Fragment>
-            <div>
+            <div className="container">
                 <div className="ui vertical segment">
-                    <h1>Title: {title}</h1>
+                    <h2 className="ui icon aligned  header">
+                        <i className="icon bullseye"></i>
+                        Goal Title: {title}
+                    </h2>
                 </div>
                 
                 <div className="ui vertical padded segment">
