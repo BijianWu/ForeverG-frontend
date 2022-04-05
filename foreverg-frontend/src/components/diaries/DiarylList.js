@@ -104,7 +104,7 @@ class DiarylList extends React.Component {
         return (
             <div className="container">
                 <h2 className="ui icon aligned  header">
-                    <i className="icon edit"></i>
+                    <i className="icon book"></i>
                     Diaries
                 </h2>
 

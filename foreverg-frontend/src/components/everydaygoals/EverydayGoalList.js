@@ -91,7 +91,7 @@ class EverydayGoalList extends React.Component {
         if(this.props.isSignedIn) {
             return (
                 <div style={{ textAlign: "center"}}>
-                    <br />
+
                     <Link to="/goals/everydaygoals/new" className="ui button primary">
                         Create new everyday goal
                     </Link>
