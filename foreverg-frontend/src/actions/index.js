@@ -1,4 +1,4 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
@@ -297,6 +297,99 @@ export const deleteDiary = (id) => async (dispatch, getState) => {
             console.log(e); 
             console.log("error happened during detting the goal");
             dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the diary',message: 'please try again later'}});
+        }
+    )
+}
+
+//future tasks
+export const fetchFutureTasks = () => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const response = await streams.get("/goals/futuretasks/", {headers: {Authorization:  `JWT ${accessToken}`}});
+
+    console.log(response.data.results);
+    dispatch({type: FETCH_FUTURE_TASKS, payload: response.data.results});
+}
+
+export const createFutureTask = (formValues) => async(dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.post("/goals/futuretasks/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
+        .then(
+            res => {
+                console.log(res);
+                dispatch({
+                    type: CREATE_FUTURE_TASK,
+                    payload: res.data
+                })
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Created a new future task',message: 'Successfully created a new future task'}});
+                history.push("/futureTasks")
+            }
+        )
+        .catch(
+            e => {
+                console.log(e); 
+                console.log("error happened during creating the future task");
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the future task',message: 'please try again later'}});
+                //TODO: handle the error by push a toast notification
+            }
+        )
+}
+
+
+export const fetchFutureTask = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.get(`/goals/futuretasks/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: FETCH_FUTURE_TASK, payload: response.data});
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during getting the future task");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the future task',message: 'please try again later'}});
+        }
+    )
+}
+
+export const editFutureTask = (id, formValues) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.patch(`/goals/futuretasks/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the future task',message: 'Successfully edited the future task'}});
+            dispatch({type: EDIT_FUTURE_TASK, payload: response.data});
+            history.push("/futureTasks");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during gettting the future task");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the future task',message: 'please try again later'}});
+        }
+    )
+}
+
+export const deleteFutureTask = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.delete(`/goals/futuretasks/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the future task',message: 'Successfully deleted the future task'}});
+            dispatch({type: DELETE_FUTURE_TASK, payload: id});
+            history.push("/futureTasks");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during detting the future task");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the future task',message: 'please try again later'}});
         }
     )
 }

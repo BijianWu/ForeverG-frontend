@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 import authReducer from "./authReducer";
 import diariesReducer from "./diariesReducer";
+import futureTasksReducer from "./futureTasksReducer";
 import notifications from "./notificationsReducer";
 import streamReducer from "./streamReducer";
 
@@ -10,5 +11,6 @@ export default combineReducers({
     form: formReducer,
     streams: streamReducer,
     notifications: notifications,
-    diaries: diariesReducer
+    diaries: diariesReducer,
+    futureTasks: futureTasksReducer
 });

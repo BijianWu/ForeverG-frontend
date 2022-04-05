@@ -18,6 +18,11 @@ import DiaryCreate from "./diaries/DiaryCreate";
 import DiaryEdit from "./diaries/DiaryEdit";
 import DiaryDelete from "./diaries/DiaryDelete";
 import DiaryDetail from "./diaries/DiaryDetail";
+import FutureTaskList from "./futuretasks/FutureTaskList";
+import FutureTaskCreate from "./futuretasks/FutureTaskCreate";
+import FutureTaskEdit from "./futuretasks/FutureTaskEdit";
+import FutureTaskDelete from "./futuretasks/FutureTaskDelete";
+import FutureTaskDetail from "./futuretasks/FutureTaskDetail";
 
 const App = () => {
     return (
@@ -46,6 +51,13 @@ const App = () => {
                         <Route path="/diarys/edit/:id" exact component={DiaryEdit} />
                         <Route path="/diarys/delete/:id" exact component={DiaryDelete} />
                         <Route path="/diarys/:id" exact component={DiaryDetail} />
+
+                        //Future Tasks
+                        <Route path="/futuretasks" exact component={FutureTaskList} />
+                        <Route path="/futuretasks/new" exact component={FutureTaskCreate} />
+                        <Route path="/futuretasks/edit/:id" exact component={FutureTaskEdit} />
+                        <Route path="/futuretasks/delete/:id" exact component={FutureTaskDelete} />
+                        <Route path="/futuretasks/:id" exact component={FutureTaskDetail} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
