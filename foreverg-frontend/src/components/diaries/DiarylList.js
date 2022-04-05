@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchDiaries} from "../../actions"
-import { todayDateCreator } from "../../utils/todayDateCreator";
+import diaryImg from "./diary.jpg"
 
 class DiarylList extends React.Component {
     constructor(props) {
@@ -49,25 +49,31 @@ class DiarylList extends React.Component {
 
         // if(this.props.streams.length <= 0) {return <div>No Content</div>}
         // this.props.fetchEverydayGoals();
-        return this.props.diaries.map((diary, index) =>{
-            console.log(`diary.id ${diary.id}`)
+
+        return this.props.diaries.map((diary) =>{
+            let content = "";
+            if(diary.content && diary.content.length > 10){
+                content = diary.content.substring(0,10) + " ...";
+            }
             return (
-                <div className="item ui clearing segment" key={diary.id}>
-                    <br/>
-                    
-                    <div className="ui segment">
-                        <h2 className="ui left floated header">                        
-                            <Link to={`/diarys/${diary.id}`} className="header">
-                            <i className="large middle aligned icon bullseye" />{diary.title}
-                            </Link>
-                        </h2>
-                        <div className="ui clearing divider"></div>
-                        <div className="content">
-                        {this.renderAmin(diary)}
+                <div className="ui card" key={diary.id}>
+                    <div className="image">
+                        <img src={diaryImg} />
+                    </div>
+                    <div className="content">
+                        <Link to={`/diarys/${diary.id}`} className="header">
+                            {diary.title}
+                        </Link>
+                        <div className="meta">
+                        <span className="date">Created at {diary.created_at}</span>
+                        </div>
+                        <div className="description">
+                        {content}
                         </div>
                     </div>
-
-                    <br/>
+                    <div className="extra content">
+                        {this.renderAmin(diary)}
+                    </div>
                 </div>
             )
         })
@@ -97,15 +103,14 @@ class DiarylList extends React.Component {
         console.log(this.props.diaries);
         return (
             <div className="container">
-                <div className="ui vertical segment">
-                    <h2 className="ui icon aligned  header">
-                        <i className="icon edit"></i>
-                        Diaries
-                    </h2>
-                </div>
+                <h2 className="ui icon aligned  header">
+                    <i className="icon edit"></i>
+                    Diaries
+                </h2>
+
                 {/* <h2>Everyday goals for</h2> */}
                 {this.renderCreate()}
-                <div className="">
+                <div className="ui cards">
                     {this.renderList()}
                 </div>
                 
