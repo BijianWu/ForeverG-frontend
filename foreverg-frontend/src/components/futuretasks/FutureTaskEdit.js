@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchFutureTask, editFutureTask } from "../../actions";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-import FutureTaskForm from "./FutureTaskForm";
+import FutureTaskEditForm from "./FutureTaskEditForm";
 
 class FutureTaskEdit extends React.Component {
     componentDidMount() {
@@ -21,7 +21,7 @@ class FutureTaskEdit extends React.Component {
         return (
             <div>
                 <h3>Edit the future task</h3>
-                <FutureTaskForm initialValues={_.pick(this.props.futureTask, "title", "description")} onSubmit={this.onSubmit}/>
+                <FutureTaskEditForm initialValues={_.pick(this.props.futureTask, "title", "description")} onSubmit={this.onSubmit}/>
                 <br />
                 <Link to="/futuretasks" className="item">
                     Go Back

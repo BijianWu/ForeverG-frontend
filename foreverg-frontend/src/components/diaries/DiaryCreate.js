@@ -13,10 +13,10 @@ class DiaryCreate extends React.Component {
     render(){
         return (
             <div>
-                <h3>Create a new everyday goal</h3>
+                <h3>Create a new diary</h3>
                 <DiariesForm onSubmit={this.onSubmit}/>
                 <br />
-                <Link to="/goals" className="item">
+                <Link to="/diarys" className="item">
                     Go Back
                 </Link>
             </div>

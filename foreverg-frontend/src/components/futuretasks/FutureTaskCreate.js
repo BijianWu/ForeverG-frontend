@@ -2,7 +2,7 @@ import React from "react";
 import{ connect} from "react-redux";
 import { Link } from "react-router-dom";
 import {createFutureTask} from "../../actions"
-import FutureTaskForm from "./FutureTaskForm";
+import FutureTaskCreateForm from "./FutureTaskCreateForm";
 
 class FutureTaskCreate extends React.Component {
     onSubmit =(formValues)=> {
@@ -16,7 +16,7 @@ class FutureTaskCreate extends React.Component {
         return (
             <div>
                 <h3>Create a new Future Task</h3>
-                <FutureTaskForm onSubmit={this.onSubmit}/>
+                <FutureTaskCreateForm onSubmit={this.onSubmit}/>
                 <br />
                 <Link to="/futuretasks" className="item">
                     Go Back

@@ -27,7 +27,7 @@ class FutureTaskList extends React.Component {
             //Not a correct way, we should do a calculation here to see which day is bigger
             //if finished_at is smaller than today or if finished_at is null and deadline_date is greater than today
             if (futureTask.deadline_date !== todayDateCreator()) {
-                commitElement = <Link to={`/diarys/edit/${futureTask.id}`} className="ui button primary">Edit</Link>
+                commitElement = <Link to={`/futuretasks/edit/${futureTask.id}`} className="ui button primary">Edit</Link>
             } else {
                 // commitElement = <p>Committed</p>;
                 commitElement = <button className="ui button positive basic wbj-active-button">None Editable</button>
@@ -37,7 +37,7 @@ class FutureTaskList extends React.Component {
 
                     {commitElement}
 
-                    <Link to={`/futuretasks/${futureTask.id}`} className="ui button negative">
+                    <Link to={`/futuretasks/delete/${futureTask.id}`} className="ui button negative">
                         Delete
                     </Link>
                 </div>
@@ -59,7 +59,7 @@ class FutureTaskList extends React.Component {
                         <img src="" />
                     </div>
                     <div className="content">
-                        <Link to={`/diarys/${futureTask.id}`} className="header">
+                        <Link to={`/futuretasks/${futureTask.id}`} className="header">
                             {futureTask.title}
                         </Link>
                         <div className="meta">

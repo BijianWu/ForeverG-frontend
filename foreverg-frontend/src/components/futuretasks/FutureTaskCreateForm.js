@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 
-class FutureTaskForm extends React.Component {
+class FutureTaskCreateForm extends React.Component {
     //spread all inputs into input elements
     //we wire up the custom input to be controlled by redux
     renderInput=({input, label, meta})=>{
@@ -76,7 +76,7 @@ const validate = (formValues) => {
     }
 
     if(!formValues.deadline_date) {
-        errors.title="You must enter a deadline date";
+        errors.deadline_date="You must enter a deadline date";
     }
 
     // if(!formValues.deadline_date) {
@@ -90,6 +90,6 @@ const validate = (formValues) => {
 //Hook up reduxform to this form as reduxForm, with configuration, form with name "everydayGoalForm"
 //hook up our custom validate into the reduxForm, so that it knows to use our custom validate method
 export default reduxForm({
-    form: "futureTaskForm",
+    form: "futureTaskCreateForm",
     validate
-})(FutureTaskForm);
+})(FutureTaskCreateForm);
