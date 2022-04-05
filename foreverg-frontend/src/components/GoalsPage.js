@@ -1,22 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-class HomePage extends React.Component{
+
+//not being used yet
+class GoalsPage extends React.Component{
 
     render(){
         let commitElement;
         if(this.props.isSignedIn){
-            commitElement = 
-            <div> 
-                <div>Welcome back, now you can view the following</div> 
-                <Link to="/goals" className="item">
-                    Goals 
-                </Link>
-                <p></p>
-                <Link to="/diarys" className="item">
-                    Diaries 
-                </Link>
-        </div>
+            commitElement = <div> Welcome back, now you can view the <Link to="/goals" className="item">
+            Goals 
+        </Link></div>
         } else {
             commitElement = <div>Please <Link to="/signin" className="item">
             Log in 
@@ -41,4 +35,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, {})(HomePage);
+export default connect(mapStateToProps, {})(GoalsPage);

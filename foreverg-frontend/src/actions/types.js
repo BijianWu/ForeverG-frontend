@@ -1,6 +1,7 @@
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 export const REGISTER = "REGISTER";
+
 export const CREATE_STREAM = "CREATE_STREAM";
 export const FETCH_STREAMS = "FETCH_STREAMS";
 export const FETCH_STREAM = "FETCH_STREAM";
@@ -11,3 +12,9 @@ export const CLEAR_EVERYDAY_GOAL = "CLEAR_EVERYDAY_GOAL";
 export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
 export const DELETE_NOTIFICATION = "DELETE_NOTIFICATION";
 export const CLEAR_ALL_NOTIFICATIONS = "CLEAR_ALL_NOTIFICATIONS";
+
+export const CREATE_DIARY = "CREATE_DIARY";
+export const DELETE_DIARY = "DELETE_DIARY";
+export const FETCH_DIARIES = "FETCH_DIARIES";
+export const FETCH_DIARY = "FETCH_DIARY";
+export const EDIT_DIARY = "FETCH_DIARY";

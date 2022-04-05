@@ -1,4 +1,4 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
@@ -202,6 +202,101 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
             console.log(e); 
             console.log("error happened during detting the goal");
             dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot commit the goal' ,message: 'please try again later'}});
+        }
+    )
+}
+
+
+
+//diaries
+export const fetchDiaries = () => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const response = await streams.get("/goals/diarys/", {headers: {Authorization:  `JWT ${accessToken}`}});
+
+    console.log(response.data.results);
+    dispatch({type: FETCH_DIARIES, payload: response.data.results});
+}
+
+export const createDiary = (formValues) => async(dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.post("/goals/diarys/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
+        .then(
+            res => {
+                console.log(res);
+                dispatch({
+                    type: CREATE_DIARY,
+                    payload: res.data
+                })
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Created a new diary',message: 'Successfully created a new diary'}});
+                history.push("/diarys")
+            }
+        )
+        .catch(
+            e => {
+                console.log(e); 
+                console.log("error happened");
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the diary',message: 'please try again later'}});
+                //TODO: handle the error by push a toast notification
+            }
+        )
+}
+
+
+export const fetchDiary = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.get(`/goals/diarys/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: FETCH_DIARY, payload: response.data});
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the diary',message: 'please try again later'}});
+        }
+    )
+}
+
+export const editDiary = (id, formValues) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.patch(`/goals/diarys/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the diary',message: 'Successfully edited the diary'}});
+            dispatch({type: EDIT_DIARY, payload: response.data});
+            history.push("/diarys");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during gettting the goal");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
+        }
+    )
+}
+
+export const deleteDiary = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+
+    await streams.delete(`/goals/diarys/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the diary',message: 'Successfully deleted the diary'}});
+            dispatch({type: DELETE_DIARY, payload: id});
+            history.push("/diarys");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during detting the goal");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the diary',message: 'please try again later'}});
         }
     )
 }
