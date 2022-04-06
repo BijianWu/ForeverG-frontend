@@ -100,7 +100,6 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
         .then(
             res => {
-                console.log(res);
                 dispatch({
                     type: CREATE_STREAM,
                     payload: res.data
@@ -225,7 +224,6 @@ export const fetchDiaries = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
     const response = await streams.get("/goals/diarys/", {headers: {Authorization:  `JWT ${accessToken}`}});
 
-    console.log(response.data.results);
     dispatch({type: FETCH_DIARIES, payload: response.data.results});
 }
 
@@ -235,7 +233,6 @@ export const createDiary = (formValues) => async(dispatch, getState) => {
     await streams.post("/goals/diarys/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
         .then(
             res => {
-                console.log(res);
                 dispatch({
                     type: CREATE_DIARY,
                     payload: res.data
@@ -333,7 +330,6 @@ export const fetchFutureTasks = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
     const response = await streams.get("/goals/futuretasks/", {headers: {Authorization:  `JWT ${accessToken}`}});
 
-    console.log(response.data.results);
     dispatch({type: FETCH_FUTURE_TASKS, payload: response.data.results});
 }
 
@@ -343,7 +339,6 @@ export const createFutureTask = (formValues) => async(dispatch, getState) => {
     await streams.post("/goals/futuretasks/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
         .then(
             res => {
-                console.log(res);
                 dispatch({
                     type: CREATE_FUTURE_TASK,
                     payload: res.data

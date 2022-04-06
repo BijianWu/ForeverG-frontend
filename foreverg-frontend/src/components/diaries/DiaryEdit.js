@@ -15,7 +15,6 @@ class DiaryEdit extends React.Component {
     }
 
     render() {
-        console.log(this.porps);
         if(!this.props.diary){
             return <div>Loading..</div>
         }
@@ -34,7 +33,6 @@ class DiaryEdit extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps);
     return {diary: state.diaries[ownProps.match.params.id]};
 }
 

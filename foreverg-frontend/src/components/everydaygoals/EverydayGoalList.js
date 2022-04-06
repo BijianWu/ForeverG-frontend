@@ -14,20 +14,9 @@ class EverydayGoalList extends React.Component {
 
     //when this component first rendered, call the fetch goals to the server
     componentDidMount(){
-        console.log("componentDidMount in EverydayGoalListGotcalled")
         if(!this.props.isSignedIn || this.props.isSignedIn === false) return;
-        console.log("is logged in " + this.props.isSignedIn)
         this.props.fetchEverydayGoals();
     }
-
-    // componentDidUpdate() {
-    //     if(this.state.fetched === true || this.props.stream){ return;}
-    //     if(!this.props.isSignedIn || this.props.isSignedIn === false) return;
-    //     this.setState({fetched: true});  
-    //     console.log("reached here");
-    //     // this.streams = true;
-    //     this.props.fetchEverydayGoals();
-    // }
 
     //TODO: if the goal is commited, we show commited
     renderAmin(everydayGoal) {
@@ -36,7 +25,6 @@ class EverydayGoalList extends React.Component {
             let commitElement;
 
             if (everydayGoal.updated_at !== todayDateCreator()) {
-                console.log("full todayt is " + todayDateCreator() + ", " +everydayGoal.updated_at)
                 commitElement = <Link to={`/goals/everydaygoals/commit/${everydayGoal.id}`} className="ui button yellow basic">Commit it~</Link>
             } else {
                 // commitElement = <p>Committed</p>;
@@ -63,6 +51,11 @@ class EverydayGoalList extends React.Component {
         // if(this.props.streams.length <= 0) {return <div>No Content</div>}
         // this.props.fetchEverydayGoals();
         return this.props.streams.map((everydayGoal, index) =>{
+            let description = "";
+            if(everydayGoal.description && everydayGoal.description.length > 10){
+                description = everydayGoal.description.substring(0,10) + " ...";
+            }
+
             return (
                 <div className="card ui clearing segment" key={everydayGoal.id}>
                     <br/>
@@ -73,6 +66,10 @@ class EverydayGoalList extends React.Component {
                             <i className="large middle aligned icon bullseye" />{everydayGoal.title}
                             </Link>
                         </h2>
+                        <p className="ui centered ">                        
+                            {description.length > 0 ? description: 'No description'}
+                        </p>
+
                         <div className="ui clearing divider"></div>
                         <div className="content">
                             {this.renderAmin(everydayGoal)}
@@ -105,8 +102,7 @@ class EverydayGoalList extends React.Component {
             Log In
         </Link> to view your everyday goals</div>
         }
-        console.log("rending");
-        console.log(this.props.streams);
+
         return (
             <div className="container">
                 <div className="ui vertical segment">

@@ -15,7 +15,6 @@ class EverydayGoalEdit extends React.Component {
     }
 
     render() {
-        console.log(this.porps);
         if(!this.props.stream){
             return <div>Loading..</div>
         }
@@ -33,7 +32,6 @@ class EverydayGoalEdit extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps);
     return {stream: state.streams[ownProps.match.params.id]};
 }
 

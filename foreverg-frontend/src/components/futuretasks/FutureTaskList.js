@@ -62,7 +62,7 @@ class FutureTaskList extends React.Component {
                               {futureTask.title}
                           </Link></div>
                     <div className="description">
-                    {description.length > 0 ? description: 'No description'}
+                    {description && description.length > 0 ? description: 'No description'}
                     </div>
                 </div>
                 <div className="ui two bottom attached buttons">
@@ -97,7 +97,6 @@ class FutureTaskList extends React.Component {
         </Link> to view your future tasks</div>
         }
 
-        console.log(this.props.diaries);
         return (
             <div className="container">
                 <h2 className="ui icon aligned  header">

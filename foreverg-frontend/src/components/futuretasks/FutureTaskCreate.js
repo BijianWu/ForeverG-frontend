@@ -6,10 +6,7 @@ import FutureTaskCreateForm from "./FutureTaskCreateForm";
 
 class FutureTaskCreate extends React.Component {
     onSubmit =(formValues)=> {
-        console.log("the form values for creating the future task is as follow ------");
-        console.log(formValues);
         this.props.createFutureTask(formValues);
-        
     }
 
     render(){

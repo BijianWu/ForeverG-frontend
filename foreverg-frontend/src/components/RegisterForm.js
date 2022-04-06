@@ -30,7 +30,6 @@ class RegisterForm extends React.Component {
 
     onSubmit =(formValues)=> {
         //we received the formValues by passing this method as the argument to the handleSubmit from redux-form, so we get the actual form values
-        console.log(formValues);
         this.props.onSubmit(formValues);    
     }
     //component props used to tell how to render each input, because Field does not knwo how to render itself

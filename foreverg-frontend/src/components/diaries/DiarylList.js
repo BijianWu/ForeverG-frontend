@@ -13,9 +13,8 @@ class DiarylList extends React.Component {
 
     //when this component first rendered, call the fetch goals to the server
     componentDidMount(){
-        console.log("componentDidMount in EverydayGoalListGotcalled")
         if(!this.props.isSignedIn || this.props.isSignedIn === false) return;
-        console.log("is logged in " + this.props.isSignedIn)
+
         this.props.fetchDiaries();
     }
 
@@ -26,11 +25,9 @@ class DiarylList extends React.Component {
             let commitElement;
 
             if (everydayGoal.can_be_edited) {
-                console.log("can be edited");
                 commitElement = <Link to={`/diarys/edit/${everydayGoal.id}`} className="ui button primary">Edit</Link>
             } else {
                 // commitElement = <p>Committed</p>;
-                console.log("cannot be edited, but can only be viewed");
                 // commitElement = <button className="ui button positive basic wbj-active-button">None Editable</button>
                 commitElement = <Link to={`/diarys/${everydayGoal.id}`} className="ui button">View</Link>
             }
@@ -103,7 +100,6 @@ class DiarylList extends React.Component {
         </Link> to view your diaries</div>
         }
 
-        console.log(this.props.diaries);
         return (
             <div className="container">
                 <h2 className="ui icon aligned  header">

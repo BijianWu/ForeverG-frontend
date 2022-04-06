@@ -18,7 +18,6 @@ class DjangoAuth extends React.Component{
         if (typeof(Storage) !== "undefined") {
             // Code for localStorage/sessionStorage.
             if(localStorage.getItem("FOREVER_G_TOKEN")){
-                console.log("FOREVER_G_TOKEN been set " + localStorage.getItem("FOREVER_G_TOKEN"));
                 const getParsedData = parseJwt(localStorage.getItem("FOREVER_G_TOKEN"));
                 this.props.signIn(getParsedData.user_id, localStorage.getItem("FOREVER_G_TOKEN"));
                 this.setState({token: localStorage.getItem("FOREVER_G_TOKEN")})     

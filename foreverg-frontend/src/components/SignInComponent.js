@@ -27,8 +27,6 @@ class RegisterComponent extends React.Component {
         )
         .catch(
             e => {
-                console.log(e); 
-                console.log("error happened during log in");
                 this.props.addNotification({type: "ERROR", title: 'Failed to log in',message: 'please try again'});
         })
 

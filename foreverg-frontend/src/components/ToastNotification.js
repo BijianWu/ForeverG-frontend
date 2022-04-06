@@ -6,7 +6,6 @@ import { deleteNotification } from "../actions"
 
 class ToastNotification extends React.Component {
     componentDidMount(){
-        console.log("deleteing self");
         setTimeout(() => {
             this.props.deleteNotification(this.props.notification.id);
         }, this.props.autoDeleteInterval);

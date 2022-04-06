@@ -36,7 +36,6 @@ class ToastNotifications extends React.Component {
         }
     }
     render(){
-        console.log("ToastNotifications renders " + this.props.notifications.length)
         return (
             <div className={`wbj-notification-container wbj-${this.props.position}`}>
                 {this.props.notifications.map((notification, index) => 

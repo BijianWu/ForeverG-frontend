@@ -19,7 +19,6 @@ class FutureTaskDetail extends React.Component {
             return <div>Loading...</div>
         }
         const {title, description, created_at, deadline_date, finished_at, left_days} = this.props.futureTask;
-        console.log("left days is " + left_days);
         
         let statusElement;
 
@@ -33,14 +32,14 @@ class FutureTaskDetail extends React.Component {
                 </div>
             } else {
                 statusElement = <div>
-                    <div class="ui buttons">
+                    <div className="ui buttons">
                     <Link to={`/futuretasks/complete/${this.props.futureTask.id}`} className="item">
-                        <button class="ui positive button"> Complete it now</button>
+                        <button className="ui positive button"> Complete it now</button>
                     </Link>
 
-                    <div class="or"></div>
+                    <div className="or"></div>
                     <Link to={`/futuretasks/edit/${this.props.futureTask.id}`} className="item">
-                        <button class="ui button">Edit</button>
+                        <button className="ui button">Edit</button>
                     </Link> 
                     
                     </div>
