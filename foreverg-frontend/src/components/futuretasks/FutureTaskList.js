@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchFutureTasks} from "../../actions"
 import { isPassedDeadlineDate, todayDateCreator } from "../../utils/todayDateCreator";
-
+import taskTargetImg from "./taskTarget.jpg";
 class FutureTaskList extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +16,7 @@ class FutureTaskList extends React.Component {
         if(!this.props.isSignedIn || this.props.isSignedIn === false) return;
 
         this.props.fetchFutureTasks();
+        
     }
 
     //TODO: if the goal is commited, we show commited
@@ -38,16 +39,7 @@ class FutureTaskList extends React.Component {
                 }
             }
 
-            return (
-                <div className="right floated content">
-
-                    {commitElement}
-
-                    <Link to={`/futuretasks/delete/${futureTask.id}`} className="ui button negative">
-                        Delete
-                    </Link>
-                </div>
-            );
+            return commitElement
         }
     }
 
@@ -61,23 +53,25 @@ class FutureTaskList extends React.Component {
             }
 
             return (
-                <div className="ui card" key={futureTask.id}>
-
-                    <div className="content">
-                        <Link to={`/futuretasks/${futureTask.id}`} className={`header`}>
-                            {futureTask.title}
-                        </Link>
-                        <div className="meta">
-                        <span className="date">Created at {futureTask.created_at}</span>
-                        </div>
-                        <div className="description">
-                        {description}
-                        </div>
-                    </div>
-                    <div className="extra content">
-                        {this.renderAmin(futureTask)}
+            <div className="ui card" key={futureTask.id} data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
+                <div className="ui image ">
+                    <img src={taskTargetImg}/>
+                </div>
+                <div className="content">
+                    <div className="header"><Link to={`/futuretasks/${futureTask.id}`} className={`header`}>
+                              {futureTask.title}
+                          </Link></div>
+                    <div className="description">
+                    {description.length > 0 ? description: 'No description'}
                     </div>
                 </div>
+                <div className="ui two bottom attached buttons">
+                    {this.renderAmin(futureTask)}
+                    <Link to={`/futuretasks/delete/${futureTask.id}`} className="ui button negative">
+                        Delete
+                    </Link>
+                </div>
+            </div>
             )
         })
     }
@@ -112,10 +106,12 @@ class FutureTaskList extends React.Component {
                 </h2>
 
                 {this.renderCreate()}
-                <div className="ui cards">
+                {/* <div className="ui items">
+                    {this.renderList()}
+                </div> */}
+                <div className="ui centered  cards ">
                     {this.renderList()}
                 </div>
-                
             </div>
         )
     }
