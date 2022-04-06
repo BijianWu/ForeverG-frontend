@@ -4,12 +4,12 @@ import DjangoAuth from "./DjangoAuth";
 const Header = () => {
     return (
         <div className="ui secondary pointing menu">
-            <Link to="/" className="item">
+            <Link to="/" className="item header">
                 Forever G
             </Link>
             <div className="right menu">
-                <Link to="/goals" className="item">
-                    All Eveyday goals
+                <Link to="/" className="item header">
+                    Home
                 </Link>
                 <DjangoAuth />
             </div>

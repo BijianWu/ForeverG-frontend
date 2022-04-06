@@ -26,10 +26,13 @@ class DiarylList extends React.Component {
             let commitElement;
 
             if (everydayGoal.can_be_edited) {
+                console.log("can be edited");
                 commitElement = <Link to={`/diarys/edit/${everydayGoal.id}`} className="ui button primary">Edit</Link>
             } else {
                 // commitElement = <p>Committed</p>;
-                commitElement = <button className="ui button positive basic wbj-active-button">None Editable</button>
+                console.log("cannot be edited, but can only be viewed");
+                // commitElement = <button className="ui button positive basic wbj-active-button">None Editable</button>
+                commitElement = <Link to={`/diarys/${everydayGoal.id}`} className="ui button">View</Link>
             }
             return (
                 <div className="right floated content">
@@ -61,7 +64,7 @@ class DiarylList extends React.Component {
                         <img src={diaryImg} />
                     </div>
                     <div className="content">
-                        <Link to={`/diarys/${diary.id}`} className="header">
+                        <Link to={`/diarys/${diary.id}`} className="ui header button">
                             {diary.title}
                         </Link>
                         <div className="meta">

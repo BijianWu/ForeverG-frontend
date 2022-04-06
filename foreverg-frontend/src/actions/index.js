@@ -75,21 +75,23 @@ export const register = (formValues) => async(dispatch, getState) => {
                 history.push("/");
             }).catch(
                 e => {
-                    console.log(e); 
-                    console.log("error happened during registered then log in");
-                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Auto log in failed',message: 'please manually log in'}});
+                    if(e.response && e.response.data && e.response.data.errorTitle){
+                        dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+                    } else{
+                        dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Auto log in failed',message: 'please manually log in'}});
+                    }
             })
 
         }
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during register");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to Register',message: 'please try again'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to Register',message: 'please try again'}});
+            }
     })
-
-
 };
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
@@ -109,10 +111,11 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
         )
         .catch(
             e => {
-                console.log(e); 
-                console.log("error happened");
-                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the goal',message: 'please try again later'}});
-                //TODO: handle the error by push a toast notification
+                if(e.response && e.response.data && e.response.data.errorTitle){
+                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+                } else{
+                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the goal',message: 'please try again later'}});
+                }
             }
         )
 }
@@ -129,9 +132,12 @@ export const fetchEverydayGoal = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the goal',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the goal',message: 'please try again later'}});
+            }
+
         }
     )
 }
@@ -149,9 +155,11 @@ export const editEverydayGoal = (id, formValues) => async (dispatch, getState) =
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during gettting the goal");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
+            }
         }
     )
 }
@@ -169,9 +177,12 @@ export const deleteEverydayGoal = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during detting the goal");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the goal',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the goal',message: 'please try again later'}});
+            }
+            
         }
     )
 }
@@ -198,9 +209,11 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during detting the goal");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot commit the goal' ,message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot commit the goal' ,message: 'please try again later'}});
+            }
         }
     )
 }
@@ -233,10 +246,11 @@ export const createDiary = (formValues) => async(dispatch, getState) => {
         )
         .catch(
             e => {
-                console.log(e); 
-                console.log("error happened");
-                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the diary',message: 'please try again later'}});
-                //TODO: handle the error by push a toast notification
+                if(e.response && e.response.data && e.response.data.errorTitle){
+                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+                } else{
+                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the diary',message: 'please try again later'}});
+                }
             }
         )
 }
@@ -253,9 +267,12 @@ export const fetchDiary = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the diary',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the diary',message: 'please try again later'}});
+            }
+
         }
     )
 }
@@ -273,9 +290,12 @@ export const editDiary = (id, formValues) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during gettting the goal");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
+            }
+
         }
     )
 }
@@ -293,9 +313,12 @@ export const deleteDiary = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during detting the goal");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the diary',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the diary',message: 'please try again later'}});
+            }
+
         }
     )
 }
@@ -331,10 +354,11 @@ export const createFutureTask = (formValues) => async(dispatch, getState) => {
         )
         .catch(
             e => {
-                console.log(e); 
-                console.log("error happened during creating the future task");
-                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the future task',message: 'please try again later'}});
-                //TODO: handle the error by push a toast notification
+                if(e.response && e.response.data && e.response.data.errorTitle){
+                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+                } else{
+                    dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to create the future task',message: 'please try again later'}});
+                }
             }
         )
 }
@@ -351,9 +375,12 @@ export const fetchFutureTask = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during getting the future task");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the future task',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the future task',message: 'please try again later'}});
+            }
+
         }
     )
 }
@@ -371,9 +398,11 @@ export const editFutureTask = (id, formValues) => async (dispatch, getState) => 
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during gettting the future task");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the future task',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the future task',message: 'please try again later'}});
+            }
         }
     )
 }
@@ -391,9 +420,12 @@ export const deleteFutureTask = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during detting the future task");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the future task',message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the future task',message: 'please try again later'}});
+            }
+
         }
     )
 }
@@ -420,9 +452,12 @@ export const completeFutureTask = (id) => async (dispatch, getState) => {
     )
     .catch(
         e => {
-            console.log(e); 
-            console.log("error happened during completing the future task");
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot complete the goal' ,message: 'please try again later'}});
+            if(e.response && e.response.data && e.response.data.errorTitle){
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            } else{
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot complete the goal' ,message: 'please try again later'}});
+            }
+
         }
     )
 }

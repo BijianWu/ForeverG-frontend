@@ -26,7 +26,8 @@ class DiaryDetail extends React.Component {
             Edit
         </Link>
         } else {
-            commitElement = <p>Not today's diary, you cannot edit it anymore, you can only edit same day diary</p>
+            // commitElement = <p>Not today's diary, you cannot edit it anymore, you can only edit same day diary</p>
+            commitElement = <p></p>
         }
         return (
             <React.Fragment>

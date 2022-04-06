@@ -21,7 +21,8 @@ class DiaryEdit extends React.Component {
         }
         return (
             <div>
-                <h3>Edit the diary</h3>
+                <h3>Edit the diary: {this.props.diary.title}</h3>
+                <p>Created at: {this.props.diary.created_at}</p>
                 <DiariesForm initialValues={_.pick(this.props.diary, "title", "content")} onSubmit={this.onSubmit}/>
                 <br />
                 <Link to="/diarys" className="item">
