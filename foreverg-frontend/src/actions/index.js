@@ -1,4 +1,4 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK, COMPLETE_FUTURE_TASK } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK, COMPLETE_FUTURE_TASK, CLEAR_ALL_FUTURE_TASKS, CLEAR_ALL_DIARIES } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
@@ -39,8 +39,7 @@ export const signOut = ()=> {
 export const fetchEverydayGoals = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
     const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
-    console.log("fetching everyday goals");
-    console.log(response.data.results);
+
     dispatch({type: FETCH_STREAMS, payload: response.data.results});
 }
 
@@ -60,7 +59,7 @@ export const register = (formValues) => async(dispatch, getState) => {
                 username: formValues.username,
                 password: formValues.password,
             }).then(getJWTTokenResponse => {
-                console.log("getting the access token");
+
                 dispatch({
                     type: SIGN_IN,
                     payload: {
@@ -73,7 +72,7 @@ export const register = (formValues) => async(dispatch, getState) => {
                     localStorage.setItem("FOREVER_G_TOKEN", getJWTTokenResponse.data.access);   
                 }
                 fetchEverydayGoals();
-                history.push("/goals");
+                history.push("/");
             }).catch(
                 e => {
                     console.log(e); 
@@ -301,6 +300,11 @@ export const deleteDiary = (id) => async (dispatch, getState) => {
     )
 }
 
+export const clearAllDiaries = () => async (dispatch, getState) => {
+    dispatch({type: CLEAR_ALL_DIARIES});
+}
+
+
 //future tasks
 export const fetchFutureTasks = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
@@ -421,4 +425,8 @@ export const completeFutureTask = (id) => async (dispatch, getState) => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot complete the goal' ,message: 'please try again later'}});
         }
     )
+}
+
+export const clearAllFutureTasks = () => async (dispatch, getState) => {
+    dispatch({type: CLEAR_ALL_FUTURE_TASKS});
 }

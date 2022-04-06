@@ -12,7 +12,7 @@ class HomePage extends React.Component{
         if(this.props.isSignedIn){
             commitElement = 
             <div> 
-                <div>Welcome back, now you can view the following</div> 
+                <div>Click the View button coresponding to the action you want to take to get started</div> 
                 <div className="ui divider"></div>
                 <p></p>
 

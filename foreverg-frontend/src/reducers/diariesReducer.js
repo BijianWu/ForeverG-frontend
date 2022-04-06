@@ -1,4 +1,4 @@
-import { CREATE_DIARY, DELETE_DIARY, EDIT_DIARY, FETCH_DIARIES, FETCH_DIARY } from "../actions/types";
+import { CLEAR_ALL_DIARIES, CREATE_DIARY, DELETE_DIARY, EDIT_DIARY, FETCH_DIARIES, FETCH_DIARY } from "../actions/types";
 import _ from "lodash"
 
 export default(state = {}, action) => {
@@ -13,7 +13,8 @@ export default(state = {}, action) => {
             return {...state, [action.payload.id]: action.payload};
         case DELETE_DIARY:
             return _.omit(state, action.payload);
-
+        case CLEAR_ALL_DIARIES:
+            return {};
         default:
             return state;
     }

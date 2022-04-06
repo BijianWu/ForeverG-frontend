@@ -22,7 +22,7 @@ class RegisterComponent extends React.Component {
         
                 this.props.fetchEverydayGoals();
         
-                history.push("/goals");
+                history.push("/");
             }
         )
         .catch(
