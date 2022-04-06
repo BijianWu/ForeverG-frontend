@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchFutureTask } from "../../actions";
+import { isPassedDeadlineDate } from "../../utils/todayDateCreator";
 
 class FutureTaskDetail extends React.Component {
     constructor(props){
@@ -18,15 +19,29 @@ class FutureTaskDetail extends React.Component {
             return <div>Loading...</div>
         }
         const {title, description, created_at, deadline_date, finished_at, left_days} = this.props.futureTask;
+        console.log("left days is " + left_days);
+        
+        let statusElement;
 
-        let commitElement;
-
-        if (true) {
-            commitElement =                 <Link to={`/futuretasks/edit/${this.props.futureTask.id}`} className="item">
-            Edit
-        </Link>
+        if (false === isPassedDeadlineDate(deadline_date)) {
+            if(left_days === 0){
+                statusElement = <div className="ui vertical padded segment">
+                    <p>Status :</p>
+                    <div className="ui raised segment">
+                        <p className="ui green horizontal label">Completed the task</p>
+                    </div>
+                </div>
+            } else {
+                statusElement = <div>
+                <Link to={`/futuretasks/complete/${this.props.futureTask.id}`} className="item">
+                    Complete it now
+                </Link>  Or  <Link to={`/futuretasks/edit/${this.props.futureTask.id}`} className="item">
+                    Edit
+                </Link> 
+                </div> 
+            }
         } else {
-            commitElement = <p>None-finished future tasks, you cannot edit it anymore</p>
+            statusElement = <p className="ui red horizontal label">None-finished future tasks, you cannot edit it anymore</p>
         }
         return (
             <React.Fragment>
@@ -53,8 +68,22 @@ class FutureTaskDetail extends React.Component {
                 </div>
 
                 <div className="ui vertical padded segment">
+                    <p>Deadline date is :</p>
                     <div className="ui raised segment">
-                        {commitElement}
+                        <p>{deadline_date}</p>
+                    </div>
+                </div>
+                {left_days > 0 && 
+                <div className="ui vertical padded segment">
+                    <p>Days left: </p>
+                    <div className="ui raised segment">
+                        <p>{left_days}</p>
+                    </div>
+                </div>}
+
+                <div className="ui vertical padded segment">
+                    <div className="ui raised segment">
+                        {statusElement}
                     </div>
                 </div>
 

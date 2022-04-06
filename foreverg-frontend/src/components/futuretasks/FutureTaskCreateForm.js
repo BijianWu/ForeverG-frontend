@@ -1,5 +1,6 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { isPassedDeadlineDate } from "../../utils/todayDateCreator";
 
 class FutureTaskCreateForm extends React.Component {
     //spread all inputs into input elements
@@ -79,9 +80,11 @@ const validate = (formValues) => {
         errors.deadline_date="You must enter a deadline date";
     }
 
-    // if(!formValues.deadline_date) {
-    //     errors.title="You must enter a deadline date that is greater or equal to today";
-    // }
+    if(formValues.deadline_date && true === isPassedDeadlineDate(formValues.deadline_date)) {
+        errors.deadline_date="You must enter a deadline date that is greater than or same as today";
+    }
+
+
 
     //return of empty object will let redux-form thinks user did not enter anything in-correctly
     return errors;

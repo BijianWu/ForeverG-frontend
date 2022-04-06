@@ -1,4 +1,4 @@
-import { CREATE_FUTURE_TASK, DELETE_FUTURE_TASK, EDIT_FUTURE_TASK, FETCH_FUTURE_TASK, FETCH_FUTURE_TASKS } from "../actions/types";
+import { COMPLETE_FUTURE_TASK, CREATE_FUTURE_TASK, DELETE_FUTURE_TASK, EDIT_FUTURE_TASK, FETCH_FUTURE_TASK, FETCH_FUTURE_TASKS } from "../actions/types";
 import _ from "lodash"
 
 export default(state = {}, action) => {
@@ -10,6 +10,8 @@ export default(state = {}, action) => {
         case CREATE_FUTURE_TASK:
             return {...state, [action.payload.id]: action.payload};
         case EDIT_FUTURE_TASK:
+            return {...state, [action.payload.id]: action.payload};
+        case COMPLETE_FUTURE_TASK:
             return {...state, [action.payload.id]: action.payload};
         case DELETE_FUTURE_TASK:
             return _.omit(state, action.payload);

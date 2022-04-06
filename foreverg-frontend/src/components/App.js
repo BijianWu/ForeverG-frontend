@@ -23,6 +23,7 @@ import FutureTaskCreate from "./futuretasks/FutureTaskCreate";
 import FutureTaskEdit from "./futuretasks/FutureTaskEdit";
 import FutureTaskDelete from "./futuretasks/FutureTaskDelete";
 import FutureTaskDetail from "./futuretasks/FutureTaskDetail";
+import FutureTaskComplete from "./futuretasks/FutureTaskComplete";
 
 const App = () => {
     return (
@@ -57,6 +58,7 @@ const App = () => {
                         <Route path="/futuretasks/new" exact component={FutureTaskCreate} />
                         <Route path="/futuretasks/edit/:id" exact component={FutureTaskEdit} />
                         <Route path="/futuretasks/delete/:id" exact component={FutureTaskDelete} />
+                        <Route path="/futuretasks/complete/:id" exact component={FutureTaskComplete} />
                         <Route path="/futuretasks/:id" exact component={FutureTaskDetail} />
                         <Route component={NotFoundPage} />
                     </Switch>

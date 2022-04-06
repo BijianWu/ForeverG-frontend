@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchFutureTasks} from "../../actions"
-import { todayDateCreator } from "../../utils/todayDateCreator";
+import { isPassedDeadlineDate, todayDateCreator } from "../../utils/todayDateCreator";
 
 class FutureTaskList extends React.Component {
     constructor(props) {
@@ -26,12 +26,18 @@ class FutureTaskList extends React.Component {
 
             //Not a correct way, we should do a calculation here to see which day is bigger
             //if finished_at is smaller than today or if finished_at is null and deadline_date is greater than today
-            if (futureTask.deadline_date !== todayDateCreator()) {
-                commitElement = <Link to={`/futuretasks/edit/${futureTask.id}`} className="ui button primary">Edit</Link>
-            } else {
-                // commitElement = <p>Committed</p>;
-                commitElement = <button className="ui button positive basic wbj-active-button">None Editable</button>
+
+            if(futureTask.finished_at){
+                commitElement = <button className="ui button green basic wbj-active-button">Completed</button>
+            } else{
+                if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
+                    commitElement = <Link to={`/futuretasks/edit/${futureTask.id}`} className="ui button primary">Edit</Link>
+                } else {
+                    // commitElement = <p>Committed</p>;
+                    commitElement = <button className="ui button red basic wbj-active-button">Failed</button>
+                }
             }
+
             return (
                 <div className="right floated content">
 
@@ -53,13 +59,14 @@ class FutureTaskList extends React.Component {
             if(futureTask.description && futureTask.description.length > 10){
                 description = futureTask.description.substring(0,10) + " ...";
             }
+
             return (
                 <div className="ui card" key={futureTask.id}>
                     <div className="image">
                         <img src="" />
                     </div>
                     <div className="content">
-                        <Link to={`/futuretasks/${futureTask.id}`} className="header">
+                        <Link to={`/futuretasks/${futureTask.id}`} className={`header`}>
                             {futureTask.title}
                         </Link>
                         <div className="meta">

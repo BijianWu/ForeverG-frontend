@@ -1,4 +1,4 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK } from "./types";
+import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK, COMPLETE_FUTURE_TASK } from "./types";
 import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
@@ -390,6 +390,35 @@ export const deleteFutureTask = (id) => async (dispatch, getState) => {
             console.log(e); 
             console.log("error happened during detting the future task");
             dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot delete the future task',message: 'please try again later'}});
+        }
+    )
+}
+
+export const completeFutureTask = (id) => async (dispatch, getState) => {
+    const { userId, accessToken } = getState().auth;
+    const d = new Date();
+    let month = d.getMonth() + 1;
+    let formattedMonth = "";
+    if(month  < 10){
+        formattedMonth = "0"+month;
+    } else {
+        formattedMonth=""+month;
+    }
+
+    await streams.patch(`goals/futuretasks/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
+    .then(
+        response => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Completed the task', message: 'Successfully completed the task'}});
+
+            dispatch({type: COMPLETE_FUTURE_TASK, payload: response.data});
+            history.push("/futuretasks");
+        }
+    )
+    .catch(
+        e => {
+            console.log(e); 
+            console.log("error happened during completing the future task");
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot complete the goal' ,message: 'please try again later'}});
         }
     )
 }
