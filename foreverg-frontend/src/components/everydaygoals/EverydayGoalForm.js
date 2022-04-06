@@ -4,11 +4,11 @@ import { Field, reduxForm } from "redux-form";
 class EverydayGoalForm extends React.Component {
     //spread all inputs into input elements
     //we wire up the custom input to be controlled by redux
-    renderInput=({input, label, meta})=>{
+    renderInput=({input, label, maxlength, meta})=>{
         const className=`field ${meta.error && meta.touched ? 'error': ''}`;
         return (<div className={className}>
                     <label>{label}</label>
-                    <input {...input} autoComplete="off"/>
+                    <input {...input} autoComplete="off" maxLength={maxlength}/>
                     {this.renderError(meta)}
                 </div>)
     }
@@ -46,8 +46,8 @@ class EverydayGoalForm extends React.Component {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
 
-                <Field name="title" component={this.renderInput} label="Enter new title"/>
-                <Field name="description" component={this.renderInput} label="Enter new description"/>
+                <Field name="title" component={this.renderInput} label="Enter new title" maxlength ={15}/>
+                <Field name="description" component={this.renderInput} label="Enter new description" maxlength ={255}/>
                 <button className="ui button primary">Submit</button>
             </form>
         )
