@@ -42,9 +42,9 @@ class EverydayGoalList extends React.Component {
                 // commitElement = <p>Committed</p>;
                 commitElement = <button className="ui button positive basic wbj-active-button">Committed</button>
             }
-            return (
-                <div className="right floated content">
-
+            return (//change the cards to card will position it differently
+                <div className="ui cards centered">
+                    
                     {commitElement}
                     <Link to={`/goals/everydaygoals/edit/${everydayGoal.id}`} className="ui button primary">
                     Edit</Link>
@@ -63,21 +63,19 @@ class EverydayGoalList extends React.Component {
         // if(this.props.streams.length <= 0) {return <div>No Content</div>}
         // this.props.fetchEverydayGoals();
         return this.props.streams.map((everydayGoal, index) =>{
-            console.log(`everydayGoal.id ${everydayGoal.id}`)
             return (
-                <div className="item ui clearing segment" key={everydayGoal.id}>
+                <div className="card ui clearing segment" key={everydayGoal.id}>
                     <br/>
                     
                     <div className="ui segment">
-                        <h2 className="ui left floated header">                        
+                        <h2 className="ui centered header">                        
                             <Link to={`/goals/everydaygoals/${everydayGoal.id}`} className="header">
                             <i className="large middle aligned icon bullseye" />{everydayGoal.title}
                             </Link>
                         </h2>
                         <div className="ui clearing divider"></div>
                         <div className="content">
-                        {this.renderAmin(everydayGoal)}
-                        {/* <div className="description"><div>{everydayGoal.description}</div></div> */}
+                            {this.renderAmin(everydayGoal)}
                         </div>
                     </div>
 
@@ -119,7 +117,7 @@ class EverydayGoalList extends React.Component {
                 </div>
                 {/* <h2>Everyday goals for</h2> */}
                 {this.renderCreate()}
-                <div className="">
+                <div className="ui cards centered">
                     {this.renderList()}
                 </div>
                 

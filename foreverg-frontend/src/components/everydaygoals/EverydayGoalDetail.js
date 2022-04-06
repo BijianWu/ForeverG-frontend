@@ -43,6 +43,8 @@ class EverydayGoalDetail extends React.Component {
                         <i className="icon bullseye"></i>
                         Goal Title: {title}
                     </h2>
+
+
                 </div>
                 
                 <div className="ui vertical padded segment">
@@ -82,6 +84,14 @@ class EverydayGoalDetail extends React.Component {
                         {commitElement}
                     </div>
                 </div>
+                {/* <div className="ui vertical padded segment">         
+                    <div className="ui raised segment">
+                    <Link to={`/goals/everydaygoals/delete/${id}`} className="ui button negative">
+                        Delete
+                    </Link>
+                    </div>
+                </div> */}
+
 
             </div>
             {/* {commitElement} */}
