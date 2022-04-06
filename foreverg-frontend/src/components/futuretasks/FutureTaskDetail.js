@@ -25,19 +25,26 @@ class FutureTaskDetail extends React.Component {
 
         if (false === isPassedDeadlineDate(deadline_date)) {
             if(left_days === 0){
-                statusElement = <div className="ui vertical padded segment">
-                    <p>Status :</p>
+                statusElement = <div >
+                    {/* <p>Status :</p> */}
                     <div className="ui raised segment">
                         <p className="ui green horizontal label">Completed the task</p>
                     </div>
                 </div>
             } else {
                 statusElement = <div>
-                <Link to={`/futuretasks/complete/${this.props.futureTask.id}`} className="item">
-                    Complete it now
-                </Link>  Or  <Link to={`/futuretasks/edit/${this.props.futureTask.id}`} className="item">
-                    Edit
-                </Link> 
+                    <div class="ui buttons">
+                    <Link to={`/futuretasks/complete/${this.props.futureTask.id}`} className="item">
+                        <button class="ui positive button"> Complete it now</button>
+                    </Link>
+
+                    <div class="or"></div>
+                    <Link to={`/futuretasks/edit/${this.props.futureTask.id}`} className="item">
+                        <button class="ui button">Edit</button>
+                    </Link> 
+                    
+                    </div>
+                  
                 </div> 
             }
         } else {
@@ -82,6 +89,7 @@ class FutureTaskDetail extends React.Component {
                 </div>}
 
                 <div className="ui vertical padded segment">
+                    {/* <p>Actions: </p> */}
                     <div className="ui raised segment">
                         {statusElement}
                     </div>
