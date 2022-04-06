@@ -88,6 +88,14 @@ class FutureTaskDetail extends React.Component {
                     </div>
                 </div>}
 
+                {left_days === 0 && 
+                <div className="ui vertical padded segment">
+                    <p>Completed at: </p>
+                    <div className="ui raised segment">
+                        <p>{finished_at}</p>
+                    </div>
+                </div>}
+
                 <div className="ui vertical padded segment">
                     {/* <p>Actions: </p> */}
                     <div className="ui raised segment">

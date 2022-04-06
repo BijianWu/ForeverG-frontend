@@ -62,9 +62,7 @@ class FutureTaskList extends React.Component {
 
             return (
                 <div className="ui card" key={futureTask.id}>
-                    <div className="image">
-                        <img src="" />
-                    </div>
+
                     <div className="content">
                         <Link to={`/futuretasks/${futureTask.id}`} className={`header`}>
                             {futureTask.title}
