@@ -2,6 +2,7 @@ import React from "react";
 import{ connect} from "react-redux";
 import { Link } from "react-router-dom";
 import {createDiary} from "../../actions"
+import { DIARIES_HOME_PAGE_LINK } from "../../constants/pagesLink";
 import DiariesForm from "./DiaryForm";
 
 class DiaryCreate extends React.Component {
@@ -16,7 +17,7 @@ class DiaryCreate extends React.Component {
                 <h3>Create a new diary</h3>
                 <DiariesForm onSubmit={this.onSubmit}/>
                 <br />
-                <Link to="/diarys" className="item">
+                <Link to={`${DIARIES_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
             </div>

@@ -2,6 +2,7 @@ import React from "react";
 import{ connect} from "react-redux";
 import { Link } from "react-router-dom";
 import {createEverydayGoal} from "../../actions"
+import { EVERY_DAY_GOALS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 import EverydayGoalForm from "./EverydayGoalForm";
 
 class EverydayGoalCreate extends React.Component {
@@ -16,7 +17,7 @@ class EverydayGoalCreate extends React.Component {
                 <h3>Create a new everyday goal</h3>
                 <EverydayGoalForm onSubmit={this.onSubmit}/>
                 <br />
-                <Link to="/goals" className="item">
+                <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
             </div>

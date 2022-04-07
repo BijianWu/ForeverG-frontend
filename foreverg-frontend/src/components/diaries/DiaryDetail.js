@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchDiary } from "../../actions";
+import { DIARIES_EDIT_PAGE_LINK_PREFIX, DIARIES_HOME_PAGE_LINK } from "../../constants/pagesLink";
 
 class DiaryDetail extends React.Component {
     constructor(props){
@@ -22,7 +23,7 @@ class DiaryDetail extends React.Component {
         let commitElement;
 
         if (can_be_edited) {
-            commitElement =                 <Link to={`/diarys/edit/${this.props.diary.id}`} className="item">
+            commitElement =                 <Link to={`${DIARIES_EDIT_PAGE_LINK_PREFIX}/${this.props.diary.id}`} className="item">
             Edit
         </Link>
         } else {
@@ -63,7 +64,7 @@ class DiaryDetail extends React.Component {
             {/* {commitElement} */}
             <br />
             <div>
-                <Link to="/diarys" className="item">
+                <Link to={`${DIARIES_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
                 <br/><br/>

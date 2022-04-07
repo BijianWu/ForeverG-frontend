@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { DIARIES_HOME_PAGE_LINK, EVERY_DAY_GOALS_HOME_PAGE_LINK, FUTRUE_TASKS_HOME_PAGE_LINK, REGISTER_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../constants/pagesLink";
 import diaryHomePage from "./diaryHomePage.jpg";
 import everydayGoalHomePage from "./everydayGoalHomePage.jpg";
 import futureTaskHomePage from "./futureTaskHomePage.jpg";
@@ -21,7 +22,7 @@ class HomePage extends React.Component{
                 <div className="ui middle aligned divided list">
                     <div className="item">
                         <div className="right floated content">
-                        <Link to="/goals" className="item wbj-middle-item">
+                        <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`} className="item wbj-middle-item">
                             <div className="ui primary huge basic button">View</div>
                         </Link>
                         
@@ -33,7 +34,7 @@ class HomePage extends React.Component{
                     </div>
                     <div className="item">
                         <div className="right floated content">
-                        <Link to="/diarys" className="item wbj-middle-item">
+                        <Link to={`${DIARIES_HOME_PAGE_LINK}`} className="item wbj-middle-item">
                         <div className="ui primary huge basic button">View</div>
                         </Link>
                         
@@ -45,7 +46,7 @@ class HomePage extends React.Component{
                     </div>
                     <div className="item">
                         <div className="right floated content">
-                        <Link to="/futuretasks" className="item wbj-middle-item">
+                        <Link to={`${FUTRUE_TASKS_HOME_PAGE_LINK}`} className="item wbj-middle-item">
                         <div className="ui primary huge basic button">View</div>
                         </Link>
 
@@ -61,9 +62,9 @@ class HomePage extends React.Component{
             </div>
 
         } else {
-            commitElement = <div>Please <Link to="/signin" className="item">
+            commitElement = <div>Please <Link to={`${SIGN_IN_PAGE_LINK}`} className="item">
             Log in 
-        </Link> Or <Link to="/register" className="item">
+        </Link> Or <Link to={`${REGISTER_PAGE_LINK}`} className="item">
             Register
         </Link> to get started</div>        
         }

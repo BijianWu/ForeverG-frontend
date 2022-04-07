@@ -24,6 +24,7 @@ import FutureTaskEdit from "./futuretasks/FutureTaskEdit";
 import FutureTaskDelete from "./futuretasks/FutureTaskDelete";
 import FutureTaskDetail from "./futuretasks/FutureTaskDetail";
 import FutureTaskComplete from "./futuretasks/FutureTaskComplete";
+import { DIARIES_DELETE_PAGE_LINK_PREFIX, DIARIES_DETAIL_PAGE_LINK_PREFIX, DIARIES_EDIT_PAGE_LINK_PREFIX, DIARIES_HOME_PAGE_LINK, DIARIES_NEW_PAGE_LINK, EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_DELETE_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_EDIT_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_HOME_PAGE_LINK, EVERY_DAY_GOALS_NEW_PAGE_LINK, FUTRUE_TASKS_COMPLETE_PAGE_LINK_PREFIX, FUTRUE_TASKS_DELETE_PAGE_LINK_PREFIX, FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX, FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX, FUTRUE_TASKS_HOME_PAGE_LINK, FUTRUE_TASKS_NEW_PAGE_LINK, HOME_PAGE_LINK, REGISTER_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../constants/pagesLink";
 
 const App = () => {
     return (
@@ -33,33 +34,32 @@ const App = () => {
                     <Header />
                     <ToastNotifications position="bottom-right" autoDeleteInterval={1500}/>
                     <Switch>
-                        <Route path="/" exact component={HomePage} />
-                        <Route path="/signin" exact component={SignInComponent} />
-                        <Route path="/register" exact component={RegisterComponent} />
+                        <Route path= {`${HOME_PAGE_LINK}`} exact component={HomePage} />
+                        <Route path= {`${SIGN_IN_PAGE_LINK}`} exact component={SignInComponent} />
+                        <Route path= {`${REGISTER_PAGE_LINK}`} exact component={RegisterComponent} />
 
                         //Goals
-                        <Route path="/goals" exact component={EveryDayGoalList} />
-                        <Route path="/goals/everydaygoals/new" exact component={EveryDayGoalCreate} />
-                        <Route path="/goals/everydaygoals/edit/:id" exact component={EveryDayGoalEdit} />
-                        <Route path="/goals/everydaygoals/delete/:id" exact component={EveryDayGoalDelete} />
-                        <Route path="/goals/everydaygoals/commit/:id" exact component={EverydayGoalCommit} />
-                        <Route path="/goals/everydaygoals/:id" exact component={EveryDayGoalDetail} />
-                        <Route path="/goals/everydaygoals/:id" exact component={EveryDayGoalDetail} />
+                        <Route path={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`} exact component={EveryDayGoalList} />
+                        <Route path={`${EVERY_DAY_GOALS_NEW_PAGE_LINK}`} exact component={EveryDayGoalCreate} />
+                        <Route path={`${EVERY_DAY_GOALS_EDIT_PAGE_LINK_PREFIX}/:id`} exact component={EveryDayGoalEdit} />
+                        <Route path={`${EVERY_DAY_GOALS_DELETE_PAGE_LINK_PREFIX}/:id`} exact component={EveryDayGoalDelete} />
+                        <Route path={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/:id`} exact component={EverydayGoalCommit} />
+                        <Route path={`${EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX}/:id`} exact component={EveryDayGoalDetail} />
                         
                         //Diaries
-                        <Route path="/diarys" exact component={DiarylList} />
-                        <Route path="/diarys/new" exact component={DiaryCreate} />
-                        <Route path="/diarys/edit/:id" exact component={DiaryEdit} />
-                        <Route path="/diarys/delete/:id" exact component={DiaryDelete} />
-                        <Route path="/diarys/:id" exact component={DiaryDetail} />
+                        <Route path={`${DIARIES_HOME_PAGE_LINK}`} exact component={DiarylList} />
+                        <Route path={`${DIARIES_NEW_PAGE_LINK}`} exact component={DiaryCreate} />
+                        <Route path={`${DIARIES_EDIT_PAGE_LINK_PREFIX}/:id`} exact component={DiaryEdit} />
+                        <Route path={`${DIARIES_DELETE_PAGE_LINK_PREFIX}/:id`} exact component={DiaryDelete} />
+                        <Route path={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/:id`} exact component={DiaryDetail} />
 
                         //Future Tasks
-                        <Route path="/futuretasks" exact component={FutureTaskList} />
-                        <Route path="/futuretasks/new" exact component={FutureTaskCreate} />
-                        <Route path="/futuretasks/edit/:id" exact component={FutureTaskEdit} />
-                        <Route path="/futuretasks/delete/:id" exact component={FutureTaskDelete} />
-                        <Route path="/futuretasks/complete/:id" exact component={FutureTaskComplete} />
-                        <Route path="/futuretasks/:id" exact component={FutureTaskDetail} />
+                        <Route path={`${FUTRUE_TASKS_HOME_PAGE_LINK}`} exact component={FutureTaskList} />
+                        <Route path={`${FUTRUE_TASKS_NEW_PAGE_LINK}`} exact component={FutureTaskCreate} />
+                        <Route path={`${FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX}/:id`} exact component={FutureTaskEdit} />
+                        <Route path={`${FUTRUE_TASKS_DELETE_PAGE_LINK_PREFIX}/:id`} exact component={FutureTaskDelete} />
+                        <Route path={`${FUTRUE_TASKS_COMPLETE_PAGE_LINK_PREFIX}/:id`} exact component={FutureTaskComplete} />
+                        <Route path={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/:id`} exact component={FutureTaskDetail} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>

@@ -4,6 +4,7 @@ import { fetchEverydayGoal, editEverydayGoal } from "../../actions";
 import EveryDayGoalForm from "./EverydayGoalForm";
 import _ from "lodash";
 import { Link } from "react-router-dom";
+import { EVERY_DAY_GOALS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 
 class EverydayGoalEdit extends React.Component {
     componentDidMount() {
@@ -23,7 +24,7 @@ class EverydayGoalEdit extends React.Component {
                 <h3>Edit a Everyday goal</h3>
                 <EveryDayGoalForm initialValues={_.pick(this.props.stream, "title", "description")} onSubmit={this.onSubmit}/>
                 <br />
-                <Link to="/goals" className="item">
+                <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
             </div>

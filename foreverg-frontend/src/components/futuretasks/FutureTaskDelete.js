@@ -4,13 +4,14 @@ import Modal from "../Modal";
 import {connect} from "react-redux";
 import {fetchFutureTask, deleteFutureTask} from "../../actions"
 import { Link } from "react-router-dom";
+import { FUTRUE_TASKS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 
 class FutureTaskDelete extends React.Component {
     renderActions (){
         return (
             <React.Fragment>
                 <button onClick={() => this.props.deleteFutureTask(this.props.match.params.id)} className="ui button negative">Delete</button>
-                <Link to="/futuretasks"  className="ui button">Cancel</Link>
+                <Link to={`${FUTRUE_TASKS_HOME_PAGE_LINK}`}  className="ui button">Cancel</Link>
             </React.Fragment>
         );
     }
@@ -28,7 +29,7 @@ class FutureTaskDelete extends React.Component {
 
     render(){
         return (
-            <Modal title="Delete Future Task" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push("/futuretasks")}/>
+            <Modal title="Delete Future Task" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`)}/>
         );
     }
 

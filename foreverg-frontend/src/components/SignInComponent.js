@@ -3,6 +3,7 @@ import{ connect} from "react-redux";
 import { Link } from "react-router-dom";
 import {signIn, fetchEverydayGoals, addNotification} from "../actions"
 import goals from "../apis/goals";
+import { HOME_PAGE_LINK, REGISTER_PAGE_LINK } from "../constants/pagesLink";
 import history from "../history";
 import { parseJwt } from "../utils/jsonParser";
 import SignInForm from "./SignInForm";
@@ -22,7 +23,7 @@ class RegisterComponent extends React.Component {
         
                 this.props.fetchEverydayGoals();
         
-                history.push("/");
+                history.push(`${HOME_PAGE_LINK}/`);
             }
         )
         .catch(
@@ -39,7 +40,7 @@ class RegisterComponent extends React.Component {
             <div>
                 <h3>Registering a new account</h3>
                 <SignInForm onSubmit={this.onSubmit}/>
-                Don't have an account? <Link to="/register" className="item">
+                Don't have an account? <Link to={`${REGISTER_PAGE_LINK}`} className="item">
                 Register
             </Link> Now
             </div>

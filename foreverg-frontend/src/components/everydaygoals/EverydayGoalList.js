@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchEverydayGoals} from "../../actions"
+import { EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_DELETE_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_EDIT_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_NEW_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../../constants/pagesLink";
 import { todayDateCreator } from "../../utils/todayDateCreator";
 import "./EverydayGoalList.css";
 
@@ -25,7 +26,7 @@ class EverydayGoalList extends React.Component {
             let commitElement;
 
             if (everydayGoal.updated_at !== todayDateCreator()) {
-                commitElement = <Link to={`/goals/everydaygoals/commit/${everydayGoal.id}`} className="ui button yellow basic">Commit it~</Link>
+                commitElement = <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button yellow basic">Commit it~</Link>
             } else {
                 // commitElement = <p>Committed</p>;
                 commitElement = <button className="ui button positive basic wbj-active-button">Committed</button>
@@ -34,10 +35,10 @@ class EverydayGoalList extends React.Component {
                 <div className="ui cards centered">
                     
                     {commitElement}
-                    <Link to={`/goals/everydaygoals/edit/${everydayGoal.id}`} className="ui button primary">
+                    <Link to={`${EVERY_DAY_GOALS_EDIT_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button primary">
                     Edit</Link>
 
-                    <Link to={`/goals/everydaygoals/delete/${everydayGoal.id}`} className="ui button negative">
+                    <Link to={`${EVERY_DAY_GOALS_DELETE_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button negative">
                         Delete
                     </Link>
                 </div>
@@ -62,7 +63,7 @@ class EverydayGoalList extends React.Component {
                     
                     <div className="ui segment">
                         <h2 className="ui centered header">                        
-                            <Link to={`/goals/everydaygoals/${everydayGoal.id}`} className="header">
+                            <Link to={`${EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="header">
                             <i className="large middle aligned icon bullseye" />{everydayGoal.title}
                             </Link>
                         </h2>
@@ -87,7 +88,7 @@ class EverydayGoalList extends React.Component {
             return (
                 <div style={{ textAlign: "center"}}>
 
-                    <Link to="/goals/everydaygoals/new" className="ui button primary">
+                    <Link to={`${EVERY_DAY_GOALS_NEW_PAGE_LINK}`} className="ui button primary">
                         Create new everyday goal
                     </Link>
                     <br /><br />
@@ -98,7 +99,7 @@ class EverydayGoalList extends React.Component {
 
     render(){
         if(!this.props.isSignedIn || this.props.isSignedIn === false){
-            return <div>Please  <Link to="/signin">
+            return <div>Please  <Link to={`${SIGN_IN_PAGE_LINK}`}>
             Log In
         </Link> to view your everyday goals</div>
         }

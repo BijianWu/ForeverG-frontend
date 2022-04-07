@@ -4,13 +4,14 @@ import Modal from "../Modal";
 import {connect} from "react-redux";
 import {fetchEverydayGoal, deleteEverydayGoal} from "../../actions"
 import { Link } from "react-router-dom";
+import { EVERY_DAY_GOALS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 
 class EverydayGoalDelete extends React.Component {
     renderActions (){
         return (
             <React.Fragment>
                 <button onClick={() => this.props.deleteEverydayGoal(this.props.match.params.id)} className="ui button negative">Delete</button>
-                <Link to="/goals"  className="ui button">Cancel</Link>
+                <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`}  className="ui button">Cancel</Link>
             </React.Fragment>
         );
     }
@@ -28,7 +29,7 @@ class EverydayGoalDelete extends React.Component {
 
     render(){
         return (
-            <Modal title="Delete Everyday" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push("/goals")}/>
+            <Modal title="Delete Everyday" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`)}/>
         );
     }
 

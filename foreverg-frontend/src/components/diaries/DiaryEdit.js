@@ -4,6 +4,7 @@ import { fetchDiary, editDiary } from "../../actions";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import DiariesForm from "./DiaryForm";
+import { DIARIES_HOME_PAGE_LINK } from "../../constants/pagesLink";
 
 class DiaryEdit extends React.Component {
     componentDidMount() {
@@ -24,7 +25,7 @@ class DiaryEdit extends React.Component {
                 <p>Created at: {this.props.diary.created_at}</p>
                 <DiariesForm initialValues={_.pick(this.props.diary, "title", "content")} onSubmit={this.onSubmit}/>
                 <br />
-                <Link to="/diarys" className="item">
+                <Link to={`${DIARIES_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
             </div>

@@ -4,13 +4,14 @@ import Modal from "../Modal";
 import {connect} from "react-redux";
 import {fetchEverydayGoal, deleteEverydayGoal, commitEverydayGoal} from "../../actions"
 import { Link } from "react-router-dom";
+import { EVERY_DAY_GOALS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 
 class EverydayGoalCommit extends React.Component {
     renderActions (){
         return (
             <React.Fragment>
                 <button onClick={() => this.props.commitEverydayGoal(this.props.match.params.id)} className="ui button negative">Commit</button>
-                <Link to="/goals"  className="ui button">Cancel</Link>
+                <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`}  className="ui button">Cancel</Link>
             </React.Fragment>
         );
     }
@@ -28,7 +29,7 @@ class EverydayGoalCommit extends React.Component {
 
     render(){
         return (
-            <Modal title="Commit Everyday Goal" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push("/goals")}/>
+            <Modal title="Commit Everyday Goal" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`)}/>
         );
     }
 

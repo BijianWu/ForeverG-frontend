@@ -4,6 +4,7 @@ import { fetchFutureTask, editFutureTask } from "../../actions";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import FutureTaskEditForm from "./FutureTaskEditForm";
+import { FUTRUE_TASKS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 
 class FutureTaskEdit extends React.Component {
     componentDidMount() {
@@ -23,7 +24,7 @@ class FutureTaskEdit extends React.Component {
                 <h3>Edit the future task</h3>
                 <FutureTaskEditForm initialValues={_.pick(this.props.futureTask, "title", "description")} onSubmit={this.onSubmit}/>
                 <br />
-                <Link to="/futuretasks" className="item">
+                <Link to={`${FUTRUE_TASKS_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
             </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchEverydayGoal } from "../../actions";
+import { EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 import { todayDateCreator } from "../../utils/todayDateCreator";
 
 class EverydayGoalDetail extends React.Component {
@@ -14,8 +15,6 @@ class EverydayGoalDetail extends React.Component {
     componentDidMount() {
         const { id } = this.props.match.params;
         this.props.fetchEverydayGoal(id);
-
-        // this.buildPlayer();
     }
 
     render() {
@@ -28,9 +27,9 @@ class EverydayGoalDetail extends React.Component {
 
         if (updated_at !== todayDateCreator()) {
             if(forever_days > 0){
-                commitElement = <div><h5>You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`/goals/everydaygoals/commit/${id}`} className="ui button secondary">Commit</Link></div> 
+                commitElement = <div><h5>You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div> 
             } else {
-                commitElement = <div><h5>You have haven't commited today, commit it now</h5><Link to={`/goals/everydaygoals/commit/${id}`} className="ui button secondary">Commit</Link></div>
+                commitElement = <div><h5>You have haven't commited today, commit it now</h5><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div>
             }
         } else {
             commitElement = <h5>You have Committed today, good job</h5>;
@@ -84,20 +83,12 @@ class EverydayGoalDetail extends React.Component {
                         {commitElement}
                     </div>
                 </div>
-                {/* <div className="ui vertical padded segment">         
-                    <div className="ui raised segment">
-                    <Link to={`/goals/everydaygoals/delete/${id}`} className="ui button negative">
-                        Delete
-                    </Link>
-                    </div>
-                </div> */}
 
 
             </div>
-            {/* {commitElement} */}
             <br />
             <div>
-                <Link to="/goals" className="item">
+                <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
                 <br/><br/>

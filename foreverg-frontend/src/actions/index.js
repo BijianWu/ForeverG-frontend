@@ -2,6 +2,7 @@ import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_S
 import streams from "../apis/goals";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
+import { DIARIES_HOME_PAGE_LINK, EVERY_DAY_GOALS_HOME_PAGE_LINK, FUTRUE_TASKS_HOME_PAGE_LINK, HOME_PAGE_LINK } from "../constants/pagesLink";
 
 export const clearAllNotifications = () => async (dispatch, getState) => {
     dispatch({type: CLEAR_ALL_NOTIFICATIONS});
@@ -72,7 +73,7 @@ export const register = (formValues) => async(dispatch, getState) => {
                     localStorage.setItem("FOREVER_G_TOKEN", getJWTTokenResponse.data.access);   
                 }
                 fetchEverydayGoals();
-                history.push("/");
+                history.push(`${HOME_PAGE_LINK}`);
             }).catch(
                 e => {
                     if(e.response && e.response.data && e.response.data.errorTitle){
@@ -105,7 +106,7 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
                     payload: res.data
                 })
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Created a new goal',message: 'Successfully created a new goal'}});
-                history.push("/goals")
+                history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`)
             }
         )
         .catch(
@@ -149,7 +150,7 @@ export const editEverydayGoal = (id, formValues) => async (dispatch, getState) =
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the goal',message: 'Successfully edited the goal'}});
             dispatch({type: EDIT_STREAM, payload: response.data});
-            history.push("/goals");
+            history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
     .catch(
@@ -171,7 +172,7 @@ export const deleteEverydayGoal = (id) => async (dispatch, getState) => {
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the goal',message: 'Successfully deleted the goal'}});
             dispatch({type: DELETE_STREAM, payload: id});
-            history.push("/goals");
+            history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
     .catch(
@@ -203,7 +204,7 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Commmited the goal', message: 'Successfully commited the goal'}});
 
             dispatch({type: COMMIT_STREAM, payload: response.data});
-            history.push("/goals");
+            history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
     .catch(
@@ -238,7 +239,7 @@ export const createDiary = (formValues) => async(dispatch, getState) => {
                     payload: res.data
                 })
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Created a new diary',message: 'Successfully created a new diary'}});
-                history.push("/diarys")
+                history.push(`${DIARIES_HOME_PAGE_LINK}`);
             }
         )
         .catch(
@@ -282,7 +283,7 @@ export const editDiary = (id, formValues) => async (dispatch, getState) => {
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the diary',message: 'Successfully edited the diary'}});
             dispatch({type: EDIT_DIARY, payload: response.data});
-            history.push("/diarys");
+            history.push(`${DIARIES_HOME_PAGE_LINK}`);
         }
     )
     .catch(
@@ -305,7 +306,7 @@ export const deleteDiary = (id) => async (dispatch, getState) => {
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the diary',message: 'Successfully deleted the diary'}});
             dispatch({type: DELETE_DIARY, payload: id});
-            history.push("/diarys");
+            history.push(`${DIARIES_HOME_PAGE_LINK}`);
         }
     )
     .catch(
@@ -344,7 +345,7 @@ export const createFutureTask = (formValues) => async(dispatch, getState) => {
                     payload: res.data
                 })
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Created a new future task',message: 'Successfully created a new future task'}});
-                history.push("/futureTasks")
+                history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`)
             }
         )
         .catch(
@@ -388,7 +389,7 @@ export const editFutureTask = (id, formValues) => async (dispatch, getState) => 
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the future task',message: 'Successfully edited the future task'}});
             dispatch({type: EDIT_FUTURE_TASK, payload: response.data});
-            history.push("/futureTasks");
+            history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`);
         }
     )
     .catch(
@@ -410,7 +411,7 @@ export const deleteFutureTask = (id) => async (dispatch, getState) => {
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the future task',message: 'Successfully deleted the future task'}});
             dispatch({type: DELETE_FUTURE_TASK, payload: id});
-            history.push("/futureTasks");
+            history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`);
         }
     )
     .catch(
@@ -442,7 +443,7 @@ export const completeFutureTask = (id) => async (dispatch, getState) => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Completed the task', message: 'Successfully completed the task'}});
 
             dispatch({type: COMPLETE_FUTURE_TASK, payload: response.data});
-            history.push("/futuretasks");
+            history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`);
         }
     )
     .catch(

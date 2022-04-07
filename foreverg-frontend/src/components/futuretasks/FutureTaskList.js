@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchFutureTasks} from "../../actions"
+import { FUTRUE_TASKS_DELETE_PAGE_LINK_PREFIX, FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX, FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX, FUTRUE_TASKS_NEW_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../../constants/pagesLink";
 import { isPassedDeadlineDate, todayDateCreator } from "../../utils/todayDateCreator";
 import taskTargetImg from "./taskTarget.jpg";
 class FutureTaskList extends React.Component {
@@ -32,7 +33,7 @@ class FutureTaskList extends React.Component {
                 commitElement = <button className="ui button green basic wbj-active-button">Completed</button>
             } else{
                 if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
-                    commitElement = <Link to={`/futuretasks/edit/${futureTask.id}`} className="ui button primary">Edit</Link>
+                    commitElement = <Link to={`${FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX}/${futureTask.id}`} className="ui button primary">Edit</Link>
                 } else {
                     // commitElement = <p>Committed</p>;
                     commitElement = <button className="ui button red basic wbj-active-button">Failed</button>
@@ -58,7 +59,7 @@ class FutureTaskList extends React.Component {
                     <img src={taskTargetImg}/>
                 </div>
                 <div className="content">
-                    <div className="header"><Link to={`/futuretasks/${futureTask.id}`} className={`header`}>
+                    <div className="header"><Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} className={`header`}>
                               {futureTask.title}
                           </Link></div>
                     <div className="description">
@@ -67,7 +68,7 @@ class FutureTaskList extends React.Component {
                 </div>
                 <div className="ui two bottom attached buttons">
                     {this.renderAmin(futureTask)}
-                    <Link to={`/futuretasks/delete/${futureTask.id}`} className="ui button negative">
+                    <Link to={`${FUTRUE_TASKS_DELETE_PAGE_LINK_PREFIX}/${futureTask.id}`} className="ui button negative">
                         Delete
                     </Link>
                 </div>
@@ -81,7 +82,7 @@ class FutureTaskList extends React.Component {
             return (
                 <div style={{ textAlign: "center"}}>
                     <br />
-                    <Link to="/futuretasks/new" className="ui button primary">
+                    <Link to={`${FUTRUE_TASKS_NEW_PAGE_LINK}`} className="ui button primary">
                         Create a new future task
                     </Link>
                     <br /><br />
@@ -92,7 +93,7 @@ class FutureTaskList extends React.Component {
 
     render(){
         if(!this.props.isSignedIn || this.props.isSignedIn === false){
-            return <div>Please  <Link to="/signin">
+            return <div>Please  <Link to={`${SIGN_IN_PAGE_LINK}`}>
             Log In
         </Link> to view your future tasks</div>
         }

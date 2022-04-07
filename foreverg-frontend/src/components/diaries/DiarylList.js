@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchDiaries} from "../../actions"
+import { DIARIES_DELETE_PAGE_LINK_PREFIX, DIARIES_DETAIL_PAGE_LINK_PREFIX, DIARIES_EDIT_PAGE_LINK_PREFIX, DIARIES_NEW_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../../constants/pagesLink";
 import diaryImg from "./diary.jpg"
 
 class DiarylList extends React.Component {
@@ -25,18 +26,18 @@ class DiarylList extends React.Component {
             let commitElement;
 
             if (everydayGoal.can_be_edited) {
-                commitElement = <Link to={`/diarys/edit/${everydayGoal.id}`} className="ui button primary">Edit</Link>
+                commitElement = <Link to={`${DIARIES_EDIT_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button primary">Edit</Link>
             } else {
                 // commitElement = <p>Committed</p>;
                 // commitElement = <button className="ui button positive basic wbj-active-button">None Editable</button>
-                commitElement = <Link to={`/diarys/${everydayGoal.id}`} className="ui button">View</Link>
+                commitElement = <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button">View</Link>
             }
             return (
                 <div className="right floated content">
 
                     {commitElement}
 
-                    <Link to={`/diarys/delete/${everydayGoal.id}`} className="ui button negative">
+                    <Link to={`${DIARIES_DELETE_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button negative">
                         Delete
                     </Link>
                 </div>
@@ -61,7 +62,7 @@ class DiarylList extends React.Component {
                         <img src={diaryImg} />
                     </div>
                     <div className="content">
-                        <Link to={`/diarys/${diary.id}`} className="ui header button">
+                        <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${diary.id}`} className="ui header button">
                             {diary.title}
                         </Link>
                         <div className="meta">
@@ -84,7 +85,7 @@ class DiarylList extends React.Component {
             return (
                 <div style={{ textAlign: "center"}}>
                     <br />
-                    <Link to="/diarys/new" className="ui button primary">
+                    <Link to={`${DIARIES_NEW_PAGE_LINK}`} className="ui button primary">
                         Create a new diary
                     </Link>
                     <br /><br />
@@ -95,7 +96,7 @@ class DiarylList extends React.Component {
 
     render(){
         if(!this.props.isSignedIn || this.props.isSignedIn === false){
-            return <div>Please  <Link to="/signin">
+            return <div>Please  <Link to={`${SIGN_IN_PAGE_LINK}`}>
             Log In
         </Link> to view your diaries</div>
         }

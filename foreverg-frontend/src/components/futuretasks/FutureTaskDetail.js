@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchFutureTask } from "../../actions";
+import { FUTRUE_TASKS_COMPLETE_PAGE_LINK_PREFIX, FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX, FUTRUE_TASKS_HOME_PAGE_LINK } from "../../constants/pagesLink";
 import { isPassedDeadlineDate } from "../../utils/todayDateCreator";
 
 class FutureTaskDetail extends React.Component {
@@ -33,12 +34,12 @@ class FutureTaskDetail extends React.Component {
             } else {
                 statusElement = <div>
                     <div className="ui buttons">
-                    <Link to={`/futuretasks/complete/${this.props.futureTask.id}`} className="item">
+                    <Link to={`${FUTRUE_TASKS_COMPLETE_PAGE_LINK_PREFIX}/${this.props.futureTask.id}`} className="item">
                         <button className="ui positive button"> Complete it now</button>
                     </Link>
 
                     <div className="or"></div>
-                    <Link to={`/futuretasks/edit/${this.props.futureTask.id}`} className="item">
+                    <Link to={`${FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX}/${this.props.futureTask.id}`} className="item">
                         <button className="ui button">Edit</button>
                     </Link> 
                     
@@ -106,7 +107,7 @@ class FutureTaskDetail extends React.Component {
             {/* {commitElement} */}
             <br />
             <div>
-                <Link to="/futuretasks" className="item">
+                <Link to={`${FUTRUE_TASKS_HOME_PAGE_LINK}`} className="item">
                     Go Back
                 </Link>
                 <br/><br/>

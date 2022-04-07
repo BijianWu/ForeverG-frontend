@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signIn, signOut, clearEverydayGoals, addNotification } from "../actions"
-import goals from "../apis/goals";
 import {fetchEverydayGoals, fetchDiaries, fetchFutureTasks, clearAllFutureTasks, clearAllDiaries} from "../actions/index"
 import history from "../history";
 import { parseJwt } from "../utils/jsonParser";
+import { HOME_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../constants/pagesLink";
 
 class DjangoAuth extends React.Component{
     constructor(props) {
@@ -35,7 +35,7 @@ class DjangoAuth extends React.Component{
 
     
     onSignInClick = async () => {
-        history.push("/signin")
+        history.push(`${SIGN_IN_PAGE_LINK}`);
     }
 
     onSignOutClick = () => {
@@ -48,7 +48,7 @@ class DjangoAuth extends React.Component{
         this.props.signOut();
         this.props.addNotification({type: "SUCCESS", title: 'Logged out',message: 'You have logged out'})
         this.setState({token: "", username: "", password: ""}); 
-        history.push("/");
+        history.push(`${HOME_PAGE_LINK}`);
         // this.auth.signOut();
     }
 
