@@ -1,2 +1,3 @@
 //tweak this when testing locally
-export const GITHUB_PREFIX = "ForeverG-frontend";
+//remote ForeverG-frontend
+export const GITHUB_PREFIX = "";
