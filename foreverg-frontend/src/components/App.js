@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Router, Switch } from "react-router-dom";
+import {BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import Header from "./Header";
 import EveryDayGoalEdit from "./everydaygoals/EverydayGoalEdit";
 import EveryDayGoalCreate from "./everydaygoals/EverydayGoalCreate";
@@ -29,7 +29,7 @@ import { DIARIES_DELETE_PAGE_LINK_PREFIX, DIARIES_DETAIL_PAGE_LINK_PREFIX, DIARI
 const App = () => {
     return (
         <div className="ui container">
-            <Router history={history}>
+            <BrowserRouter history={history} basename="ForeverG-frontend">
                 <div>
                     <Header />
                     <ToastNotifications position="bottom-right" autoDeleteInterval={1500}/>
@@ -63,7 +63,7 @@ const App = () => {
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
-            </Router>
+            </BrowserRouter>
         </div>
     );
 };
