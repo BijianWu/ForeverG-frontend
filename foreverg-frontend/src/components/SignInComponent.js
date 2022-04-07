@@ -9,6 +9,13 @@ import { parseJwt } from "../utils/jsonParser";
 import SignInForm from "./SignInForm";
 
 class RegisterComponent extends React.Component {
+    componentDidMount(){
+        if(!this.props.isSignedIn || this.props.isSignedIn === false) {
+            history.push(`${HOME_PAGE_LINK}`);
+            return;
+        }
+    }
+
     onSubmit = async (formValues)=> {
         await apis.post("/auth/jwt/create/", {username: formValues.username, password: formValues.password})
         .then(
@@ -30,9 +37,6 @@ class RegisterComponent extends React.Component {
             e => {
                 this.props.addNotification({type: "ERROR", title: 'Failed to log in',message: 'please try again'});
         })
-
-
-
     }
 
     render(){
@@ -48,6 +52,11 @@ class RegisterComponent extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return { 
+        currentUserId: state.auth.userId,
+        isSignedIn: state.auth.isSignedIn
+    };
+};
 
-
-export default connect(null, {signIn, fetchEverydayGoals, addNotification})(RegisterComponent);
+export default connect(mapStateToProps, {signIn, fetchEverydayGoals, addNotification})(RegisterComponent);

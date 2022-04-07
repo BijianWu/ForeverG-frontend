@@ -50,9 +50,13 @@ class DiarylList extends React.Component {
 
         return this.props.diaries.map((diary) =>{
             let content = "";
-            if(diary.content && diary.content.length > 10){
-                content = diary.content.substring(0,10) + " ...";
+            if(diary.content){
+                content = diary.content;
+                if(diary.content.length > 10) {
+                    content = diary.content.substring(0,10) + " ...";
+                }
             }
+
             return (
                 <div className="ui card" key={diary.id}>
                     <div className="image">
@@ -66,7 +70,7 @@ class DiarylList extends React.Component {
                         <span className="date">Created at {diary.created_at}</span>
                         </div>
                         <div className="description">
-                        {content}
+                        {diary.content ? content: 'No content'}
                         </div>
                     </div>
                     <div className="extra content">

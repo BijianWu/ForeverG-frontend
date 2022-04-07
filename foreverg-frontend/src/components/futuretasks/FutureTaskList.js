@@ -49,8 +49,11 @@ class FutureTaskList extends React.Component {
 
         return this.props.futureTasks.map((futureTask) =>{
             let description = "";
-            if(futureTask.description && futureTask.description.length > 10){
-                description = futureTask.description.substring(0,10) + " ...";
+            if(futureTask.description){
+                description = futureTask.description;
+                if(futureTask.description.length > 10){
+                    description = futureTask.description.substring(0,10) + " ...";
+                }
             }
 
             return (
@@ -63,7 +66,7 @@ class FutureTaskList extends React.Component {
                               {futureTask.title}
                           </Link></div>
                     <div className="description">
-                    {description && description.length > 0 ? description: 'No description'}
+                    {futureTask.description ? description: 'No description'}
                     </div>
                 </div>
                 <div className="ui two bottom attached buttons">

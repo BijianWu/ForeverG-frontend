@@ -18,7 +18,11 @@ export const addNotification = (notification) => async (dispatch, getState) => {
     dispatch({type: ADD_NOTIFICATION, payload: notification});
 }
 
-export const signIn = (userId, accessToken)=> {
+export const signIn = (userId, accessToken)=> async (dispatch, getState) => {
+    // if(!getState().auth.isSignedIn || getState().auth.isSignedIn === false) {
+    //     history.push(`${HOME_PAGE_LINK}`);
+    //     return;
+    // }
     return{
         type: SIGN_IN,
         payload: {
@@ -45,6 +49,10 @@ export const fetchEverydayGoals = () => async (dispatch, getState) => {
 }
 
 export const register = (formValues) => async(dispatch, getState) => {
+    // if(!getState().auth.isSignedIn || getState().auth.isSignedIn === false) {
+    //     history.push(`${HOME_PAGE_LINK}`);
+    //     return;
+    // }
     await apis.post("/auth/users/", { 
         username: formValues.username,
         password: formValues.password,

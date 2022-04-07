@@ -51,9 +51,13 @@ class EverydayGoalList extends React.Component {
 
         return this.props.everydayGoals.map((everydayGoal, index) =>{
             let description = "";
-            if(everydayGoal.description && everydayGoal.description.length > 10){
-                description = everydayGoal.description.substring(0,10) + " ...";
+            if(everydayGoal.description){
+                description = everydayGoal.description;
+                if(everydayGoal.description.length > 10){
+                    description = everydayGoal.description.substring(0,10) + " ...";
+                }
             }
+
 
             return (
                 <div className="card ui clearing segment" key={everydayGoal.id}>
@@ -66,7 +70,7 @@ class EverydayGoalList extends React.Component {
                             </Link>
                         </h2>
                         <p className="ui centered ">                        
-                            {description.length > 0 ? description: 'No description'}
+                            {everydayGoal.description ? description: 'No description'}
                         </p>
 
                         <div className="ui clearing divider"></div>
