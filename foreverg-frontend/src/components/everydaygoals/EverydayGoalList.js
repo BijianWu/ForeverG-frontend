@@ -47,11 +47,9 @@ class EverydayGoalList extends React.Component {
     }
 
     renderList(){
-        if(this.props.streams.length <= 0){ return <div>No Content</div>}
+        if(this.props.everydayGoals.length <= 0){ return <div>No Content</div>}
 
-        // if(this.props.streams.length <= 0) {return <div>No Content</div>}
-        // this.props.fetchEverydayGoals();
-        return this.props.streams.map((everydayGoal, index) =>{
+        return this.props.everydayGoals.map((everydayGoal, index) =>{
             let description = "";
             if(everydayGoal.description && everydayGoal.description.length > 10){
                 description = everydayGoal.description.substring(0,10) + " ...";
@@ -125,9 +123,9 @@ class EverydayGoalList extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        streams: Object.values(state.streams), 
-         currentUserId: state.auth.userId,
-         isSignedIn: state.auth.isSignedIn
+        everydayGoals: Object.values(state.everydayGoals), 
+        currentUserId: state.auth.userId,
+        isSignedIn: state.auth.isSignedIn
     };
 };
 

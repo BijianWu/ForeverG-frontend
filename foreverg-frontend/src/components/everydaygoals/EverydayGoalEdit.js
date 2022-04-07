@@ -16,13 +16,13 @@ class EverydayGoalEdit extends React.Component {
     }
 
     render() {
-        if(!this.props.stream){
+        if(!this.props.everydayGoal){
             return <div>Loading..</div>
         }
         return (
             <div>
                 <h3>Edit a Everyday goal</h3>
-                <EveryDayGoalForm initialValues={_.pick(this.props.stream, "title", "description")} onSubmit={this.onSubmit}/>
+                <EveryDayGoalForm initialValues={_.pick(this.props.everydayGoal, "title", "description")} onSubmit={this.onSubmit}/>
                 <br />
                 <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`} className="item">
                     Go Back
@@ -33,7 +33,7 @@ class EverydayGoalEdit extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    return {stream: state.streams[ownProps.match.params.id]};
+    return {everydayGoal: state.everydayGoals[ownProps.match.params.id]};
 }
 
 export default connect(mapStateToProps, {fetchEverydayGoal, editEverydayGoal})(EverydayGoalEdit);

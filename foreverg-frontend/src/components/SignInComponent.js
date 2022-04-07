@@ -2,7 +2,7 @@ import React from "react";
 import{ connect} from "react-redux";
 import { Link } from "react-router-dom";
 import {signIn, fetchEverydayGoals, addNotification} from "../actions"
-import goals from "../apis/goals";
+import apis from "../apis/apis";
 import { HOME_PAGE_LINK, REGISTER_PAGE_LINK } from "../constants/pagesLink";
 import history from "../history";
 import { parseJwt } from "../utils/jsonParser";
@@ -10,7 +10,7 @@ import SignInForm from "./SignInForm";
 
 class RegisterComponent extends React.Component {
     onSubmit = async (formValues)=> {
-        await goals.post("/auth/jwt/create/", {username: formValues.username, password: formValues.password})
+        await apis.post("/auth/jwt/create/", {username: formValues.username, password: formValues.password})
         .then(
             res => {
                 this.props.addNotification({type: "SUCCESS", title: 'Logged in',message: 'successfully logged in'});
@@ -38,7 +38,7 @@ class RegisterComponent extends React.Component {
     render(){
         return (
             <div>
-                <h3>Registering a new account</h3>
+                <h3>Log in</h3>
                 <SignInForm onSubmit={this.onSubmit}/>
                 Don't have an account? <Link to={`${REGISTER_PAGE_LINK}`} className="item">
                 Register

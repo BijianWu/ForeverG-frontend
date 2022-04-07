@@ -48,9 +48,6 @@ class DiarylList extends React.Component {
     renderList(){
         if(this.props.diaries.length <= 0){ return <div>No Content</div>}
 
-        // if(this.props.streams.length <= 0) {return <div>No Content</div>}
-        // this.props.fetchEverydayGoals();
-
         return this.props.diaries.map((diary) =>{
             let content = "";
             if(diary.content && diary.content.length > 10){

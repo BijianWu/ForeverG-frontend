@@ -4,12 +4,12 @@ import authReducer from "./authReducer";
 import diariesReducer from "./diariesReducer";
 import futureTasksReducer from "./futureTasksReducer";
 import notifications from "./notificationsReducer";
-import streamReducer from "./streamReducer";
+import everydayGoalsReducer from "./everydayGoalsReducer";
 
 export default combineReducers({
     auth: authReducer,
     form: formReducer,
-    streams: streamReducer,
+    everydayGoals: everydayGoalsReducer,
     notifications: notifications,
     diaries: diariesReducer,
     futureTasks: futureTasksReducer

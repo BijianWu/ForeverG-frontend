@@ -4,7 +4,7 @@ export const HOME_PAGE_LINK = `${GITHUB_PREFIX}`;
 export const SIGN_IN_PAGE_LINK = `${GITHUB_PREFIX}/signin`;
 export const REGISTER_PAGE_LINK= `${GITHUB_PREFIX}/register`;
 
-export const EVERY_DAY_GOALS_HOME_PAGE_LINK = `${GITHUB_PREFIX}/goals`;
+export const EVERY_DAY_GOALS_HOME_PAGE_LINK = `${GITHUB_PREFIX}/goals/everydaygoals`;
 export const EVERY_DAY_GOALS_NEW_PAGE_LINK =  `${GITHUB_PREFIX}/goals/everydaygoals/new`;
 export const EVERY_DAY_GOALS_EDIT_PAGE_LINK_PREFIX = `${GITHUB_PREFIX}/goals/everydaygoals/edit`;
 export const EVERY_DAY_GOALS_DELETE_PAGE_LINK_PREFIX = `${GITHUB_PREFIX}/goals/everydaygoals/delete`;

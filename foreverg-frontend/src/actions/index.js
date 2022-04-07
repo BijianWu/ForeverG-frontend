@@ -1,5 +1,5 @@
-import { CREATE_STREAM, SIGN_IN, SIGN_OUT, FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, EDIT_STREAM, REGISTER, COMMIT_STREAM, CLEAR_EVERYDAY_GOAL, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK, COMPLETE_FUTURE_TASK, CLEAR_ALL_FUTURE_TASKS, CLEAR_ALL_DIARIES } from "./types";
-import streams from "../apis/goals";
+import { CREATE_EVERYDAY_GOAL, SIGN_IN, SIGN_OUT, FETCH_EVERYDAY_GOAL, FETCH_EVERYDAY_GOALS, DELETE_EVERYDAY_GOAL, EDIT_EVERYDAY_GOAL, REGISTER, COMMIT_EVERYDAY_GOAL, CLEAR_EVERYDAY_GOALS, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK, COMPLETE_FUTURE_TASK, CLEAR_ALL_FUTURE_TASKS, CLEAR_ALL_DIARIES } from "./types";
+import apis from "../apis/apis";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
 import { DIARIES_HOME_PAGE_LINK, EVERY_DAY_GOALS_HOME_PAGE_LINK, FUTRUE_TASKS_HOME_PAGE_LINK, HOME_PAGE_LINK } from "../constants/pagesLink";
@@ -28,7 +28,7 @@ export const signIn = (userId, accessToken)=> {
     };
 };
 export const clearEverydayGoals = () => async (dispatch, getState) => {
-    dispatch({type: CLEAR_EVERYDAY_GOAL});
+    dispatch({type: CLEAR_EVERYDAY_GOALS});
 }
 export const signOut = ()=> {
     return{
@@ -39,13 +39,13 @@ export const signOut = ()=> {
 
 export const fetchEverydayGoals = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    const response = await streams.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
+    const response = await apis.get("/goals/everydaygoals/", {headers: {Authorization:  `JWT ${accessToken}`}});
 
-    dispatch({type: FETCH_STREAMS, payload: response.data.results});
+    dispatch({type: FETCH_EVERYDAY_GOALS, payload: response.data.results});
 }
 
 export const register = (formValues) => async(dispatch, getState) => {
-    await streams.post("/auth/users/", { 
+    await apis.post("/auth/users/", { 
         username: formValues.username,
         password: formValues.password,
         email: formValues.email,
@@ -56,7 +56,7 @@ export const register = (formValues) => async(dispatch, getState) => {
         async registerResponse => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Registered successfully',message: 'successfully registed.'}});
             // http://127.0.0.1:8000/auth/jwt/create
-            await streams.post("/auth/jwt/create/", { 
+            await apis.post("/auth/jwt/create/", { 
                 username: formValues.username,
                 password: formValues.password,
             }).then(getJWTTokenResponse => {
@@ -97,12 +97,12 @@ export const register = (formValues) => async(dispatch, getState) => {
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    // const res = await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}});
-    await streams.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
+
+    await apis.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
         .then(
             res => {
                 dispatch({
-                    type: CREATE_STREAM,
+                    type: CREATE_EVERYDAY_GOAL,
                     payload: res.data
                 })
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Created a new goal',message: 'Successfully created a new goal'}});
@@ -124,10 +124,10 @@ export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
 export const fetchEverydayGoal = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.get(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.get(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
-            dispatch({type: FETCH_STREAM, payload: response.data});
+            dispatch({type: FETCH_EVERYDAY_GOAL, payload: response.data});
         }
     )
     .catch(
@@ -145,11 +145,11 @@ export const fetchEverydayGoal = (id) => async (dispatch, getState) => {
 export const editEverydayGoal = (id, formValues) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.patch(`/goals/everydaygoals/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.patch(`/goals/everydaygoals/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the goal',message: 'Successfully edited the goal'}});
-            dispatch({type: EDIT_STREAM, payload: response.data});
+            dispatch({type: EDIT_EVERYDAY_GOAL, payload: response.data});
             history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
@@ -167,11 +167,11 @@ export const editEverydayGoal = (id, formValues) => async (dispatch, getState) =
 export const deleteEverydayGoal = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.delete(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.delete(`/goals/everydaygoals/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the goal',message: 'Successfully deleted the goal'}});
-            dispatch({type: DELETE_STREAM, payload: id});
+            dispatch({type: DELETE_EVERYDAY_GOAL, payload: id});
             history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
@@ -198,12 +198,12 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
         formattedMonth=""+month;
     }
 
-    await streams.patch(`/goals/everydaygoals/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.patch(`/goals/everydaygoals/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Commmited the goal', message: 'Successfully commited the goal'}});
 
-            dispatch({type: COMMIT_STREAM, payload: response.data});
+            dispatch({type: COMMIT_EVERYDAY_GOAL, payload: response.data});
             history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
@@ -223,7 +223,7 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
 //diaries
 export const fetchDiaries = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    const response = await streams.get("/goals/diarys/", {headers: {Authorization:  `JWT ${accessToken}`}});
+    const response = await apis.get("/goals/diarys/", {headers: {Authorization:  `JWT ${accessToken}`}});
 
     dispatch({type: FETCH_DIARIES, payload: response.data.results});
 }
@@ -231,7 +231,7 @@ export const fetchDiaries = () => async (dispatch, getState) => {
 export const createDiary = (formValues) => async(dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.post("/goals/diarys/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.post("/goals/diarys/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
         .then(
             res => {
                 dispatch({
@@ -257,7 +257,7 @@ export const createDiary = (formValues) => async(dispatch, getState) => {
 export const fetchDiary = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.get(`/goals/diarys/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.get(`/goals/diarys/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: FETCH_DIARY, payload: response.data});
@@ -278,7 +278,7 @@ export const fetchDiary = (id) => async (dispatch, getState) => {
 export const editDiary = (id, formValues) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.patch(`/goals/diarys/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.patch(`/goals/diarys/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the diary',message: 'Successfully edited the diary'}});
@@ -301,7 +301,7 @@ export const editDiary = (id, formValues) => async (dispatch, getState) => {
 export const deleteDiary = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.delete(`/goals/diarys/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.delete(`/goals/diarys/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the diary',message: 'Successfully deleted the diary'}});
@@ -329,7 +329,7 @@ export const clearAllDiaries = () => async (dispatch, getState) => {
 //future tasks
 export const fetchFutureTasks = () => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-    const response = await streams.get("/goals/futuretasks/", {headers: {Authorization:  `JWT ${accessToken}`}});
+    const response = await apis.get("/goals/futuretasks/", {headers: {Authorization:  `JWT ${accessToken}`}});
 
     dispatch({type: FETCH_FUTURE_TASKS, payload: response.data.results});
 }
@@ -337,7 +337,7 @@ export const fetchFutureTasks = () => async (dispatch, getState) => {
 export const createFutureTask = (formValues) => async(dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.post("/goals/futuretasks/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.post("/goals/futuretasks/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
         .then(
             res => {
                 dispatch({
@@ -363,7 +363,7 @@ export const createFutureTask = (formValues) => async(dispatch, getState) => {
 export const fetchFutureTask = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.get(`/goals/futuretasks/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.get(`/goals/futuretasks/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: FETCH_FUTURE_TASK, payload: response.data});
@@ -384,7 +384,7 @@ export const fetchFutureTask = (id) => async (dispatch, getState) => {
 export const editFutureTask = (id, formValues) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.patch(`/goals/futuretasks/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.patch(`/goals/futuretasks/${id}/`, formValues, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Edited the future task',message: 'Successfully edited the future task'}});
@@ -406,7 +406,7 @@ export const editFutureTask = (id, formValues) => async (dispatch, getState) => 
 export const deleteFutureTask = (id) => async (dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
 
-    await streams.delete(`/goals/futuretasks/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.delete(`/goals/futuretasks/${id}/`, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the future task',message: 'Successfully deleted the future task'}});
@@ -437,7 +437,7 @@ export const completeFutureTask = (id) => async (dispatch, getState) => {
         formattedMonth=""+month;
     }
 
-    await streams.patch(`goals/futuretasks/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.patch(`goals/futuretasks/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Completed the task', message: 'Successfully completed the task'}});

@@ -20,11 +20,11 @@ class EverydayGoalDelete extends React.Component {
     }
 
     renderContent() {
-        if(!this.props.stream) {
+        if(!this.props.everydayGoal) {
             return "Are you sure you want to delete this everyday goal?";
         }
 
-        return `Are you sure you want to delete the everyday goal with title: ${this.props.stream.title}`;
+        return `Are you sure you want to delete the everyday goal with title: ${this.props.everydayGoal.title}`;
     }
 
     render(){
@@ -36,7 +36,7 @@ class EverydayGoalDelete extends React.Component {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    return {stream: state.streams[ownProps.match.params.id]}
+    return {everydayGoal: state.everydayGoals[ownProps.match.params.id]}
 };
 
 export default connect(mapStateToProps, {fetchEverydayGoal, deleteEverydayGoal})(EverydayGoalDelete);

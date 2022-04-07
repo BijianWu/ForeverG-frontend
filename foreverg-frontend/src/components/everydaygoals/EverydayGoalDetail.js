@@ -18,10 +18,10 @@ class EverydayGoalDetail extends React.Component {
     }
 
     render() {
-        if(!this.props.stream){
+        if(!this.props.everydayGoal){
             return <div>Loading...</div>
         }
-        const {title, description, forever_days, updated_at, created_at, id} = this.props.stream;
+        const {title, description, forever_days, updated_at, created_at, id} = this.props.everydayGoal;
 
         let commitElement;
 
@@ -101,7 +101,7 @@ class EverydayGoalDetail extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    return { stream: state.streams[ownProps.match.params.id]};
+    return { everydayGoal: state.everydayGoals[ownProps.match.params.id]};
 }
 
 export default connect(mapStateToProps, {fetchEverydayGoal})(EverydayGoalDetail);
