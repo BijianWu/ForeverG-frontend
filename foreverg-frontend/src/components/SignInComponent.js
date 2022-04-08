@@ -10,10 +10,15 @@ import SignInForm from "./SignInForm";
 
 class RegisterComponent extends React.Component {
     componentDidMount(){
-        if(!this.props.isSignedIn || this.props.isSignedIn === false) {
-            history.push(`${HOME_PAGE_LINK}`);
-            return;
+        if (typeof(Storage) !== "undefined") {
+            // Code for localStorage/sessionStorage.
+            if(localStorage.getItem("FOREVER_G_TOKEN")){
+                history.push(`${HOME_PAGE_LINK}`);
+            }
         }
+        // if(this.props.isSignedIn && this.props.isSignedIn === true) {
+            
+        // }
     }
 
     onSubmit = async (formValues)=> {
@@ -30,11 +35,12 @@ class RegisterComponent extends React.Component {
         
                 this.props.fetchEverydayGoals();
         
-                history.push(`${HOME_PAGE_LINK}/`);
+                history.push(`${HOME_PAGE_LINK}`);
             }
         )
         .catch(
             e => {
+                console.log(e);
                 this.props.addNotification({type: "ERROR", title: 'Failed to log in',message: 'please try again'});
         })
     }

@@ -46,7 +46,7 @@ class DjangoAuth extends React.Component{
         this.props.clearAllFutureTasks();
         this.props.clearAllDiaries();
         this.props.signOut();
-        this.props.addNotification({type: "SUCCESS", title: 'Logged out',message: 'You have logged out'})
+        this.props.addNotification({type: "INFO", title: 'Logged out',message: 'You have logged out'})
         this.setState({token: "", username: "", password: ""}); 
         history.push(`${HOME_PAGE_LINK}`);
         // this.auth.signOut();

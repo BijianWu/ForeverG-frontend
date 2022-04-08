@@ -8,10 +8,15 @@ import RegisterForm from "./RegisterForm";
 
 class RegisterComponent extends React.Component {
     componentDidMount(){
-        if(!this.props.isSignedIn || this.props.isSignedIn === false) {
-            history.push(`${HOME_PAGE_LINK}`);
-            return;
+        if (typeof(Storage) !== "undefined") {
+            // Code for localStorage/sessionStorage.
+            if(localStorage.getItem("FOREVER_G_TOKEN")){
+                history.push(`${HOME_PAGE_LINK}`);
+            }
         }
+        // if(this.props.isSignedIn && this.props.isSignedIn === true) {
+            
+        // }
     }
 
     onSubmit =(formValues)=> {

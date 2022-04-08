@@ -18,11 +18,17 @@ export const addNotification = (notification) => async (dispatch, getState) => {
     dispatch({type: ADD_NOTIFICATION, payload: notification});
 }
 
-export const signIn = (userId, accessToken)=> async (dispatch, getState) => {
+export const signIn = (userId, accessToken)=>  {
     // if(!getState().auth.isSignedIn || getState().auth.isSignedIn === false) {
     //     history.push(`${HOME_PAGE_LINK}`);
     //     return;
     // }
+    // dispatch({        
+    //     type: SIGN_IN,
+    //     payload: {
+    //         userId: userId,
+    //         accessToken:accessToken
+    //     }});
     return{
         type: SIGN_IN,
         payload: {
@@ -34,7 +40,10 @@ export const signIn = (userId, accessToken)=> async (dispatch, getState) => {
 export const clearEverydayGoals = () => async (dispatch, getState) => {
     dispatch({type: CLEAR_EVERYDAY_GOALS});
 }
-export const signOut = ()=> {
+export const signOut = ()=>  {
+    // dispatch({        
+    //     type: SIGN_OUT
+    // });
     return{
         type: SIGN_OUT
     };
