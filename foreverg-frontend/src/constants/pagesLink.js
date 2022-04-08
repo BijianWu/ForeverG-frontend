@@ -1,6 +1,7 @@
+import { isTestingLocally } from "../myConfig";
 import { GITHUB_PREFIX } from "./gitHubPagePrefix";
 
-export const HOME_PAGE_LINK = `${GITHUB_PREFIX}`;
+export const HOME_PAGE_LINK = `${GITHUB_PREFIX}${isTestingLocally ? "/": ""}`;//local testing needs to put the / here
 export const SIGN_IN_PAGE_LINK = `${GITHUB_PREFIX}/signin`;
 export const REGISTER_PAGE_LINK= `${GITHUB_PREFIX}/register`;
 

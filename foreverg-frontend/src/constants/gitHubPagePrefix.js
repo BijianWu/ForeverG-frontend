@@ -1,3 +1,6 @@
-//tweak this when testing locally
-//remote ForeverG-frontend
-export const GITHUB_PREFIX = "/ForeverG-frontend";
+//local empty string below
+
+import { isTestingLocally } from "../myConfig";
+
+//remote /ForeverG-frontend
+export const GITHUB_PREFIX = isTestingLocally? "" : "/ForeverG-frontend";
