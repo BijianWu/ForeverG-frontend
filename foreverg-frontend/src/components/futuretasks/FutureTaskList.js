@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchFutureTasks} from "../../actions"
@@ -10,6 +10,15 @@ class FutureTaskList extends React.Component {
         super(props);
 
         this.state={fetched:false};
+
+        this.firstLinkTabRef = createRef();
+        this.firstTabContentRef = createRef();
+
+        this.secondLinkTabRef = createRef();
+        this.secondTabContentRef = createRef();
+
+        this.thirdLinkTabRef = createRef();
+        this.thirdTabContentRef = createRef();
     }
 
     //when this component first rendered, call the fetch goals to the server
@@ -44,10 +53,18 @@ class FutureTaskList extends React.Component {
         }
     }
 
-    renderList(){
+    renderList(onlyShowCommitedTasks, onlyShowUnfinishedTasks){
         if(this.props.futureTasks.length <= 0){ return <div>No Content</div>}
 
-        return this.props.futureTasks.map((futureTask) =>{
+        
+        let filteredOne = this.props.futureTasks.slice();
+        if(onlyShowCommitedTasks){
+            filteredOne = this.props.futureTasks.filter(task => task.finished_at);
+        } else if(onlyShowUnfinishedTasks){
+            filteredOne = this.props.futureTasks.filter(task => !task.finished_at)
+        }
+
+        return filteredOne.map((futureTask) =>{
             let description = "";
             if(futureTask.description){
                 description = futureTask.description;
@@ -94,6 +111,63 @@ class FutureTaskList extends React.Component {
         }
     }
 
+    onFirstTapClicked = () => {
+        if(this.firstLinkTabRef && this.firstLinkTabRef.current){
+            if(!this.firstLinkTabRef.current.classList.contains("active")){
+                this.firstLinkTabRef.current.classList.add("active");
+                this.firstTabContentRef.current.classList.add("active");
+            }
+
+            if(this.secondLinkTabRef.current.classList.contains("active")){
+                this.secondLinkTabRef.current.classList.remove("active");
+                this.secondTabContentRef.current.classList.remove("active");
+            }
+
+            if(this.thirdLinkTabRef.current.classList.contains("active")){
+                this.thirdLinkTabRef.current.classList.remove("active");
+                this.thirdTabContentRef.current.classList.remove("active");
+            }
+        }
+    }
+
+    onSecondTapClicked = () => {
+        if(this.secondLinkTabRef && this.secondLinkTabRef.current){
+            if(this.firstLinkTabRef.current.classList.contains("active")){
+                this.firstLinkTabRef.current.classList.remove("active");
+                this.firstTabContentRef.current.classList.remove("active");
+            }
+
+            if(!this.secondLinkTabRef.current.classList.contains("active")){
+                this.secondLinkTabRef.current.classList.add("active");
+                this.secondTabContentRef.current.classList.add("active");
+            }
+
+            if(this.thirdLinkTabRef.current.classList.contains("active")){
+                this.thirdLinkTabRef.current.classList.remove("active");
+                this.thirdTabContentRef.current.classList.remove("active");
+            }
+        }
+    }
+
+    onThirdTapClicked = () => {
+        if(this.thirdLinkTabRef && this.thirdLinkTabRef.current){
+            if(this.firstLinkTabRef.current.classList.contains("active")){
+                this.firstLinkTabRef.current.classList.remove("active");
+                this.firstTabContentRef.current.classList.remove("active");
+            }
+
+            if(this.secondLinkTabRef.current.classList.contains("active")){
+                this.secondLinkTabRef.current.classList.remove("active");
+                this.secondTabContentRef.current.classList.remove("active");
+            }
+
+            if(!this.thirdLinkTabRef.current.classList.contains("active")){
+                this.thirdLinkTabRef.current.classList.add("active");
+                this.thirdTabContentRef.current.classList.add("active");
+            }
+        }
+    }
+
     render(){
         if(!this.props.isSignedIn || this.props.isSignedIn === false){
             return <div>Please  <Link to={`${SIGN_IN_PAGE_LINK}`}>
@@ -109,12 +183,31 @@ class FutureTaskList extends React.Component {
                 </h2>
 
                 {this.renderCreate()}
-                {/* <div className="ui items">
-                    {this.renderList()}
-                </div> */}
-                <div className="ui centered  cards ">
-                    {this.renderList()}
+
+                <div className="ui top attached tabular menu">
+                    <a ref={this.firstLinkTabRef} className="active item" data-tab="first" onClick={() => this.onFirstTapClicked()}>All</a>
+                    <a ref={this.secondLinkTabRef} className="item" data-tab="second" onClick={() => this.onSecondTapClicked()}>Completed</a>
+                    <a ref={this.thirdLinkTabRef} className="item" data-tab="third" onClick={() => this.onThirdTapClicked()}>Unfinished</a>
                 </div>
+                
+                <div ref={this.firstTabContentRef} className="ui bottom attached active tab segment" data-tab="first">
+                    <div className="ui cards centered">
+                        {this.renderList(false, false)}
+                    </div>
+                </div>
+
+                <div ref={this.secondTabContentRef} className="ui bottom attached tab segment" data-tab="second">
+                    <div className="ui cards centered">
+                        {this.renderList(true, false)}
+                    </div>
+                </div>
+
+                <div ref={this.thirdTabContentRef} className="ui bottom attached tab segment" data-tab="third">
+                    <div className="ui cards centered">
+                        {this.renderList(false, true)}
+                    </div>
+                </div>
+
             </div>
         )
     }

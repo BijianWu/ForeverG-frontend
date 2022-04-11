@@ -210,11 +210,15 @@ class EverydayGoalList extends React.Component {
                 </div>
 
                 <div ref={this.secondTabContentRef} className="ui bottom attached tab segment" data-tab="second">
-                    {this.renderList(true, false)}
+                    <div className="ui cards centered">
+                        {this.renderList(true, false)}
+                    </div>
                 </div>
 
                 <div ref={this.thirdTabContentRef} className="ui bottom attached tab segment" data-tab="third">
-                    {this.renderList(false, true)}
+                    <div className="ui cards centered">
+                        {this.renderList(false, true)}
+                    </div>
                 </div>
                 
             </div>

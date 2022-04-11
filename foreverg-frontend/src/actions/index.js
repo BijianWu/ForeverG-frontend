@@ -458,7 +458,7 @@ export const completeFutureTask = (id) => async (dispatch, getState) => {
         formattedMonth=""+month;
     }
 
-    await apis.patch(`goals/futuretasks/${id}/`, {updated_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
+    await apis.patch(`goals/futuretasks/${id}/`, {finished_at: todayDateCreator()}, {headers: {Authorization:  `JWT ${accessToken}`}})
     .then(
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Completed the task', message: 'Successfully completed the task'}});
