@@ -98,6 +98,7 @@ export const register = (formValues) => async(dispatch, getState) => {
                     } else{
                         dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Auto log in failed',message: 'please manually log in'}});
                     }
+                    history.push(`${HOME_PAGE_LINK}`);
             })
 
         }
@@ -109,6 +110,7 @@ export const register = (formValues) => async(dispatch, getState) => {
             } else{
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to Register',message: 'please try again'}});
             }
+            history.push(`${HOME_PAGE_LINK}`);
     })
 };
 
@@ -154,7 +156,7 @@ export const fetchEverydayGoal = (id) => async (dispatch, getState) => {
             } else{
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the goal',message: 'please try again later'}});
             }
-
+            history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
 }
@@ -177,6 +179,7 @@ export const editEverydayGoal = (id, formValues) => async (dispatch, getState) =
             } else{
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
             }
+            history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
         }
     )
 }
@@ -287,7 +290,7 @@ export const fetchDiary = (id) => async (dispatch, getState) => {
             } else{
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the diary',message: 'please try again later'}});
             }
-
+            history.push(`${DIARIES_HOME_PAGE_LINK}`);
         }
     )
 }
@@ -308,9 +311,9 @@ export const editDiary = (id, formValues) => async (dispatch, getState) => {
             if(e.response && e.response.data && e.response.data.errorTitle){
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
             } else{
-                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the goal',message: 'please try again later'}});
+                dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the diary',message: 'please try again later'}});
             }
-
+            history.push(`${DIARIES_HOME_PAGE_LINK}`);
         }
     )
 }
@@ -393,7 +396,7 @@ export const fetchFutureTask = (id) => async (dispatch, getState) => {
             } else{
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot get the future task',message: 'please try again later'}});
             }
-
+            history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`);
         }
     )
 }
@@ -416,6 +419,7 @@ export const editFutureTask = (id, formValues) => async (dispatch, getState) => 
             } else{
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Cannot edit the future task',message: 'please try again later'}});
             }
+            history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`);
         }
     )
 }
