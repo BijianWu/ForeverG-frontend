@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchEverydayGoals} from "../../actions"
 import { EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_DELETE_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_EDIT_PAGE_LINK_PREFIX, EVERY_DAY_GOALS_NEW_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../../constants/pagesLink";
+import { MAX_EVERYDAY_GOALS } from "../../myConfig";
 import { todayDateCreator } from "../../utils/todayDateCreator";
 import "./EverydayGoalList.css";
 
@@ -110,12 +111,25 @@ class EverydayGoalList extends React.Component {
 
     renderCreate() {
         if(this.props.isSignedIn) {
+            let elementsToRender;
+            let renderCreateEverydayGoal = true;
+            if(this.props.everydayGoals.length >= MAX_EVERYDAY_GOALS){
+                renderCreateEverydayGoal = false;
+                elementsToRender = <div className="ui inverted segment">
+                                <h4 className="ui red inverted header">Max Goals limit 10 reached</h4>
+                </div>
+
+            } else {
+                elementsToRender = <h3 className="ui block header">
+                <span className="ui grey massive circular label">{this.props.everydayGoals.length}</span> out of 10 goals have been created
+                </h3>
+            }
             return (
                 <div style={{ textAlign: "center"}}>
-
-                    <Link to={`${EVERY_DAY_GOALS_NEW_PAGE_LINK}`} className="ui button primary">
+                    {elementsToRender}
+                    {renderCreateEverydayGoal && <Link to={`${EVERY_DAY_GOALS_NEW_PAGE_LINK}`} className="ui button primary">
                         Create new everyday goal
-                    </Link>
+                    </Link>}
                     <br /><br />
                 </div>
             )

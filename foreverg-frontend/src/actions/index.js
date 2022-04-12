@@ -116,7 +116,7 @@ export const register = (formValues) => async(dispatch, getState) => {
 
 export const createEverydayGoal = (formValues) => async(dispatch, getState) => {
     const { userId, accessToken } = getState().auth;
-
+    
     await apis.post("/goals/everydaygoals/", { ...formValues, userId }, {headers: {Authorization:  `JWT ${accessToken}`}})
         .then(
             res => {
