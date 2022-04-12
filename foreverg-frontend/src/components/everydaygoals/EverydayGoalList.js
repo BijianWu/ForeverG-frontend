@@ -116,12 +116,12 @@ class EverydayGoalList extends React.Component {
             if(this.props.everydayGoals.length >= MAX_EVERYDAY_GOALS){
                 renderCreateEverydayGoal = false;
                 elementsToRender = <div className="ui inverted segment">
-                                <h4 className="ui red inverted header">Max Goals limit 10 reached</h4>
+                                <h4 className="ui red inverted header">Max Goals limit {MAX_EVERYDAY_GOALS} reached</h4>
                 </div>
 
             } else {
                 elementsToRender = <h3 className="ui block header">
-                <span className="ui grey massive circular label">{this.props.everydayGoals.length}</span> out of 10 goals have been created
+                <span className="ui grey massive circular label">{this.props.everydayGoals.length}</span> out of {MAX_EVERYDAY_GOALS} goals have been created
                 </h3>
             }
             return (

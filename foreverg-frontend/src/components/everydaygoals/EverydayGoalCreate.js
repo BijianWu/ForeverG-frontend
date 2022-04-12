@@ -10,7 +10,7 @@ import EverydayGoalForm from "./EverydayGoalForm";
 class EverydayGoalCreate extends React.Component {
     onSubmit =(formValues)=> {
         if(this.props.everydayGoals.length >= MAX_EVERYDAY_GOALS){
-            this.props.addNotification({type: "ERROR", title: 'Max 10 goals limit reached',message: 'please delete some if you want to add more to it'});
+            this.props.addNotification({type: "ERROR", title: `Max ${MAX_EVERYDAY_GOALS} goals limit reached`,message: 'please delete some if you want to add more to it'});
             history.push(EVERY_DAY_GOALS_HOME_PAGE_LINK);
             return;
         }

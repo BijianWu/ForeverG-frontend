@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {fetchFutureTasks} from "../../actions"
 import { FUTRUE_TASKS_DELETE_PAGE_LINK_PREFIX, FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX, FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX, FUTRUE_TASKS_NEW_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../../constants/pagesLink";
+import { MAX_FUTURE_TASKS } from "../../myConfig";
 import { isPassedDeadlineDate, todayDateCreator } from "../../utils/todayDateCreator";
 import taskTargetImg from "./taskTarget.jpg";
 class FutureTaskList extends React.Component {
@@ -99,12 +100,27 @@ class FutureTaskList extends React.Component {
 
     renderCreate() {
         if(this.props.isSignedIn) {
+            let elementsToRender;
+            let renderCreateEverydayGoal = true;
+            if(this.props.futureTasks.length >= MAX_FUTURE_TASKS){
+                renderCreateEverydayGoal = false;
+                elementsToRender = <div className="ui inverted segment">
+                                <h4 className="ui red inverted header">Max tasks limit {MAX_FUTURE_TASKS} reached</h4>
+                </div>
+
+            } else {
+                elementsToRender = <h3 className="ui block header">
+                <span className="ui grey massive circular label">{this.props.futureTasks.length}</span> out of {MAX_FUTURE_TASKS} goals have been created
+                </h3>
+            }
             return (
                 <div style={{ textAlign: "center"}}>
                     <br />
-                    <Link to={`${FUTRUE_TASKS_NEW_PAGE_LINK}`} className="ui button primary">
+                    {elementsToRender}
+                    {renderCreateEverydayGoal &&                    <Link to={`${FUTRUE_TASKS_NEW_PAGE_LINK}`} className="ui button primary">
                         Create a new future task
-                    </Link>
+                    </Link>}
+ 
                     <br /><br />
                 </div>
             )
