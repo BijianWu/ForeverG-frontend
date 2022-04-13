@@ -4,3 +4,9 @@
   align-items: center;
   height: 200px;
 }
+
+@media screen and (max-width: 768px) {
+  .wbj-middle-item {
+    height: 100px;
+  }
+}

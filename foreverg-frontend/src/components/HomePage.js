@@ -12,51 +12,44 @@ class HomePage extends React.Component{
         let commitElement;
         if(this.props.isSignedIn){
             commitElement = 
-            <div> 
+            <div className=""> 
                 <div>Click the View button coresponding to the action you want to take to get started</div> 
                 <div className="ui divider"></div>
-                <p></p>
 
-                <p></p>
-
-                <div className="ui middle aligned divided list">
-                    <div className="item">
+                <div className="ui items">
+                <div className="item">
                         <div className="right floated content">
                         <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`} className="item wbj-middle-item">
-                            <div className="ui primary huge basic button">View</div>
+                            <div className="ui primary huge basic button">View daily goals</div>
                         </Link>
                         
                         </div>
                         <img className="ui medium rounded image" src={everydayGoalHomePage}/>
-                        <div className="content">
-                        Everyday goals
-                        </div>
                     </div>
+                    
+                <div className="ui divider"></div>
+
                     <div className="item">
                         <div className="right floated content">
-                        <Link to={`${DIARIES_HOME_PAGE_LINK}`} className="item wbj-middle-item">
-                        <div className="ui primary huge basic button">View</div>
-                        </Link>
-                        
+                            <Link to={`${DIARIES_HOME_PAGE_LINK}`} className="item wbj-middle-item">
+                            <div className="ui primary huge basic button">View diaries</div>
+                            </Link>       
                         </div>
                         <img className="ui medium rounded image" src={diaryHomePage}/>
-                        <div className="content">
-                        Diaries
-                        </div>
                     </div>
+                    
+                <div className="ui divider"></div>
+
                     <div className="item">
                         <div className="right floated content">
-                        <Link to={`${FUTRUE_TASKS_HOME_PAGE_LINK}`} className="item wbj-middle-item">
-                        <div className="ui primary huge basic button">View</div>
-                        </Link>
-
+                            <Link to={`${FUTRUE_TASKS_HOME_PAGE_LINK}`} className="item wbj-middle-item">
+                            <div className="ui primary huge basic button">View tasks</div>
+                            </Link>
                         </div>
                         <img className="ui medium rounded image" src={futureTaskHomePage}/>
-                        <div className="content">
-                        Future Tasks
-                        </div>
                     </div>
                 </div>
+
 
                 <div className="ui divider"></div>
             </div>

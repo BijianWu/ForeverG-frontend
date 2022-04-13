@@ -85,7 +85,7 @@ class EverydayGoalList extends React.Component {
 
             return (
                 <div className="card ui clearing segment" key={everydayGoal.id}>
-                        <div className={`ui right corner ${everydayGoal.updated_at !== todayDateCreator() ? 'red' :'green'} label`}></div>
+                        <div className={`ui right corner ${everydayGoal.updated_at !== todayDateCreator() ? 'gray' :'green'} label`}></div>
                     <br/>
                     
                     <div className="ui segment">
