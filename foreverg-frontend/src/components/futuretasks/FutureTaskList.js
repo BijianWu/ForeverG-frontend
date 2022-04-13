@@ -76,25 +76,40 @@ class FutureTaskList extends React.Component {
 
             let statusRibbon; 
             if(futureTask.finished_at){
-                statusRibbon = <a className="ui green right ribbon label">Completed</a>
+                statusRibbon = <div className="ui green right ribbon label">Completed</div>
             } else{
                 if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
-                    statusRibbon = <a className="ui gray right ribbon label">Unfinished</a>
+                    statusRibbon = <div className="ui gray right ribbon label">Unfinished</div>
                 } else {
-                    statusRibbon = <a className="ui red right ribbon label">Failed</a>
+                    statusRibbon = <div className="ui red right ribbon label">Failed</div>
                 }
             }
+
+            let dateFieldElement;
+            if(futureTask.finished_at){
+                dateFieldElement = <div className="ui green label description">Finished at: {futureTask.finished_at}</div>
+            } else{
+                if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
+                    dateFieldElement = <div className="ui gray label description">The deadline at: {futureTask.deadline_date}</div>
+                } else {
+                    dateFieldElement = <div className="ui red label description">Failed, the deadline was at: {futureTask.deadline_date}</div>
+                }
+            }
+
             return (
             <div className="ui card" key={futureTask.id} data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
-                <div className="ui image ">
+                <Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} className="ui image ">
                     {statusRibbon}
                     <img src={taskTargetImg}/>
-                </div>
+                </Link>
                 
                 <div className="content">
-                    <div className="header"><Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} className={`header`}>
+                    <div className="header">
+                        <Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} className={`header`}>
                               {futureTask.title}
-                          </Link></div>
+                          </Link>
+                    </div>
+                    {dateFieldElement}
                     <div className="description">
                     {futureTask.description ? description: 'No description'}
                     </div>
