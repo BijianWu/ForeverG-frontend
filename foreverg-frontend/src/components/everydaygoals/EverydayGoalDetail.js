@@ -27,17 +27,18 @@ class EverydayGoalDetail extends React.Component {
 
         if (updated_at !== todayDateCreator()) {
             if(forever_days > 0){
-                commitElement = <div><h5>You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div> 
+                commitElement = <div><h5 className="ui orange large basic label">You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div> 
             } else {
-                commitElement = <div><h5>You have haven't commited today, commit it now</h5><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div>
+                commitElement = <div><h5 className="ui red large basic label">You have haven't commited today, commit it now</h5><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button violet">Commit</Link></div>
             }
         } else {
-            commitElement = <h5>You have Committed today, good job</h5>;
+            commitElement = <h5 className="ui green large basic label">You have Committed today, good job</h5>;
         }
         return (
             <React.Fragment>
             <div className="container">
                 <div className="ui vertical segment">
+
                     <h2 className="ui icon aligned  header">
                         <i className="icon bullseye"></i>
                         Goal Title: {title}
@@ -72,7 +73,7 @@ class EverydayGoalDetail extends React.Component {
                 <div className="ui vertical padded segment">
                     <p>Commited days:</p>
                     <div className="ui raised segment">
-                        <p>{forever_days}</p>
+                        <p className={`ui pointing ${forever_days > 0 ? 'green': 'red'} basic label`}>{forever_days}</p>
                     </div>
                 </div>
 

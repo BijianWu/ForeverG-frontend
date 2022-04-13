@@ -20,24 +20,24 @@ class DiarylList extends React.Component {
     }
 
     //TODO: if the goal is commited, we show commited
-    renderAmin(everydayGoal) {
+    renderAmin(diary) {
         //since all goals retrived here will only belong to this current user, we do not need to track who created, because only user who created it can view it
-        if(everydayGoal) {
+        if(diary) {
             let commitElement;
 
-            if (everydayGoal.can_be_edited) {
-                commitElement = <Link to={`${DIARIES_EDIT_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button primary">Edit</Link>
+            if (diary.can_be_edited) {
+                commitElement = <Link to={`${DIARIES_EDIT_PAGE_LINK_PREFIX}/${diary.id}`} className="ui button primary">Edit</Link>
             } else {
                 // commitElement = <p>Committed</p>;
                 // commitElement = <button className="ui button positive basic wbj-active-button">None Editable</button>
-                commitElement = <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button">View</Link>
+                commitElement = <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${diary.id}`} className="ui button">View</Link>
             }
             return (
                 <div className="right floated content">
 
                     {commitElement}
 
-                    <Link to={`${DIARIES_DELETE_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button negative">
+                    <Link to={`${DIARIES_DELETE_PAGE_LINK_PREFIX}/${diary.id}`} className="ui button negative">
                         Delete
                     </Link>
                 </div>
@@ -56,12 +56,21 @@ class DiarylList extends React.Component {
                     content = diary.content.substring(0,10) + " ...";
                 }
             }
-
+            let statusElement = <div className="ui blue ribbon label">
+            <i className="edit icon"></i> Can be edited
+            </div>
+        if(!diary.can_be_edited){
+            statusElement = <div className="ui gray ribbon label">
+            <i className="eye icon"></i> View Only
+            </div>
+        }
             return (
-                <div className="ui card" key={diary.id}>
+                <div className="ui container image card" key={diary.id}>
+
                     <div className="image">
                         <img src={diaryImg} />
                     </div>
+                    {statusElement}
                     <div className="content">
                         <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${diary.id}`} className="ui header button">
                             {diary.title}

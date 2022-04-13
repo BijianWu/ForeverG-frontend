@@ -74,11 +74,23 @@ class FutureTaskList extends React.Component {
                 }
             }
 
+            let statusRibbon; 
+            if(futureTask.finished_at){
+                statusRibbon = <a className="ui green right ribbon label">Completed</a>
+            } else{
+                if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
+                    statusRibbon = <a className="ui gray right ribbon label">Unfinished</a>
+                } else {
+                    statusRibbon = <a className="ui red right ribbon label">Failed</a>
+                }
+            }
             return (
             <div className="ui card" key={futureTask.id} data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i></div></div>">
                 <div className="ui image ">
+                    {statusRibbon}
                     <img src={taskTargetImg}/>
                 </div>
+                
                 <div className="content">
                     <div className="header"><Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} className={`header`}>
                               {futureTask.title}
