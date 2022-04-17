@@ -24,15 +24,27 @@ class EverydayGoalDetail extends React.Component {
         const {title, description, forever_days, updated_at, created_at, id} = this.props.everydayGoal;
 
         let commitElement;
-
+        let updatedAtIsToday = false;
+        let updatedAtIsYesterday = false;
         if (updated_at !== todayDateCreator()) {
             if(forever_days > 0){
+                updatedAtIsYesterday = true;
                 commitElement = <div><h5 className="ui orange large basic label">You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div> 
             } else {
                 commitElement = <div><h5 className="ui red large basic label">You have haven't commited today, commit it now</h5><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button violet">Commit</Link></div>
             }
         } else {
+            updatedAtIsToday = true;
             commitElement = <h5 className="ui green large basic label">You have Committed today, good job</h5>;
+        }
+
+        let updatedAtRenderElement;
+        if(updatedAtIsToday){
+            updatedAtRenderElement = "Today";
+        } else if( updatedAtIsYesterday) {
+            updatedAtRenderElement = "Yesterday";
+        } else {
+            updatedAtRenderElement = updated_at;
         }
         return (
             <React.Fragment>
@@ -63,9 +75,9 @@ class EverydayGoalDetail extends React.Component {
 
 
                 <div className="ui vertical padded segment">
-                    <p>Last updated at:</p>
+                    <p>Last updated date is:</p>
                     <div className="ui raised segment">
-                        <p>{updated_at}</p>
+                        <p>{updatedAtRenderElement}</p>
                     </div>
                 </div>
 
