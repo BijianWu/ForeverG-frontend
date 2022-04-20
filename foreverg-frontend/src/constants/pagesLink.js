@@ -4,6 +4,7 @@ import { GITHUB_PREFIX } from "./gitHubPagePrefix";
 export const HOME_PAGE_LINK = `${GITHUB_PREFIX}${isTestingLocally ? "/": ""}`;//local testing needs to put the / here
 export const SIGN_IN_PAGE_LINK = `${GITHUB_PREFIX}/signin`;
 export const REGISTER_PAGE_LINK= `${GITHUB_PREFIX}/register`;
+export const RESET_PASSWORD_PAGE_LINK= `${GITHUB_PREFIX}/resetPassword`;
 
 export const EVERY_DAY_GOALS_HOME_PAGE_LINK = `${GITHUB_PREFIX}/goals/everydaygoals`;
 export const EVERY_DAY_GOALS_NEW_PAGE_LINK =  `${GITHUB_PREFIX}/goals/everydaygoals/new`;
