@@ -2,7 +2,7 @@ import { CREATE_EVERYDAY_GOAL, SIGN_IN, SIGN_OUT, FETCH_EVERYDAY_GOAL, FETCH_EVE
 import apis from "../apis/apis";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
-import { DIARIES_HOME_PAGE_LINK, EVERY_DAY_GOALS_HOME_PAGE_LINK, FUTRUE_TASKS_HOME_PAGE_LINK, HOME_PAGE_LINK } from "../constants/pagesLink";
+import { DIARIES_HOME_PAGE_LINK, EVERY_DAY_GOALS_HOME_PAGE_LINK, FUTRUE_TASKS_HOME_PAGE_LINK, HOME_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../constants/pagesLink";
 
 export const clearAllNotifications = () => async (dispatch, getState) => {
     dispatch({type: CLEAR_ALL_NOTIFICATIONS});
@@ -71,35 +71,36 @@ export const register = (formValues) => async(dispatch, getState) => {
     })
     .then(
         async registerResponse => {
-            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Registered successfully',message: 'successfully registed.'}});
-            // http://127.0.0.1:8000/auth/jwt/create
-            await apis.post("/auth/jwt/create/", { 
-                username: formValues.username,
-                password: formValues.password,
-            }).then(getJWTTokenResponse => {
+            dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Registered successfully',message: 'Please check your email for activation link'}});
+            history.push(`${SIGN_IN_PAGE_LINK}`);
+            // // http://127.0.0.1:8000/auth/jwt/create
+            // await apis.post("/auth/jwt/create/", { 
+            //     username: formValues.username,
+            //     password: formValues.password,
+            // }).then(getJWTTokenResponse => {
 
-                dispatch({
-                    type: SIGN_IN,
-                    payload: {
-                        userId: registerResponse.data.id,
-                        accessToken: getJWTTokenResponse.data.access
-                    }
-                })
-                dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Auto Logged in',message: 'Auto logged in successfully.'}});
-                if (typeof(Storage) !== "undefined") {
-                    localStorage.setItem("FOREVER_G_TOKEN", getJWTTokenResponse.data.access);   
-                }
-                fetchEverydayGoals();
-                history.push(`${HOME_PAGE_LINK}`);
-            }).catch(
-                e => {
-                    if(e.response && e.response.data && e.response.data.errorTitle){
-                        dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
-                    } else{
-                        dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Auto log in failed',message: 'please manually log in'}});
-                    }
-                    history.push(`${HOME_PAGE_LINK}`);
-            })
+            //     dispatch({
+            //         type: SIGN_IN,
+            //         payload: {
+            //             userId: registerResponse.data.id,
+            //             accessToken: getJWTTokenResponse.data.access
+            //         }
+            //     })
+            //     dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Auto Logged in',message: 'Auto logged in successfully.'}});
+            //     if (typeof(Storage) !== "undefined") {
+            //         localStorage.setItem("FOREVER_G_TOKEN", getJWTTokenResponse.data.access);   
+            //     }
+            //     fetchEverydayGoals();
+            //     history.push(`${HOME_PAGE_LINK}`);
+            // }).catch(
+            //     e => {
+            //         if(e.response && e.response.data && e.response.data.errorTitle){
+            //             dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: e.response.data.errorTitle, message: e.response.data.errorMessage}});
+            //         } else{
+            //             dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Auto log in failed',message: 'please manually log in'}});
+            //         }
+            //         history.push(`${HOME_PAGE_LINK}`);
+            // })
 
         }
     )
@@ -110,7 +111,7 @@ export const register = (formValues) => async(dispatch, getState) => {
             } else{
                 dispatch({type: ADD_NOTIFICATION, payload: {type: "ERROR", title: 'Failed to Register',message: 'please try again'}});
             }
-            history.push(`${HOME_PAGE_LINK}`);
+            // history.push(`${HOME_PAGE_LINK}`);
     })
 };
 
