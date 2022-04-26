@@ -46,7 +46,7 @@ class DiaryForm extends React.Component {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
 
-                <Field name="title" component={this.renderInput} label="Enter new title" maxlength={25}/>
+                <Field name="title" component={this.renderInput} label="Enter new title" maxlength={18}/>
                 <Field name="content" component={this.renderInput} label="Enter new content" maxlength={2000}/>
                 <button className="ui button primary">Submit</button>
             </form>

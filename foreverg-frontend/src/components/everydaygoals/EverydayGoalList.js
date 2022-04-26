@@ -89,12 +89,18 @@ class EverydayGoalList extends React.Component {
                     <br/>
                     
                     <div className="ui segment">
+                        <h2 className="ui centered disabled tiny header">                        
+                            Goal Title:
+                        </h2>
                         <h2 className="ui centered header">                        
                             <Link to={`${EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="header">
                             <i className="large middle aligned icon bullseye" />{everydayGoal.title}
                             </Link>
                         </h2>
-                        <p className="ui centered ">                        
+                        <h2 className="ui centered disabled tiny header">                        
+                            Goal description:
+                        </h2>
+                        <p className="ui centered sub header">                        
                             {everydayGoal.description ? description: 'No description'}
                         </p>
 
