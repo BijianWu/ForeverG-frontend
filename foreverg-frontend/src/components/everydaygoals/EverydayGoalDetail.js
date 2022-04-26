@@ -33,11 +33,11 @@ class EverydayGoalDetail extends React.Component {
             } else {
                 // commitElement = <div><h5 className="ui red large basic label">You have haven't commited today, commit it now</h5><div className="ui segment"><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button violet">Commit</Link></div></div>
 
-                commitElement =<div class="ui negative message">
-                    <div class="header">
+                commitElement =<div className="ui negative message">
+                    <div className="header">
                     You have haven't commited today, commit it now
                     </div>
-                    <div class="ui divider"></div>
+                    <div className="ui divider"></div>
                     <div><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button violet">Commit</Link>
                     </div>
                 </div>

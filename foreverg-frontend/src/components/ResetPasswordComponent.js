@@ -2,7 +2,7 @@ import React from "react";
 import{ connect} from "react-redux";
 import { Link } from "react-router-dom";
 import apis from "../apis/apis";
-import { HOME_PAGE_LINK, REGISTER_PAGE_LINK } from "../constants/pagesLink";
+import { HOME_PAGE_LINK, REGISTER_PAGE_LINK, SIGN_IN_PAGE_LINK } from "../constants/pagesLink";
 import history from "../history";
 import { parseJwt } from "../utils/jsonParser";
 import ResetPasswordForm from "./ResetPasswordForm";
@@ -29,10 +29,20 @@ class ResetPasswordComponent extends React.Component {
         </div>
 
         if(this.state && this.state.isSent){
-            renderElement = 
-                <div className="container">
-                    <h3>Email has been sent to the email you provided here, if your emai is registed with us, then you will receive the reset password email.</h3>
-                </div>
+            renderElement = <div>          
+             <div className="ui info message">
+        <div className="header">
+            Reset password email sent
+        </div>
+            <b>if your emai is registed with us, then you will receive the reset password email.</b>
+        </div>
+            <Link to={`${SIGN_IN_PAGE_LINK}`} className="ui secondary basic button">
+                Return to login page
+        </Link>
+        </div>
+                // <div className="container">
+                //     <h3>Email has been sent to the email you provided here, if your emai is registed with us, then you will receive the reset password email.</h3>
+                // </div>
         }
 
         return (

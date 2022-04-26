@@ -1,4 +1,4 @@
-import { CREATE_EVERYDAY_GOAL, SIGN_IN, SIGN_OUT, FETCH_EVERYDAY_GOAL, FETCH_EVERYDAY_GOALS, DELETE_EVERYDAY_GOAL, EDIT_EVERYDAY_GOAL, REGISTER, COMMIT_EVERYDAY_GOAL, CLEAR_EVERYDAY_GOALS, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK, COMPLETE_FUTURE_TASK, CLEAR_ALL_FUTURE_TASKS, CLEAR_ALL_DIARIES } from "./types";
+import { CREATE_EVERYDAY_GOAL, SIGN_IN, SIGN_OUT, FETCH_EVERYDAY_GOAL, FETCH_EVERYDAY_GOALS, DELETE_EVERYDAY_GOAL, EDIT_EVERYDAY_GOAL, REGISTER, COMMIT_EVERYDAY_GOAL, CLEAR_EVERYDAY_GOALS, CLEAR_ALL_NOTIFICATIONS, ADD_NOTIFICATION, DELETE_NOTIFICATION, FETCH_DIARIES, CREATE_DIARY, FETCH_DIARY, EDIT_DIARY, DELETE_DIARY, CREATE_FUTURE_TASK, FETCH_FUTURE_TASKS, FETCH_FUTURE_TASK, EDIT_FUTURE_TASK, DELETE_FUTURE_TASK, COMPLETE_FUTURE_TASK, CLEAR_ALL_FUTURE_TASKS, CLEAR_ALL_DIARIES, JUST_REGISTERED, UN_JUST_REGISTERED } from "./types";
 import apis from "../apis/apis";
 import history from "../history";
 import { todayDateCreator } from "../utils/todayDateCreator";
@@ -16,6 +16,16 @@ export const deleteNotification = (id) => async (dispatch, getState) => {
 export const addNotification = (notification) => async (dispatch, getState) => {
     
     dispatch({type: ADD_NOTIFICATION, payload: notification});
+}
+
+export const justUnRegistered = () => async (dispatch, getState) => {
+    const { isJustRegistered } = getState().auth;
+    if(isJustRegistered){
+        dispatch({type: UN_JUST_REGISTERED});
+    } else {
+        // dispatch({type: JUST_REGISTERED});
+    }
+
 }
 
 export const signIn = (userId, accessToken)=>  {
@@ -72,7 +82,8 @@ export const register = (formValues) => async(dispatch, getState) => {
     .then(
         async registerResponse => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Registered successfully',message: 'Please check your email for activation link'}});
-            history.push(`${SIGN_IN_PAGE_LINK}`);
+            dispatch({type: JUST_REGISTERED});
+            // history.push(`${SIGN_IN_PAGE_LINK}`);
             // // http://127.0.0.1:8000/auth/jwt/create
             // await apis.post("/auth/jwt/create/", { 
             //     username: formValues.username,

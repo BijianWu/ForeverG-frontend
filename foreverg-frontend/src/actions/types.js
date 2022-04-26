@@ -1,5 +1,7 @@
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
+export const JUST_REGISTERED = "JUST_REGISTERED";
+export const UN_JUST_REGISTERED = "UN_JUST_REGISTERED";
 export const REGISTER = "REGISTER";
 
 export const CREATE_EVERYDAY_GOAL = "CREATE_EVERYDAY_GOAL";
