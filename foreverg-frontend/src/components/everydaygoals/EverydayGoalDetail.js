@@ -29,7 +29,15 @@ class EverydayGoalDetail extends React.Component {
         if (updated_at !== todayDateCreator()) {
             if(forever_days > 0){
                 updatedAtIsYesterday = true;
-                commitElement = <div><h5 className="ui orange large basic label">You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div> 
+                // commitElement = <div><h5 className="ui orange large basic label">You have haven't commited today, commit it or you gonna lose {forever_days} days of progress</h5> <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button secondary">Commit</Link></div> 
+                commitElement =<div className="ui yellow message">
+                <div className="header">
+                You have haven't commited today, commit it or you gonna lose {forever_days} days of progress
+                </div>
+                <div className="ui divider"></div>
+                <div><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui positive button active">Commit it</Link>
+                </div>
+            </div>
             } else {
                 // commitElement = <div><h5 className="ui red large basic label">You have haven't commited today, commit it now</h5><div className="ui segment"><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button violet">Commit</Link></div></div>
 
@@ -38,7 +46,7 @@ class EverydayGoalDetail extends React.Component {
                     You have haven't commited today, commit it now
                     </div>
                     <div className="ui divider"></div>
-                    <div><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui button violet">Commit</Link>
+                    <div><Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${id}`} className="ui positive button active">Commit it</Link>
                     </div>
                 </div>
             }

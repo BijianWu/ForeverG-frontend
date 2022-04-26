@@ -36,7 +36,7 @@ class EverydayGoalList extends React.Component {
             let commitElement;
 
             if (everydayGoal.updated_at !== todayDateCreator()) {
-                commitElement = <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button yellow basic">Commit it~</Link>
+                commitElement = <Link to={`${EVERY_DAY_GOALS_COMMIT_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui button green ">Commit it</Link>
             } else {
                 // commitElement = <p>Committed</p>;
                 commitElement = <button className="ui button positive basic wbj-active-button">Committed</button>
