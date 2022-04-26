@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ForeverG-frontend/static/css/main.aa4e8500.css",
-    "main.js": "/ForeverG-frontend/static/js/main.af0ad566.js",
+    "main.js": "/ForeverG-frontend/static/js/main.423de0f3.js",
     "static/media/everydayGoalHomePage.jpg": "/ForeverG-frontend/static/media/everydayGoalHomePage.3f71293c7ae66b1097f3.jpg",
     "static/media/diaryHomePage.jpg": "/ForeverG-frontend/static/media/diaryHomePage.5d63492ead9fd881260e.jpg",
     "static/media/taskTarget.jpg": "/ForeverG-frontend/static/media/taskTarget.bb1a30983e22088d4e76.jpg",
@@ -9,10 +9,10 @@
     "static/media/futureTaskHomePage.jpg": "/ForeverG-frontend/static/media/futureTaskHomePage.74e2f235c4b8bfe6269e.jpg",
     "index.html": "/ForeverG-frontend/index.html",
     "main.aa4e8500.css.map": "/ForeverG-frontend/static/css/main.aa4e8500.css.map",
-    "main.af0ad566.js.map": "/ForeverG-frontend/static/js/main.af0ad566.js.map"
+    "main.423de0f3.js.map": "/ForeverG-frontend/static/js/main.423de0f3.js.map"
   },
   "entrypoints": [
     "static/css/main.aa4e8500.css",
-    "static/js/main.af0ad566.js"
+    "static/js/main.423de0f3.js"
   ]
 }
