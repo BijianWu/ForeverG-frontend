@@ -97,7 +97,8 @@ class EverydayGoalList extends React.Component {
                             {everydayGoal.title}
                             </Link>
                         </h2>
-                        <h2 className="ui centered disabled tiny header">                        
+                        <div className="ui divider"></div>
+                        <h2 className="ui centered disabled tiny header" style={{marginTop:0}}>                        
                             Goal description:
                         </h2>
                         <p className="ui centered sub header">                        
