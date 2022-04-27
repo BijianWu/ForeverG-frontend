@@ -135,17 +135,20 @@ class FutureTaskList extends React.Component {
                 </Link>
                 
                 <div className="content">
-                    <div className="">
-                        <h3 className="ui centered disabled tiny header" style={{marginBottom:5}}>                        
-                            <i className=" middle aligned icon tasks" />Task Title:
-                        </h3>
-
-                        <div className={`ui centered blue massive header`} style={{marginTop:0}}>
-                        <Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} >
+                    <div className="" >
+                        <div className="ui centered mini statistics wbj-middle-item-without-height" >
+                            <div className="blue statistic">
+                            <div className="ui disabled label" style={{marginBottom: 10}}>
+                                <i className=" middle aligned icon tasks" />Task Title:
+                                </div>
+                                <div className="value label">
+                                <Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} >
                               {futureTask.title}
                           </Link>
+                                </div>
+    
+                            </div>
                         </div>
-
                     </div>
                     <div className="ui divider"></div>
                     {dateFieldElement}

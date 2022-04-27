@@ -5,6 +5,13 @@
   height: 200px;
 }
 
+.wbj-middle-item-without-height {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 @media screen and (max-width: 768px) {
   .wbj-middle-item {
     height: 100px;
