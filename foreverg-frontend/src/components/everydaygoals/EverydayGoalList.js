@@ -90,11 +90,11 @@ class EverydayGoalList extends React.Component {
                     
                     <div className="ui segment">
                         <h2 className="ui centered disabled tiny header">                        
-                            Goal Title:
+                        <i className="large middle aligned icon bullseye" />Goal Title:
                         </h2>
                         <h2 className="ui centered header">                        
                             <Link to={`${EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="header">
-                            <i className="large middle aligned icon bullseye" />{everydayGoal.title}
+                            {everydayGoal.title}
                             </Link>
                         </h2>
                         <h2 className="ui centered disabled tiny header">                        
