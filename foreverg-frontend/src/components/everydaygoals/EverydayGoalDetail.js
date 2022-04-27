@@ -79,7 +79,7 @@ class EverydayGoalDetail extends React.Component {
                 <div className="ui vertical padded segment">
                     <p>Description:</p>
                     <div className="ui raised segment">
-                        <p>{description}</p>
+                        <p>{!description || description.length <= 0 ? 'No description' : description}</p>
                     </div>
                 </div>
 
