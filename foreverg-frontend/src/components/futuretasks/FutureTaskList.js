@@ -87,12 +87,40 @@ class FutureTaskList extends React.Component {
 
             let dateFieldElement;
             if(futureTask.finished_at){
-                dateFieldElement = <div className="ui green label description">Finished at: {futureTask.finished_at}</div>
+                dateFieldElement = <div class="ui icon green message">
+                                        <div class="content">
+                                            <div class="header">
+                                            Finished at: {futureTask.finished_at}
+                                            </div>
+                                    
+                                        </div>
+                                    </div>
+                
+                
+                // <div className="">Finished at: {futureTask.finished_at}</div>
             } else{
                 if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
-                    dateFieldElement = <div className="ui gray label description">The deadline at: {futureTask.deadline_date}</div>
+                    dateFieldElement = <div class="ui icon info message">
+                                        <div class="content">
+                                            <div class="header">
+                                            The deadline at: {futureTask.deadline_date}
+                                            </div>
+                                    
+                                        </div>
+                                    </div>
+                    
+                    // <div className="">The deadline at: {futureTask.deadline_date}</div>
                 } else {
-                    dateFieldElement = <div className="ui red label description">Failed, the deadline was at: {futureTask.deadline_date}</div>
+                    dateFieldElement = <div class="ui icon red message">
+                    <div class="content">
+                        <div class="header">
+                        Failed, the deadline was at: {futureTask.deadline_date}
+                        </div>
+                
+                    </div>
+                </div>
+                    
+                    // <div className="">Failed, the deadline was at: {futureTask.deadline_date}</div>
                 }
             }
 
@@ -104,12 +132,22 @@ class FutureTaskList extends React.Component {
                 </Link>
                 
                 <div className="content">
-                    <div className="header">
-                        <Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} className={`header`}>
+                    <div className="">
+                        <h2 className="ui centered disabled tiny header" style={{marginBottom:0}}>                        
+                            <i className=" middle aligned icon tasks" />Task Title:
+                        </h2>
+
+                        <h2 className={`ui centered blue massive header`} style={{marginTop:0}}>
+                        <Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} >
                               {futureTask.title}
                           </Link>
+                        </h2>
+
                     </div>
+                    <div className="ui divider"></div>
                     {dateFieldElement}
+                    <div className="ui divider"></div>
+
                     <div className="description">
                     {futureTask.description ? description: 'No description'}
                     </div>
