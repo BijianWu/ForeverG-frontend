@@ -81,7 +81,8 @@ class FutureTaskList extends React.Component {
                 statusRibbon = <div className="ui green right ribbon label">Completed</div>
             } else{
                 if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
-                    statusRibbon = <div className="ui gray right ribbon label">Unfinished</div>
+                    statusRibbon = <div></div>
+                    //<div className="ui gray right ribbon label">Unfinished</div>
                 } else {
                     statusRibbon = <div className="ui red right ribbon label">Failed</div>
                 }
@@ -135,15 +136,15 @@ class FutureTaskList extends React.Component {
                 
                 <div className="content">
                     <div className="">
-                        <h2 className="ui centered disabled tiny header" style={{marginBottom:0}}>                        
+                        <h3 className="ui centered disabled tiny header" style={{marginBottom:5}}>                        
                             <i className=" middle aligned icon tasks" />Task Title:
-                        </h2>
+                        </h3>
 
-                        <h2 className={`ui centered blue massive header`} style={{marginTop:0}}>
+                        <div className={`ui centered blue massive header`} style={{marginTop:0}}>
                         <Link to={`${FUTRUE_TASKS_DETAIL_PAGE_LINK_PREFIX}/${futureTask.id}`} >
                               {futureTask.title}
                           </Link>
-                        </h2>
+                        </div>
 
                     </div>
                     <div className="ui divider"></div>
