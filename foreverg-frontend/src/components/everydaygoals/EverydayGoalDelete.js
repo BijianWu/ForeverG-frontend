@@ -29,7 +29,7 @@ class EverydayGoalDelete extends React.Component {
 
     render(){
         return (
-            <Modal title="Delete Everyday" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`)}/>
+            <Modal title="Delete Everyday" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.goBack()}/>
         );
     }
 

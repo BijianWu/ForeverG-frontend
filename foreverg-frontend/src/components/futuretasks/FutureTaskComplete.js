@@ -29,7 +29,7 @@ class FutureTaskComplete extends React.Component {
 
     render(){
         return (
-            <Modal title="Complete the task" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`)}/>
+            <Modal title="Complete the task" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.goBack()}/>
         );
     }
 

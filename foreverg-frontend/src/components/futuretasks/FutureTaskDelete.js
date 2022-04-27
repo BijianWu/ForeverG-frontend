@@ -29,7 +29,7 @@ class FutureTaskDelete extends React.Component {
 
     render(){
         return (
-            <Modal title="Delete Future Task" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`)}/>
+            <Modal title="Delete Future Task" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.goBack()}/>
         );
     }
 

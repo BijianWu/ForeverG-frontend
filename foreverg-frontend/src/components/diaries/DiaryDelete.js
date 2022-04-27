@@ -29,7 +29,7 @@ class DiaryDelete extends React.Component {
 
     render(){
         return (
-            <Modal title="Delete Diary" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.push(`${DIARIES_HOME_PAGE_LINK}`)}/>
+            <Modal title="Delete Diary" content={this.renderContent()} actions={this.renderActions()} onDismiss={()=>history.goBack()}/>
         );
     }
 

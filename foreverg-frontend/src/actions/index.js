@@ -204,7 +204,7 @@ export const deleteEverydayGoal = (id) => async (dispatch, getState) => {
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the goal',message: 'Successfully deleted the goal'}});
             dispatch({type: DELETE_EVERYDAY_GOAL, payload: id});
-            history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
+            history.goBack();
         }
     )
     .catch(
@@ -236,7 +236,7 @@ export const commitEverydayGoal = (id) => async (dispatch, getState) => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Commmited the goal', message: 'Successfully commited the goal'}});
 
             dispatch({type: COMMIT_EVERYDAY_GOAL, payload: response.data});
-            history.push(`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`);
+            history.goBack();
         }
     )
     .catch(
@@ -338,7 +338,7 @@ export const deleteDiary = (id) => async (dispatch, getState) => {
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the diary',message: 'Successfully deleted the diary'}});
             dispatch({type: DELETE_DIARY, payload: id});
-            history.push(`${DIARIES_HOME_PAGE_LINK}`);
+            history.goBack()
         }
     )
     .catch(
@@ -444,7 +444,7 @@ export const deleteFutureTask = (id) => async (dispatch, getState) => {
         response => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "INFO", title: 'Deleted the future task',message: 'Successfully deleted the future task'}});
             dispatch({type: DELETE_FUTURE_TASK, payload: id});
-            history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`);
+            history.goBack();
         }
     )
     .catch(
@@ -476,7 +476,7 @@ export const completeFutureTask = (id) => async (dispatch, getState) => {
             dispatch({type: ADD_NOTIFICATION, payload: {type: "SUCCESS", title: 'Completed the task', message: 'Successfully completed the task'}});
 
             dispatch({type: COMPLETE_FUTURE_TASK, payload: response.data});
-            history.push(`${FUTRUE_TASKS_HOME_PAGE_LINK}`);
+            history.goBack();
         }
     )
     .catch(
