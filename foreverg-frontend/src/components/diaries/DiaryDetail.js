@@ -43,7 +43,7 @@ class DiaryDetail extends React.Component {
                 <div className="ui vertical padded segment">
                     <p>Content:</p>
                     <div className="ui raised segment">
-                        <p>{content}</p>
+                        <p>{!content || content.length <= 0 ? 'No content' : content}</p>
                     </div>
                 </div>
 
