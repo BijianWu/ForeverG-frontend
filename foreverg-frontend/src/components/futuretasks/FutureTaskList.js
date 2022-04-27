@@ -40,13 +40,15 @@ class FutureTaskList extends React.Component {
             //if finished_at is smaller than today or if finished_at is null and deadline_date is greater than today
 
             if(futureTask.finished_at){
-                commitElement = <button className="ui button green basic wbj-active-button">Completed</button>
+                commitElement = <div></div>
+                //<button className="ui button green basic wbj-active-button">Completed</button>
             } else{
                 if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
                     commitElement = <Link to={`${FUTRUE_TASKS_EDIT_PAGE_LINK_PREFIX}/${futureTask.id}`} className="ui button primary">Edit</Link>
                 } else {
                     // commitElement = <p>Committed</p>;
-                    commitElement = <button className="ui button red basic wbj-active-button">Failed</button>
+                    commitElement = <div></div>
+                    //<button className="ui button red basic wbj-active-button">Failed</button>
                 }
             }
 
@@ -87,9 +89,9 @@ class FutureTaskList extends React.Component {
 
             let dateFieldElement;
             if(futureTask.finished_at){
-                dateFieldElement = <div class="ui icon green message">
-                                        <div class="content">
-                                            <div class="header">
+                dateFieldElement = <div className="ui icon green message">
+                                        <div className="content">
+                                            <div className="header">
                                             Finished at: {futureTask.finished_at}
                                             </div>
                                     
@@ -100,9 +102,9 @@ class FutureTaskList extends React.Component {
                 // <div className="">Finished at: {futureTask.finished_at}</div>
             } else{
                 if (isPassedDeadlineDate(futureTask.deadline_date) === false) {
-                    dateFieldElement = <div class="ui icon info message">
-                                        <div class="content">
-                                            <div class="header">
+                    dateFieldElement = <div className="ui icon info message">
+                                        <div className="content">
+                                            <div className="header">
                                             The deadline at: {futureTask.deadline_date}
                                             </div>
                                     
@@ -111,9 +113,9 @@ class FutureTaskList extends React.Component {
                     
                     // <div className="">The deadline at: {futureTask.deadline_date}</div>
                 } else {
-                    dateFieldElement = <div class="ui icon red message">
-                    <div class="content">
-                        <div class="header">
+                    dateFieldElement = <div className="ui icon red message">
+                    <div className="content">
+                        <div className="header">
                         Failed, the deadline was at: {futureTask.deadline_date}
                         </div>
                 
