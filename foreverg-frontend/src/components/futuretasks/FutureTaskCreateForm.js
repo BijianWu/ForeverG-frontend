@@ -57,8 +57,8 @@ class FutureTaskCreateForm extends React.Component {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
 
-                <Field name="title" component={this.renderInput} label="Enter new title" maxlength={18}/>
-                <Field name="description" component={this.renderInput} label="Enter new description" maxlength={255}/>
+                <Field name="title" component={this.renderInput} label="Enter new title (max 18 characters long)" maxlength={18}/>
+                <Field name="description" component={this.renderInput} label="Enter new description (max 255 characters long)" maxlength={255}/>
                 <Field name="deadline_date" component={this.renderDate} label="Enter the dealine date for this future task"/>
                 <button className="ui button primary">Submit</button>
             </form>
