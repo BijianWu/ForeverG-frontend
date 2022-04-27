@@ -52,8 +52,8 @@ class DiarylList extends React.Component {
             let content = "";
             if(diary.content){
                 content = diary.content;
-                if(diary.content.length > 10) {
-                    content = diary.content.substring(0,10) + " ...";
+                if(diary.content.length > 20) {
+                    content = diary.content.substring(0,20) + " ...";
                 }
             }
             let statusElement = <div className="ui blue ribbon label">
@@ -72,14 +72,20 @@ class DiarylList extends React.Component {
                     </div>
                     {statusElement}
                     <div className="content">
+                        <h2 className="ui centered disabled tiny header">                        
+                        <i className="large middle aligned icon book" />Diary Title:
+                        </h2>
                         <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${diary.id}`} className="ui header button">
                             {diary.title}
                         </Link>
                         <div className="meta">
                         <span className="date">Created at {diary.created_at}</span>
                         </div>
-                        <div className="description">
-                        {diary.content ? content: 'No content'}
+                        <div className="ui segment yellow description">
+                        <p className="ui centered disabled tiny header">                        
+                            Diary Content:
+                        </p>
+                        <p className="container">{diary.content ? content: 'No content'}</p>
                         </div>
                     </div>
                     <div className="extra content">
