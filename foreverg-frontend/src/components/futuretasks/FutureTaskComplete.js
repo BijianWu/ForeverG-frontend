@@ -11,7 +11,7 @@ class FutureTaskComplete extends React.Component {
         return (
             <React.Fragment>
                 <button onClick={() => this.props.completeFutureTask(this.props.match.params.id)} className="ui button negative">Comlete</button>
-                <Link to={`${FUTRUE_TASKS_HOME_PAGE_LINK}`}  className="ui button">Cancel</Link>
+                <button onClick={()=>history.goBack()}   className="ui button">Cancel</button>
             </React.Fragment>
         );
     }

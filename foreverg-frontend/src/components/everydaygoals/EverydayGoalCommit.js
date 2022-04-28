@@ -11,7 +11,7 @@ class EverydayGoalCommit extends React.Component {
         return (
             <React.Fragment>
                 <button onClick={() => this.props.commitEverydayGoal(this.props.match.params.id)} className="ui button negative">Commit</button>
-                <Link to={`${EVERY_DAY_GOALS_HOME_PAGE_LINK}`}  className="ui button">Cancel</Link>
+                <button onClick={()=>history.goBack()}  className="ui button">Cancel</button>
             </React.Fragment>
         );
     }
