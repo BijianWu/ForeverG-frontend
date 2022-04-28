@@ -65,19 +65,25 @@ class DiarylList extends React.Component {
             </div>
         }
             return (
-                <div className="ui container image card" key={diary.id}>
+                <div className="ui container  image card" key={diary.id} style={{textAlign: "center"}}>
 
                     <div className="image">
                         <img src={diaryImg} />
                     </div>
                     {statusElement}
                     <div className="content">
-                        <h2 className="ui centered disabled tiny header">                        
+                        {/* <h2 className="ui centered disabled tiny header">                        
                         <i className="large middle aligned icon book" />Diary Title:
-                        </h2>
-                        <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${diary.id}`} className="ui header button">
-                            {diary.title}
+                        </h2> */}
+                        <Link class="ui   image  small label" to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${diary.id}`}>
+                        
+                        Diary Title:
+                        
+                        <div className="ui large teal large  header" style={{marginTop: '8px', fontWeight: 'bold'}}> <u>{diary.title}</u></div>
                         </Link>
+                        {/* <Link to={`${DIARIES_DETAIL_PAGE_LINK_PREFIX}/${diary.id}`} className="ui header button">
+                            {diary.title}
+                        </Link> */}
                         <div className="meta">
                         <span className="date">Created at {diary.created_at}</span>
                         </div>
