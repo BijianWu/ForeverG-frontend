@@ -89,12 +89,12 @@ class EverydayGoalList extends React.Component {
                     <br/>
                     
                     <div className="ui segment">
-                        <h2 className="ui centered disabled tiny header">                        
+                        <h2 className="ui centered disabled tiny header" style={{marginBottom: 5}}>                        
                         <i className="middle aligned icon bullseye" />Goal Title:
                         </h2>
-                        <h2 className="ui centered header">                        
-                            <Link to={`${EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="header">
-                            {everydayGoal.title}
+                        <h2 className="ui centered teal header"  style={{marginTop: 0, marginBottom: '10px'}}>                        
+                            <Link to={`${EVERY_DAY_GOALS_DETAIL_PAGE_LINK_PREFIX}/${everydayGoal.id}`} className="ui teal tiny header">
+                            <u>{everydayGoal.title}</u>
                             </Link>
                         </h2>
                         <div className="ui divider"></div>
